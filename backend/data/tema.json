@@ -1,0 +1,66 @@
+{
+  "topicId": "astronomia-001",
+  "title": "Sistema Solar",
+  "scenes": [
+    {
+      "index": 1,
+      "title": "Introducción",
+      "description": "El Sistema Solar está formado por el Sol y todos los cuerpos que orbitan a su alrededor: planetas, lunas, asteroides y cometas.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene01.jpg"
+    },
+    {
+      "index": 2,
+      "title": "El Sol",
+      "description": "El Sol es una estrella que contiene la mayor parte de la masa del Sistema Solar y es la fuente principal de energía para la Tierra.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene02.jpg"
+    },
+    {
+      "index": 3,
+      "title": "Planetas rocosos",
+      "description": "Mercurio, Venus, Tierra y Marte son planetas rocosos: tienen superficies sólidas y están más cerca del Sol.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene03.jpg"
+    },
+    {
+      "index": 4,
+      "title": "Gigantes gaseosos",
+      "description": "Júpiter y Saturno son gigantes gaseosos: muy grandes, con atmósferas densas y sin una superficie sólida definida.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene04.jpg"
+    },
+    {
+      "index": 5,
+      "title": "Gigantes helados",
+      "description": "Urano y Neptuno son gigantes helados: contienen más sustancias volátiles como agua, amoníaco y metano.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene05.jpg"
+    },
+    {
+      "index": 6,
+      "title": "Órbitas",
+      "description": "Los planetas se mueven alrededor del Sol en órbitas elípticas. La gravedad mantiene este movimiento.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene06.jpg"
+    },
+    {
+      "index": 7,
+      "title": "Lunas",
+      "description": "Muchos planetas tienen lunas. La Tierra tiene una, pero Júpiter y Saturno tienen decenas.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene07.jpg"
+    },
+    {
+      "index": 8,
+      "title": "Asteroides",
+      "description": "Los asteroides son rocas espaciales, abundantes en el cinturón de asteroides entre Marte y Júpiter.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene08.jpg"
+    },
+    {
+      "index": 9,
+      "title": "Cometas",
+      "description": "Los cometas son cuerpos helados que al acercarse al Sol desarrollan una coma y una cola por sublimación.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene09.jpg"
+    },
+    {
+      "index": 10,
+      "title": "Resumen",
+      "description": "El Sistema Solar es un entorno dinámico: estrellas, planetas, lunas y cuerpos menores interactúan bajo la gravedad.",
+      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene10.jpg"
+    }
+  ]
+}

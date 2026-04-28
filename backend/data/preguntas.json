@@ -1,0 +1,95 @@
+{
+  "topicId": "astronomia-001",
+  "questions": [
+    {
+      "index": 1,
+      "question": "¿Cuál es la estrella del Sistema Solar?",
+      "recommendation": "Piensa en el objeto que produce la luz y el calor que recibimos diariamente.",
+      "options": [
+        { "text": "El Sol", "isCorrect": true },
+        { "text": "La Luna", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 2,
+      "question": "¿Cuál de estos es un planeta rocoso?",
+      "recommendation": "Los planetas rocosos están más cerca del Sol y tienen superficie sólida.",
+      "options": [
+        { "text": "Marte", "isCorrect": true },
+        { "text": "Saturno", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 3,
+      "question": "¿Cuál es un gigante gaseoso?",
+      "recommendation": "Los gigantes gaseosos son muy grandes y están compuestos principalmente por gases.",
+      "options": [
+        { "text": "Júpiter", "isCorrect": true },
+        { "text": "Mercurio", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 4,
+      "question": "¿Cuál es un gigante helado?",
+      "recommendation": "Urano y Neptuno se clasifican como gigantes helados por su composición.",
+      "options": [
+        { "text": "Neptuno", "isCorrect": true },
+        { "text": "Venus", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 5,
+      "question": "¿Cómo son generalmente las órbitas de los planetas?",
+      "recommendation": "No son círculos perfectos; suelen tener forma alargada.",
+      "options": [
+        { "text": "Elípticas", "isCorrect": true },
+        { "text": "Triangulares", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 6,
+      "question": "¿Dónde se encuentra el cinturón de asteroides principal?",
+      "recommendation": "Ubícalo entre dos planetas rocosos y un gigante gaseoso.",
+      "options": [
+        { "text": "Entre Marte y Júpiter", "isCorrect": true },
+        { "text": "Entre la Tierra y Venus", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 7,
+      "question": "¿Qué ocurre con un cometa al acercarse al Sol?",
+      "recommendation": "El calor del Sol afecta el hielo y libera gases y polvo.",
+      "options": [
+        { "text": "Forma una cola", "isCorrect": true },
+        { "text": "Se convierte en planeta", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 8,
+      "question": "¿Qué mantiene a los planetas orbitando al Sol?",
+      "recommendation": "Piensa en la fuerza que atrae masas y gobierna el movimiento orbital.",
+      "options": [
+        { "text": "La gravedad", "isCorrect": true },
+        { "text": "El magnetismo", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 9,
+      "question": "¿Cuál afirmación sobre las lunas es correcta?",
+      "recommendation": "No todos los planetas tienen la misma cantidad de lunas.",
+      "options": [
+        { "text": "Júpiter tiene muchas lunas", "isCorrect": true },
+        { "text": "Todos los planetas tienen exactamente una luna", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 10,
+      "question": "¿Cuál planeta es más cercano al Sol?",
+      "recommendation": "Recuerda el orden desde el Sol hacia afuera: Mercurio, Venus, Tierra, Marte...",
+      "options": [
+        { "text": "Mercurio", "isCorrect": true },
+        { "text": "Neptuno", "isCorrect": false }
+      ]
+    }
+  ]
+}
