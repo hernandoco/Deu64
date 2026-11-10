@@ -31,10 +31,10 @@ Guía para construir interfaces infantiles de lectura en Flutter con Material 3.
 | `onSurface` | `#2B2350` | texto principal (morado muy oscuro) |
 | `onSurfaceVariant` | `#6E6896` | texto secundario |
 | `tileDevocional` | `#E9E3FF` | fondo lavanda del icono del versículo e indicador de la barra inferior |
-| `menuDevocional` | `#7957F3` | círculo del icono Devocional |
-| `menuAyuda` | `#1FB5A3` | círculo del icono Ayuda (turquesa) |
-| `menuPremios` | `#F5A300` | círculo del icono Premios (ámbar) |
-| `menuDonacion` | `#FF6B6B` | círculo del icono Donación (coral) |
+| `menuDevocional` | `#7957F3` | color del icono Devocional |
+| `menuAyuda` | `#1FB5A3` | color del icono Ayuda (turquesa) |
+| `menuPremios` | `#F5A300` | color del icono Premios (ámbar) |
+| `menuDonacion` | `#FF6B6B` | color del icono Donación (coral) |
 | `error` | `#D64545` | solo errores |
 
 **Degradado de marca** (tarjeta de voz, encabezado de botones principales):
@@ -65,7 +65,7 @@ Fuente del sistema; no añadir paquetes sin pedirlo.
 ### Espaciado y forma
 
 - Espaciado: 4 / 8 / 12 / 16 / 24 / 32. Margen lateral de pantalla: 16.
-- Radios: tarjetas 28, miniaturas 20, círculos de icono 50 %, barra inferior 32.
+- Radios: tarjetas 28, miniaturas 20, barra inferior 32.
 - Sombra de tarjeta: `BoxShadow(color: Color(0x1A7957F3), blurRadius: 20, offset: Offset(0, 8))`.
 
 ### Tema base
@@ -123,8 +123,8 @@ ThemeData buildKidsTheme() {
 
 Fondo `background`. Cuerpo en `SingleChildScrollView` dentro de `SafeArea` para que no desborde en pantallas pequeñas. De arriba abajo:
 
-1. **Marco del niño pastor con mensaje.** Contenedor de ancho completo con **fondo blanco** (para no contrastar con la imagen), esquinas inferiores de 28, sombra `kCardShadow` y alto = **57,6 % de la altura de pantalla**. Dentro (con `SafeArea` arriba), una `Row` con `crossAxisAlignment: stretch` dividida **mitad y mitad** (dos `Expanded` iguales, 16 dp entre ellos): a la izquierda el mensaje **"Pastoreando el corazón de tu hijo"** (`headlineMedium`, color de texto normal, varias líneas, centrado verticalmente con `Align`) y a la derecha la imagen `assets/images/pastor.jpg` (alternativa `pastor1.jpg`) llenando toda su mitad, `BoxFit.cover`, `alignment: topCenter`, radio 20, `semanticLabel`. Dejar `overlap + 12` dp de espacio inferior para la tarjeta del punto 2, que se superpone ≈ 40 dp sobre el borde del marco (`Transform.translate`).
-2. **Tarjeta blanca con menú de iconos: Devocional · Ayuda · Premios · Donación** (en ese orden). `Card` de ancho completo con `Row`, 4 botones iguales (`Expanded`). Cada uno: círculo de 64 dp con su color vivo (`menu*`), **icono blanco** de 32 dp, sombra del mismo color (alpha 0.35, blur 12, offset 0,6) y etiqueta `titleMedium` debajo. Revisar que "Donación" no se corte en 360 dp de ancho.
+1. **Marco del niño pastor con mensaje.** Contenedor de ancho completo con **fondo blanco** (para no contrastar con la imagen), esquinas inferiores de 28, sombra `kCardShadow` y alto = **57,6 % de la altura de pantalla**. Dentro (con `SafeArea` arriba), una `Row` con `crossAxisAlignment: stretch` dividida **mitad y mitad** (dos `Expanded` iguales, 16 dp entre ellos): a la izquierda una `Column` centrada verticalmente con la cita **"Deu 6:4"** (`titleLarge` a 24, w800, `letterSpacing: 1`, color `primary` para que destaque) y debajo, a 4 dp, el mensaje **"Pastoreando el corazón de tu hijo"** (`headlineMedium`, color de texto normal, varias líneas) y a la derecha la imagen `assets/images/pastor.jpg` (alternativa `pastor1.jpg`) llenando toda su mitad, `BoxFit.cover`, `alignment: topCenter`, radio 20, `semanticLabel`. Dejar `overlap + 12` dp de espacio inferior para la tarjeta del punto 2, que se superpone ≈ 40 dp sobre el borde del marco (`Transform.translate`).
+2. **Tarjeta blanca con menú de iconos: Devocional · Ayuda · Premios · Donación** (en ese orden). `Card` de ancho completo con `Row`, 4 botones iguales (`Expanded`). Cada uno: icono de 48 dp **sin círculo, sin borde y con fondo transparente**, pintado con su color vivo (`menu*`) dentro de una zona táctil de 64×64 dp, y etiqueta `titleMedium` debajo. Los `Icons.*` de Material son de un solo color; el modelo usa ilustraciones a todo color, que requerirían PNG/SVG. Revisar que "Donación" no se corte en 360 dp de ancho.
    - Devocional → `Icons.menu_book_rounded`
    - Ayuda → `Icons.help_rounded`
    - Premios → `Icons.emoji_events_rounded`
@@ -154,7 +154,7 @@ Pendiente de decisión: usar `just_audio` (recomendado) cuando exista una fuente
 
 - `Semantics`/`tooltip` en todos los botones de icono.
 - Respetar `MediaQuery.textScaler`; no fijar alturas que corten texto escalado.
-- No transmitir información solo con color (el icono y la etiqueta siempre acompañan al color del círculo; el blanco sobre el ámbar tiene poco contraste, por eso la etiqueta es obligatoria).
+- No transmitir información solo con color (el icono y la etiqueta siempre acompañan al color del icono; el ámbar sobre blanco tiene poco contraste, por eso la etiqueta es obligatoria).
 - Animaciones cortas (≤ 300 ms) y sin parpadeos.
 
 ## Checklist antes de dar por terminado

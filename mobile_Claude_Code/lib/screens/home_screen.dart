@@ -125,12 +125,29 @@ class _HomeTabState extends State<_HomeTab> {
                   children: [
                     // Mitad izquierda: título en varias líneas
                     Expanded(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Pastoreando el corazón de tu hijo',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Cita bíblica llamativa sobre el título
+                          Text(
+                            'Deu 6:4',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 1,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Pastoreando el corazón de tu hijo',
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -255,21 +272,11 @@ class _MenuItem extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
+              // Icono con color propio, sin círculo ni borde (fondo transparente)
+              SizedBox(
                 width: 64,
                 height: 64,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: color.withValues(alpha: 0.35),
-                      blurRadius: 12,
-                      offset: const Offset(0, 6),
-                    ),
-                  ],
-                ),
-                child: Icon(icon, size: 32, color: Colors.white),
+                child: Icon(icon, size: 48, color: color),
               ),
               const SizedBox(height: 8),
               Text(label, style: Theme.of(context).textTheme.titleMedium),
