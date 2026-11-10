@@ -30,10 +30,11 @@ Guía para construir interfaces infantiles de lectura en Flutter con Material 3.
 | `surface` | `#FFFFFF` | tarjetas |
 | `onSurface` | `#2B2350` | texto principal (morado muy oscuro) |
 | `onSurfaceVariant` | `#6E6896` | texto secundario |
-| `tileDevocional` | `#E9E3FF` | círculo del icono Devocional (lavanda) |
-| `tileAyuda` | `#DDF3EE` | círculo del icono Ayuda (menta) |
-| `tileDonacion` | `#FFE8D6` | círculo del icono Donación (durazno) |
-| `tilePremios` | `#FFF1BF` | círculo del icono Premios (amarillo pastel) |
+| `tileDevocional` | `#E9E3FF` | fondo lavanda del icono del versículo e indicador de la barra inferior |
+| `menuDevocional` | `#7957F3` | círculo del icono Devocional |
+| `menuAyuda` | `#1FB5A3` | círculo del icono Ayuda (turquesa) |
+| `menuPremios` | `#F5A300` | círculo del icono Premios (ámbar) |
+| `menuDonacion` | `#FF6B6B` | círculo del icono Donación (coral) |
 | `error` | `#D64545` | solo errores |
 
 **Degradado de marca** (tarjeta de voz, encabezado de botones principales):
@@ -122,8 +123,8 @@ ThemeData buildKidsTheme() {
 
 Fondo `background`. Cuerpo en `SingleChildScrollView` dentro de `SafeArea` para que no desborde en pantallas pequeñas. De arriba abajo:
 
-1. **Marco del niño pastor con mensaje.** Contenedor de ancho completo con **fondo blanco** (para no contrastar con la imagen), esquinas inferiores de 28, sombra `kCardShadow` y alto = **57,6 % de la altura de pantalla**. Dentro (con `SafeArea` arriba), una `Row`: a la izquierda el mensaje **"Pastoreando el corazón de tu hijo"** (`headlineMedium`, color de texto normal, `Expanded`) y a la derecha la imagen `assets/images/pastor.jpg` (alternativa `pastor1.jpg`) de **25 % de ancho × 8 % de alto de pantalla**, `BoxFit.cover`, `alignment: topCenter`, radio 20, `semanticLabel`. Dejar `overlap + 12` dp de espacio inferior para la tarjeta del punto 2, que se superpone ≈ 40 dp sobre el borde del marco (`Transform.translate`). Los tamaños son constantes fáciles de ajustar.
-2. **Tarjeta blanca con menú de iconos: Devocional · Ayuda · Premios · Donación** (en ese orden). `Card` de ancho completo con `Row`, 4 botones iguales (`Expanded`). Cada uno: círculo de 64 dp con fondo pastel (`tile*`), icono de 32 dp en `primary`, etiqueta `titleMedium` debajo. Revisar que "Donación" no se corte en 360 dp de ancho.
+1. **Marco del niño pastor con mensaje.** Contenedor de ancho completo con **fondo blanco** (para no contrastar con la imagen), esquinas inferiores de 28, sombra `kCardShadow` y alto = **57,6 % de la altura de pantalla**. Dentro (con `SafeArea` arriba), una `Row` con `crossAxisAlignment: stretch` dividida **mitad y mitad** (dos `Expanded` iguales, 16 dp entre ellos): a la izquierda el mensaje **"Pastoreando el corazón de tu hijo"** (`headlineMedium`, color de texto normal, varias líneas, centrado verticalmente con `Align`) y a la derecha la imagen `assets/images/pastor.jpg` (alternativa `pastor1.jpg`) llenando toda su mitad, `BoxFit.cover`, `alignment: topCenter`, radio 20, `semanticLabel`. Dejar `overlap + 12` dp de espacio inferior para la tarjeta del punto 2, que se superpone ≈ 40 dp sobre el borde del marco (`Transform.translate`).
+2. **Tarjeta blanca con menú de iconos: Devocional · Ayuda · Premios · Donación** (en ese orden). `Card` de ancho completo con `Row`, 4 botones iguales (`Expanded`). Cada uno: círculo de 64 dp con su color vivo (`menu*`), **icono blanco** de 32 dp, sombra del mismo color (alpha 0.35, blur 12, offset 0,6) y etiqueta `titleMedium` debajo. Revisar que "Donación" no se corte en 360 dp de ancho.
    - Devocional → `Icons.menu_book_rounded`
    - Ayuda → `Icons.help_rounded`
    - Premios → `Icons.emoji_events_rounded`
@@ -153,7 +154,7 @@ Pendiente de decisión: usar `just_audio` (recomendado) cuando exista una fuente
 
 - `Semantics`/`tooltip` en todos los botones de icono.
 - Respetar `MediaQuery.textScaler`; no fijar alturas que corten texto escalado.
-- No transmitir información solo con color (el icono y la etiqueta siempre acompañan al color pastel).
+- No transmitir información solo con color (el icono y la etiqueta siempre acompañan al color del círculo; el blanco sobre el ámbar tiene poco contraste, por eso la etiqueta es obligatoria).
 - Animaciones cortas (≤ 300 ms) y sin parpadeos.
 
 ## Checklist antes de dar por terminado

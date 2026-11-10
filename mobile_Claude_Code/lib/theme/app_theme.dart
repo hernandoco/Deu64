@@ -10,9 +10,12 @@ const kBrandGradient = LinearGradient(
 const kBackground = Color(0xFFF4F1FF);
 const kOnSurfaceVariant = Color(0xFF6E6896);
 const kTileDevocional = Color(0xFFE9E3FF);
-const kTileAyuda = Color(0xFFDDF3EE);
-const kTileDonacion = Color(0xFFFFE8D6);
-const kTilePremios = Color(0xFFFFF1BF);
+
+// Colores vivos de los iconos del menú principal (círculo con icono blanco).
+const kMenuDevocional = Color(0xFF7957F3);
+const kMenuAyuda = Color(0xFF1FB5A3);
+const kMenuPremios = Color(0xFFF5A300);
+const kMenuDonacion = Color(0xFFFF6B6B);
 
 const kCardShadow = [
   BoxShadow(

@@ -101,7 +101,6 @@ class _HomeTabState extends State<_HomeTab> {
     final height = MediaQuery.sizeOf(context).height;
     // Marco del pastor: +20 % respecto al tamaño anterior (0.48 -> 0.576).
     final headerHeight = height * 0.576;
-    final width = MediaQuery.sizeOf(context).width;
     const overlap = 40.0;
 
     return SingleChildScrollView(
@@ -122,20 +121,23 @@ class _HomeTabState extends State<_HomeTab> {
                 // espacio inferior para la tarjeta superpuesta
                 padding: const EdgeInsets.fromLTRB(24, 16, 24, overlap + 12),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    // Mitad izquierda: título en varias líneas
                     Expanded(
-                      child: Text(
-                        'Pastoreando el corazón de tu hijo',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Pastoreando el corazón de tu hijo',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: SizedBox(
-                        // imagen a la mitad de su tamaño anterior
-                        width: width * 0.25,
-                        height: height * 0.08,
+                    // Mitad derecha: imagen del pastor
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
                           'assets/images/pastor.jpg',
                           fit: BoxFit.cover,
@@ -166,25 +168,25 @@ class _HomeTabState extends State<_HomeTab> {
                     _MenuItem(
                       icon: Icons.menu_book_rounded,
                       label: 'Devocional',
-                      color: kTileDevocional,
+                      color: kMenuDevocional,
                       onTap: _openDevocional,
                     ),
                     _MenuItem(
                       icon: Icons.help_rounded,
                       label: 'Ayuda',
-                      color: kTileAyuda,
+                      color: kMenuAyuda,
                       onTap: () => _openComingSoon('Ayuda'),
                     ),
                     _MenuItem(
                       icon: Icons.emoji_events_rounded,
                       label: 'Premios',
-                      color: kTilePremios,
+                      color: kMenuPremios,
                       onTap: () => _openComingSoon('Premios'),
                     ),
                     _MenuItem(
                       icon: Icons.volunteer_activism_rounded,
                       label: 'Donación',
-                      color: kTileDonacion,
+                      color: kMenuDonacion,
                       onTap: () => _openComingSoon('Donación'),
                     ),
                   ],
@@ -243,7 +245,6 @@ class _MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     return Expanded(
       child: InkWell(
         onTap: onTap,
@@ -257,8 +258,18 @@ class _MenuItem extends StatelessWidget {
               Container(
                 width: 64,
                 height: 64,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-                child: Icon(icon, size: 32, color: scheme.primary),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.35),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Icon(icon, size: 32, color: Colors.white),
               ),
               const SizedBox(height: 8),
               Text(label, style: Theme.of(context).textTheme.titleMedium),
