@@ -99,8 +99,8 @@ class _HomeTabState extends State<_HomeTab> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    // Marco del pastor: +50 % respecto al tamaño anterior (0.32 -> 0.48).
-    final headerHeight = height * 0.48;
+    // Marco del pastor: +20 % respecto al tamaño anterior (0.48 -> 0.576).
+    final headerHeight = height * 0.576;
     final width = MediaQuery.sizeOf(context).width;
     const overlap = 40.0;
 
@@ -108,49 +108,44 @@ class _HomeTabState extends State<_HomeTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // 1) Marco del niño pastor con mensaje
+          // 1) Marco del niño pastor con mensaje (fondo blanco)
           Container(
             height: headerHeight,
             decoration: const BoxDecoration(
-              gradient: kBrandGradient,
+              color: Colors.white,
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(28)),
+              boxShadow: kCardShadow,
             ),
             child: SafeArea(
               bottom: false,
-              child: Column(
-                children: [
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Text(
-                      'Pastoreando el corazón de tu hijo',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            color: Colors.white,
-                          ),
+              child: Padding(
+                // espacio inferior para la tarjeta superpuesta
+                padding: const EdgeInsets.fromLTRB(24, 16, 24, overlap + 12),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Pastoreando el corazón de tu hijo',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      // espacio inferior para la tarjeta superpuesta
-                      padding: const EdgeInsets.only(top: 12, bottom: overlap + 12),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(24),
-                        child: SizedBox(
-                          // imagen al 50 % de su tamaño anterior
-                          width: width * 0.5,
-                          height: height * 0.16,
-                          child: Image.asset(
-                            'assets/images/pastor.jpg',
-                            fit: BoxFit.cover,
-                            alignment: Alignment.topCenter,
-                            semanticLabel: 'Niño pastor con sus ovejas',
-                          ),
+                    const SizedBox(width: 16),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: SizedBox(
+                        // imagen a la mitad de su tamaño anterior
+                        width: width * 0.25,
+                        height: height * 0.08,
+                        child: Image.asset(
+                          'assets/images/pastor.jpg',
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                          semanticLabel: 'Niño pastor con sus ovejas',
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -181,16 +176,16 @@ class _HomeTabState extends State<_HomeTab> {
                       onTap: () => _openComingSoon('Ayuda'),
                     ),
                     _MenuItem(
-                      icon: Icons.volunteer_activism_rounded,
-                      label: 'Donación',
-                      color: kTileDonacion,
-                      onTap: () => _openComingSoon('Donación'),
-                    ),
-                    _MenuItem(
                       icon: Icons.emoji_events_rounded,
                       label: 'Premios',
                       color: kTilePremios,
                       onTap: () => _openComingSoon('Premios'),
+                    ),
+                    _MenuItem(
+                      icon: Icons.volunteer_activism_rounded,
+                      label: 'Donación',
+                      color: kTileDonacion,
+                      onTap: () => _openComingSoon('Donación'),
                     ),
                   ],
                 ),
