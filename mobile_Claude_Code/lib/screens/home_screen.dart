@@ -148,12 +148,12 @@ class _HomeTabState extends State<_HomeTab> {
                           // que no desborde la mitad izquierda del encabezado.
                           Flexible(
                             child: Text(
-                              'Oye papi: El Señor nuestro Dios, Jehová es... '
-                              'estas palabras... me las repetirás.',
+                              'Y estas palabras que te mando hoy, estarán sobre '
+                              'tu corazón; y las repetirás a tus hijos',
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium
-                                  ?.copyWith(fontSize: 20, height: 1.25),
+                                  ?.copyWith(fontSize: 17, height: 1.25),
                               overflow: TextOverflow.fade,
                             ),
                           ),
