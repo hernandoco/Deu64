@@ -330,6 +330,22 @@ class _HomeTabState extends State<_HomeTab> {
                     tooltip: 'Abrir preguntas',
                     icon: Icons.quiz_rounded,
                   ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Oración modelo',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  _TopicCard(
+                    topic: widget.topic,
+                    // TODO: reemplazar por la pantalla real de la oración
+                    // cuando exista su contenido.
+                    onTap: () => _openComingSoon('Oración modelo'),
+                    subtitle: 'Ora junto con el pastor',
+                    tooltip: 'Abrir oración modelo',
+                    icon: Icons.volunteer_activism_rounded,
+                    iconColors: const [Color(0xFFF48FB1), Color(0xFFD6336C)],
+                  ),
                   const SizedBox(height: overlap),
                 ],
               ),
@@ -531,12 +547,16 @@ class _TopicCard extends StatelessWidget {
   /// Si se indica, reemplaza la miniatura por un icono sobre fondo de color.
   final IconData? icon;
 
+  /// Degradado del icono (solo aplica cuando [icon] no es nulo).
+  final List<Color> iconColors;
+
   const _TopicCard({
     required this.topic,
     required this.onTap,
     this.subtitle,
     this.tooltip = 'Abrir devocional',
     this.icon,
+    this.iconColors = const [Color(0xFFFFB74D), Color(0xFFF57C00)],
   });
 
   @override
@@ -569,11 +589,11 @@ class _TopicCard extends StatelessWidget {
                   height: 88,
                   child: icon != null
                       ? DecoratedBox(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
-                              colors: [Color(0xFFFFB74D), Color(0xFFF57C00)],
+                              colors: iconColors,
                             ),
                           ),
                           child: Icon(icon, size: 48, color: Colors.white),
