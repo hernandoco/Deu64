@@ -346,6 +346,22 @@ class _HomeTabState extends State<_HomeTab> {
                     icon: Icons.volunteer_activism_rounded,
                     iconColors: const [Color(0xFFF48FB1), Color(0xFFD6336C)],
                   ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Reto del día',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  _TopicCard(
+                    topic: widget.topic,
+                    // TODO: reemplazar por la pantalla real del reto cuando
+                    // exista su contenido.
+                    onTap: () => _openComingSoon('Reto del día'),
+                    subtitle: 'Un pequeño desafío para hoy',
+                    tooltip: 'Abrir reto del día',
+                    icon: Icons.flag_rounded,
+                    iconColors: const [Color(0xFF4DB6AC), Color(0xFF00897B)],
+                  ),
                   const SizedBox(height: overlap),
                 ],
               ),
