@@ -121,59 +121,126 @@ class _HomeTabState extends State<_HomeTab> {
               child: Padding(
                 // espacio inferior para la tarjeta superpuesta
                 padding: const EdgeInsets.fromLTRB(24, 16, 24, overlap + 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Mitad izquierda: título en varias líneas
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Cita bíblica llamativa sobre el título
-                          Text(
-                            'Deu 6:4',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: 1,
-                                ),
-                          ),
-                          const SizedBox(height: 4),
-                          // Título largo: letra más pequeña y Flexible para
-                          // que no desborde la mitad izquierda del encabezado.
-                          Flexible(
-                            child: Text(
-                              'Y estas palabras que te mando hoy, estarán sobre '
-                              'tu corazón; y las repetirás a tus hijos',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(fontSize: 17, height: 1.25),
-                              overflow: TextOverflow.fade,
+                // Tarjeta de color + imagen del pastor unidas en un solo
+                // bloque; la tarjeta se desvanece sobre el borde de la foto.
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(14, 14, 6, 12),
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xFFF1E6FF), Color(0xFFFFF1DC)],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    // Mitad derecha: imagen del pastor
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/images/pastor.jpg',
-                          fit: BoxFit.cover,
-                          alignment: Alignment.topCenter,
-                          semanticLabel: 'Niño pastor con sus ovejas',
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text.rich(
+                                  const TextSpan(
+                                    style: TextStyle(
+                                      fontSize: 19.5,
+                                      height: 1.3,
+                                      fontWeight: FontWeight.w800,
+                                      color: Color(0xFF4A2C8F),
+                                    ),
+                                    children: [
+                                      TextSpan(text: 'Y estas '),
+                                      TextSpan(
+                                        text: 'palabras ',
+                                        style: TextStyle(
+                                            color: Color(0xFFE8590C)),
+                                      ),
+                                      TextSpan(text: 'que te mando hoy, '),
+                                      TextSpan(
+                                        text: 'estarán ',
+                                        style: TextStyle(
+                                            color: Color(0xFF0B8A7A)),
+                                      ),
+                                      TextSpan(text: 'sobre tu '),
+                                      TextSpan(
+                                        text: 'corazón',
+                                        style: TextStyle(
+                                            color: Color(0xFFD6336C)),
+                                      ),
+                                      TextSpan(text: '; y las '),
+                                      TextSpan(
+                                        text: 'repetirás ',
+                                        style: TextStyle(
+                                            color: Color(0xFFE8590C)),
+                                      ),
+                                      TextSpan(text: 'a tus '),
+                                      TextSpan(
+                                        text: 'hijos',
+                                        style: TextStyle(
+                                            color: Color(0xFF0B8A7A)),
+                                      ),
+                                    ],
+                                  ),
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              // Cita al final del título, alineada a la derecha
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  'Deu 6:4',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: const Color(0xFF6A3FD0),
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w800,
+                                        letterSpacing: 1,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      // Mitad derecha: imagen del pastor con desvanecido
+                      Expanded(
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.asset(
+                              'assets/images/pastor.jpg',
+                              fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
+                              semanticLabel: 'Niño pastor con sus ovejas',
+                            ),
+                            Positioned(
+                              left: 0,
+                              top: 0,
+                              bottom: 0,
+                              width: 72,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      const Color(0xFFF9EEEE),
+                                      const Color(0xFFF9EEEE)
+                                          .withValues(alpha: 0),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
