@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models.dart';
-import 'start_questions_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../image_cache_manager.dart';
-
-
 
 class ScenesCarouselScreen extends StatefulWidget {
   final TopicResponse topic;
@@ -20,9 +17,7 @@ class _ScenesCarouselScreenState extends State<ScenesCarouselScreen> {
   final _controller = PageController();
   int _index = 0;
 
-  bool _navigated = false;
-
-/* version sin pantalla de boton
+  /* version sin pantalla de boton
   void _goToQuestions() {
     if (_navigated) return;
     _navigated = true;
@@ -35,27 +30,12 @@ class _ScenesCarouselScreenState extends State<ScenesCarouselScreen> {
   }
 */
 
-  void _goToQuestions() {
-    if (_navigated) return;
-    _navigated = true;
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => StartQuestionsScreen(topicId: widget.topic.topicId),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final scenes = widget.topic.scenes;
-    final lastIndex = scenes.length - 1;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.topic.title),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text(widget.topic.title), centerTitle: true),
       body: Column(
         children: [
           /*Expanded(
@@ -146,74 +126,51 @@ class _ScenesCarouselScreenState extends State<ScenesCarouselScreen> {
           ),*/
 
           Expanded(
-            child: Listener(
-              onPointerMove: (event) {
-                final scenes = widget.topic.scenes;
-                final lastIndex = scenes.length - 1;
-
-                // En la última página, si el usuario arrastra hacia la izquierda
-                // (delta.dx negativo) significa que quiere "avanzar".
-                final atLastPage = _index == lastIndex;
-                final draggingForward = event.delta.dx < -6;
-
-                if (atLastPage && draggingForward) {
-                  _goToQuestions();
-                }
-              },
-              child: PageView.builder(
-                controller: _controller,
-                itemCount: widget.topic.scenes.length,
-                onPageChanged: (i) => setState(() => _index = i),
-                itemBuilder: (context, i) {
-                  final s = widget.topic.scenes[i];
-                  final isLast = i == widget.topic.scenes.length - 1;
-
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        Text(
-                          s.title,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        const SizedBox(height: 12),
-                        Expanded(
-                          child: Center(
-                            child: CachedNetworkImage(
-                              cacheManager: sceneImagesCacheManager,
-                              imageUrl: s.imageUrl,
+            // Las preguntas ya no se abren desde aquí: tienen su propio frame
+            // en el Home ("Preguntas del devocional").
+            child: PageView.builder(
+              controller: _controller,
+              itemCount: widget.topic.scenes.length,
+              onPageChanged: (i) => setState(() => _index = i),
+              itemBuilder: (context, i) {
+                final s = widget.topic.scenes[i];
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Text(
+                        s.title,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      const SizedBox(height: 12),
+                      Expanded(
+                        child: Center(
+                          child: CachedNetworkImage(
+                            cacheManager: sceneImagesCacheManager,
+                            imageUrl: s.imageUrl,
+                            fit: BoxFit.contain,
+                            progressIndicatorBuilder: (_, __, ___) =>
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                            errorWidget: (_, __, ___) => Image.asset(
+                              'assets/images/placeholder.jpg',
                               fit: BoxFit.contain,
-                              progressIndicatorBuilder: (_, __, ___) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              errorWidget: (_, __, ___) => Image.asset(
-                                'assets/images/placeholder.jpg',
-                                fit: BoxFit.contain,
-                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        Text(
-                          s.description,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-
-                        if (isLast) ...[
-                          const SizedBox(height: 10),
-                          Text(
-                            'Desliza una vez más para ir a preguntas',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        s.description,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
           _DotsIndicator(current: _index, total: scenes.length),

@@ -5,6 +5,7 @@ import '../image_cache_manager.dart';
 import '../models.dart';
 import '../theme/app_theme.dart';
 import '../widgets/menu_illustrations.dart';
+import 'quiz_carousel_screen.dart';
 import 'scenes_carousel_screen.dart';
 
 /// Pantalla principal: se muestra después del login y de cargar el tema.
@@ -83,17 +84,30 @@ class _HomeTabState extends State<_HomeTab> {
   // la fuente del mensaje de voz.
   bool _playing = false;
 
+  // Devocional: solo la historia (escenas). Se abre con push para poder
+  // volver al Home con la flecha atrás.
   void _openDevocional() {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ScenesCarouselScreen(topic: widget.topic),
       ),
     );
   }
 
+  // Preguntas del devocional: frame aparte, independiente de la historia.
+  void _openPreguntas() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => QuizCarouselScreen(topicId: widget.topic.topicId),
+      ),
+    );
+  }
+
   void _openComingSoon(String title) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => _ComingSoon(title: title, showBack: true)),
+      MaterialPageRoute(
+        builder: (_) => _ComingSoon(title: title, showBack: true),
+      ),
     );
   }
 
@@ -125,121 +139,111 @@ class _HomeTabState extends State<_HomeTab> {
                 // bloque; la tarjeta se desvanece sobre el borde de la foto.
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(14, 14, 6, 12),
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [Color(0xFFF1E6FF), Color(0xFFFFF1DC)],
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text.rich(
-                                  const TextSpan(
-                                    style: TextStyle(
-                                      fontSize: 19.5,
-                                      height: 1.3,
-                                      fontWeight: FontWeight.w800,
-                                      color: Color(0xFF4A2C8F),
-                                    ),
-                                    children: [
-                                      TextSpan(text: 'Y estas '),
-                                      TextSpan(
-                                        text: 'palabras ',
-                                        style: TextStyle(
-                                            color: Color(0xFFE8590C)),
-                                      ),
-                                      TextSpan(text: 'que te mando hoy, '),
-                                      TextSpan(
-                                        text: 'estarán ',
-                                        style: TextStyle(
-                                            color: Color(0xFF0B8A7A)),
-                                      ),
-                                      TextSpan(text: 'sobre tu '),
-                                      TextSpan(
-                                        text: 'corazón',
-                                        style: TextStyle(
-                                            color: Color(0xFFD6336C)),
-                                      ),
-                                      TextSpan(text: '; y las '),
-                                      TextSpan(
-                                        text: 'repetirás ',
-                                        style: TextStyle(
-                                            color: Color(0xFFE8590C)),
-                                      ),
-                                      TextSpan(text: 'a tus '),
-                                      TextSpan(
-                                        text: 'hijos',
-                                        style: TextStyle(
-                                            color: Color(0xFF0B8A7A)),
-                                      ),
-                                    ],
-                                  ),
-                                  overflow: TextOverflow.fade,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              // Cita al final del título, alineada a la derecha
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  'Deu 6:4',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        color: const Color(0xFF6A3FD0),
-                                        fontSize: 23,
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xFFF1E6FF), Color(0xFFFFF1DC)],
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(14, 14, 6, 12),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text.rich(
+                                    const TextSpan(
+                                      style: TextStyle(
+                                        fontFamily: 'GochiHand',
+                                        fontSize: 22.5,
+                                        height: 1.3,
                                         fontWeight: FontWeight.w800,
-                                        letterSpacing: 1,
+                                        color: Color(0xFF4A2C8F),
                                       ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      // Mitad derecha: imagen del pastor con desvanecido
-                      Expanded(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.asset(
-                              'assets/images/pastor.jpg',
-                              fit: BoxFit.cover,
-                              alignment: Alignment.topCenter,
-                              semanticLabel: 'Niño pastor con sus ovejas',
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              bottom: 0,
-                              width: 72,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      const Color(0xFFF9EEEE),
-                                      const Color(0xFFF9EEEE)
-                                          .withValues(alpha: 0),
-                                    ],
+                                      children: [
+                                        TextSpan(text: 'Y estas '),
+                                        TextSpan(
+                                          text: 'palabras ',
+                                          style: TextStyle(
+                                            color: Color(0xFFE8590C),
+                                          ),
+                                        ),
+                                        TextSpan(text: 'que te mando hoy, '),
+                                        TextSpan(
+                                          text: 'estarán ',
+                                          style: TextStyle(
+                                            color: Color(0xFF0B8A7A),
+                                          ),
+                                        ),
+                                        TextSpan(text: 'sobre tu '),
+                                        TextSpan(
+                                          text: 'corazón',
+                                          style: TextStyle(
+                                            color: Color(0xFFD6336C),
+                                          ),
+                                        ),
+                                        TextSpan(text: '; y las '),
+                                        TextSpan(
+                                          text: 'repetirás ',
+                                          style: TextStyle(
+                                            color: Color(0xFFE8590C),
+                                          ),
+                                        ),
+                                        TextSpan(text: 'a tus '),
+                                        TextSpan(
+                                          text: 'hijos',
+                                          style: TextStyle(
+                                            color: Color(0xFF0B8A7A),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    overflow: TextOverflow.fade,
                                   ),
                                 ),
-                              ),
+                                const SizedBox(height: 6),
+                                // Cita al final del título, alineada a la derecha
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Deu 6:4',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          color: const Color(0xFF6A3FD0),
+                                          fontFamily: 'GochiHand',
+                                          fontSize: 18.5,
+                                          fontWeight: FontWeight.w800,
+                                          letterSpacing: 1,
+                                        ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                        // Mitad derecha: pastor animado (PNG sin fondo)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                            child: Image.asset(
+                              'assets/images/pastor_infantil.png',
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                              semanticLabel: 'Pastor animado con su ovejita',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -313,6 +317,19 @@ class _HomeTabState extends State<_HomeTab> {
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(topic: widget.topic, onTap: _openDevocional),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Preguntas del devocional',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  _TopicCard(
+                    topic: widget.topic,
+                    onTap: _openPreguntas,
+                    subtitle: 'Responde y gana puntos',
+                    tooltip: 'Abrir preguntas',
+                    icon: Icons.quiz_rounded,
+                  ),
                   const SizedBox(height: overlap),
                 ],
               ),
@@ -368,8 +385,11 @@ class _MenuItem extends StatelessWidget {
                   border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
-                      color: Color.lerp(background, Colors.black, 0.25)!
-                          .withValues(alpha: 0.35),
+                      color: Color.lerp(
+                        background,
+                        Colors.black,
+                        0.25,
+                      )!.withValues(alpha: 0.35),
                       blurRadius: 12,
                       offset: const Offset(0, 5),
                     ),
@@ -505,8 +525,19 @@ class _VerseCard extends StatelessWidget {
 class _TopicCard extends StatelessWidget {
   final TopicResponse topic;
   final VoidCallback onTap;
+  final String? subtitle;
+  final String tooltip;
 
-  const _TopicCard({required this.topic, required this.onTap});
+  /// Si se indica, reemplaza la miniatura por un icono sobre fondo de color.
+  final IconData? icon;
+
+  const _TopicCard({
+    required this.topic,
+    required this.onTap,
+    this.subtitle,
+    this.tooltip = 'Abrir devocional',
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -536,7 +567,18 @@ class _TopicCard extends StatelessWidget {
                 child: SizedBox(
                   width: 88,
                   height: 88,
-                  child: thumb == null
+                  child: icon != null
+                      ? DecoratedBox(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xFFFFB74D), Color(0xFFF57C00)],
+                            ),
+                          ),
+                          child: Icon(icon, size: 48, color: Colors.white),
+                        )
+                      : thumb == null
                       ? placeholder
                       : CachedNetworkImage(
                           imageUrl: thumb,
@@ -560,8 +602,10 @@ class _TopicCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${topic.scenes.length} escenas',
-                      style: text.bodyMedium?.copyWith(color: kOnSurfaceVariant),
+                      subtitle ?? '${topic.scenes.length} escenas',
+                      style: text.bodyMedium?.copyWith(
+                        color: kOnSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -569,7 +613,7 @@ class _TopicCard extends StatelessWidget {
               const SizedBox(width: 8),
               IconButton.filled(
                 onPressed: onTap,
-                tooltip: 'Abrir devocional',
+                tooltip: tooltip,
                 style: IconButton.styleFrom(
                   backgroundColor: scheme.primary,
                   fixedSize: const Size(56, 56),
@@ -594,10 +638,7 @@ class _ComingSoon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: showBack
-          ? AppBar(
-              title: Text(title),
-              backgroundColor: Colors.transparent,
-            )
+          ? AppBar(title: Text(title), backgroundColor: Colors.transparent)
           : null,
       body: SafeArea(
         child: Center(
@@ -608,10 +649,9 @@ class _ComingSoon extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 'Próximamente',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: kOnSurfaceVariant),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge?.copyWith(color: kOnSurfaceVariant),
               ),
             ],
           ),
