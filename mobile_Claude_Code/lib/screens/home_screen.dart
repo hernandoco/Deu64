@@ -143,9 +143,18 @@ class _HomeTabState extends State<_HomeTab> {
                                 ),
                           ),
                           const SizedBox(height: 4),
-                          Text(
-                            'Pastoreando el corazón de tu hijo',
-                            style: Theme.of(context).textTheme.headlineMedium,
+                          // Título largo: letra más pequeña y Flexible para
+                          // que no desborde la mitad izquierda del encabezado.
+                          Flexible(
+                            child: Text(
+                              'Oye papi: El Señor nuestro Dios, Jehová es... '
+                              'estas palabras... me las repetirás.',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(fontSize: 20, height: 1.25),
+                              overflow: TextOverflow.fade,
+                            ),
                           ),
                         ],
                       ),
