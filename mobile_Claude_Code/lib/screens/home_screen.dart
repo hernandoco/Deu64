@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../image_cache_manager.dart';
 import '../models.dart';
 import '../theme/app_theme.dart';
+import '../widgets/menu_illustrations.dart';
 import 'scenes_carousel_screen.dart';
 
 /// Pantalla principal: se muestra después del login y de cargar el tema.
@@ -192,27 +193,27 @@ class _HomeTabState extends State<_HomeTab> {
                 child: Row(
                   children: [
                     _MenuItem(
-                      icon: Icons.menu_book_rounded,
+                      illustration: const BookIllustration(),
                       label: 'Devocional',
-                      color: kMenuDevocional,
+                      background: kMenuDevocional,
                       onTap: _openDevocional,
                     ),
                     _MenuItem(
-                      icon: Icons.help_rounded,
+                      illustration: const HelpIllustration(),
                       label: 'Ayuda',
-                      color: kMenuAyuda,
+                      background: kMenuAyuda,
                       onTap: () => _openComingSoon('Ayuda'),
                     ),
                     _MenuItem(
-                      icon: Icons.emoji_events_rounded,
+                      illustration: const TrophyIllustration(),
                       label: 'Premios',
-                      color: kMenuPremios,
+                      background: kMenuPremios,
                       onTap: () => _openComingSoon('Premios'),
                     ),
                     _MenuItem(
-                      icon: Icons.volunteer_activism_rounded,
+                      illustration: const PiggyIllustration(),
                       label: 'Donación',
-                      color: kMenuDonacion,
+                      background: kMenuDonacion,
                       onTap: () => _openComingSoon('Donación'),
                     ),
                   ],
@@ -257,15 +258,15 @@ class _HomeTabState extends State<_HomeTab> {
 }
 
 class _MenuItem extends StatelessWidget {
-  final IconData icon;
+  final CustomPainter illustration;
   final String label;
-  final Color color;
+  final Color background;
   final VoidCallback onTap;
 
   const _MenuItem({
-    required this.icon,
+    required this.illustration,
     required this.label,
-    required this.color,
+    required this.background,
     required this.onTap,
   });
 
@@ -281,11 +282,36 @@ class _MenuItem extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Icono con color propio, sin círculo ni borde (fondo transparente)
-              SizedBox(
-                width: 64,
-                height: 64,
-                child: Icon(icon, size: 48, color: color),
+              // Ilustración 3D a todo color sobre cuadro pastel redondeado,
+              // con degradado suave y borde blanco (como el modelo).
+              Container(
+                width: 76,
+                height: 76,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(26),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.lerp(background, Colors.white, 0.6)!,
+                      background,
+                    ],
+                  ),
+                  border: Border.all(color: Colors.white, width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.lerp(background, Colors.black, 0.25)!
+                          .withValues(alpha: 0.35),
+                      blurRadius: 12,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: CustomPaint(
+                  size: const Size.square(60),
+                  painter: illustration,
+                ),
               ),
               const SizedBox(height: 8),
               Text(label, style: Theme.of(context).textTheme.titleMedium),

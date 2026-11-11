@@ -31,10 +31,10 @@ Guía para construir interfaces infantiles de lectura en Flutter con Material 3.
 | `onSurface` | `#2B2350` | texto principal (morado muy oscuro) |
 | `onSurfaceVariant` | `#6E6896` | texto secundario |
 | `tileDevocional` | `#E9E3FF` | fondo lavanda del icono del versículo e indicador de la barra inferior |
-| `menuDevocional` | `#7957F3` | color del icono Devocional |
-| `menuAyuda` | `#1FB5A3` | color del icono Ayuda (turquesa) |
-| `menuPremios` | `#F5A300` | color del icono Premios (ámbar) |
-| `menuDonacion` | `#FF6B6B` | color del icono Donación (coral) |
+| `menuDevocional` | `#EDE7FF` | fondo pastel (lavanda) del cuadro Devocional |
+| `menuAyuda` | `#D9F6F0` | fondo pastel (menta) del cuadro Ayuda |
+| `menuPremios` | `#FFF1CC` | fondo pastel (crema) del cuadro Premios |
+| `menuDonacion` | `#FFE2EC` | fondo pastel (rosa) del cuadro Donación |
 | `error` | `#D64545` | solo errores |
 
 **Degradado de marca** (tarjeta de voz, encabezado de botones principales):
@@ -123,12 +123,12 @@ ThemeData buildKidsTheme() {
 
 Fondo `background`. Cuerpo en `SingleChildScrollView` dentro de `SafeArea` para que no desborde en pantallas pequeñas. De arriba abajo:
 
-1. **Marco del niño pastor con mensaje.** Contenedor de ancho completo con **fondo blanco** (para no contrastar con la imagen), esquinas inferiores de 28, sombra `kCardShadow` y alto = **57,6 % de la altura de pantalla**. Dentro (con `SafeArea` arriba), una `Row` con `crossAxisAlignment: stretch` dividida **mitad y mitad** (dos `Expanded` iguales, 16 dp entre ellos): a la izquierda una `Column` centrada verticalmente con la cita **"Deu 6:4"** (`titleLarge` a 24, w800, `letterSpacing: 1`, color `primary` para que destaque) y debajo, a 4 dp, el mensaje **"Pastoreando el corazón de tu hijo"** (`headlineMedium`, color de texto normal, varias líneas) y a la derecha la imagen `assets/images/pastor.jpg` (alternativa `pastor1.jpg`) llenando toda su mitad, `BoxFit.cover`, `alignment: topCenter`, radio 20, `semanticLabel`. Dejar `overlap + 12` dp de espacio inferior para la tarjeta del punto 2, que se superpone ≈ 40 dp sobre el borde del marco (`Transform.translate`).
-2. **Tarjeta blanca con menú de iconos: Devocional · Ayuda · Premios · Donación** (en ese orden). `Card` de ancho completo con `Row`, 4 botones iguales (`Expanded`). Cada uno: icono de 48 dp **sin círculo, sin borde y con fondo transparente**, pintado con su color vivo (`menu*`) dentro de una zona táctil de 64×64 dp, y etiqueta `titleMedium` debajo. Los `Icons.*` de Material son de un solo color; el modelo usa ilustraciones a todo color, que requerirían PNG/SVG. Revisar que "Donación" no se corte en 360 dp de ancho.
-   - Devocional → `Icons.menu_book_rounded`
-   - Ayuda → `Icons.help_rounded`
-   - Premios → `Icons.emoji_events_rounded`
-   - Donación → `Icons.volunteer_activism_rounded`
+1. **Marco del niño pastor con mensaje.** Contenedor de ancho completo con **fondo blanco** (para no contrastar con la imagen), esquinas inferiores de 28, sombra `kCardShadow` y alto = **57,6 % de la altura de pantalla**. Dentro (con `SafeArea` arriba), una `Row` con `crossAxisAlignment: stretch` dividida **mitad y mitad** (dos `Expanded` iguales, 16 dp entre ellos): a la izquierda una `Column` centrada verticalmente con la cita **"Deu 6:4"** (`titleLarge` a 24, w800, `letterSpacing: 1`, color `primary` para que destaque) y debajo, a 4 dp, el mensaje **"Oye papi: El Señor nuestro Dios, Jehová es... estas palabras... me las repetirás."** (`headlineMedium` reducido a 20 con `height: 1.25`, color de texto normal, varias líneas, dentro de `Flexible` con `TextOverflow.fade` para no desbordar) y a la derecha la imagen `assets/images/pastor.jpg` (alternativa `pastor1.jpg`) llenando toda su mitad, `BoxFit.cover`, `alignment: topCenter`, radio 20, `semanticLabel`. Dejar `overlap + 12` dp de espacio inferior para la tarjeta del punto 2, que se superpone ≈ 40 dp sobre el borde del marco (`Transform.translate`).
+2. **Tarjeta blanca con menú de iconos: Devocional · Ayuda · Premios · Donación** (en ese orden). `Card` de ancho completo con `Row`, 4 botones iguales (`Expanded`). Cada uno: cuadro redondeado de 76 dp (radio 26, borde blanco de 2, degradado de `menu*` aclarado arriba a `menu*` abajo, sombra suave del mismo tono) y, encima, una **ilustración 3D "inflada" a todo color de 60 dp** (cada pieza con degradado claro→oscuro, canto inferior más oscuro y brillo blanco) dibujada con `CustomPainter` en `lib/widgets/menu_illustrations.dart` (lienzo 100×100, sin PNG/SVG ni dependencias); etiqueta `titleMedium` debajo. Revisar que "Donación" no se corte en 360 dp de ancho.
+   - Devocional → `BookIllustration` (Biblia abierta, cruz dorada, cinta roja)
+   - Ayuda → `HelpIllustration` (globo de diálogo turquesa con "?" y destellos)
+   - Premios → `TrophyIllustration` (copa dorada, estrella roja, base morada)
+   - Donación → `PiggyIllustration` (alcancía cerdito con moneda de corazón)
 3. **Tarjeta de mensaje de voz** (equivale a la tarjeta "Daily Goal" del modelo). Ancho completo, fondo `kBrandGradient`, radio 28, texto blanco. Contenido: botón circular blanco de 56 dp con `Icons.play_arrow_rounded` / `Icons.pause_rounded` en `primary`; título "Mensaje de hoy" (`titleMedium`); subtítulo "Toca para escuchar" (`bodyMedium`); barra `LinearProgressIndicator` blanca sobre pista translúcida, con la duración a la derecha. Sin autoplay.
 4. **Versículo del día** (tarjeta horizontal blanca, entre la tarjeta de voz y la sección del devocional). Círculo lavanda de 48 dp con `Icons.auto_stories_rounded` en `primary`; a la derecha, la etiqueta **"Versículo del día:"** (`labelLarge`, `primary`) y debajo el texto **"Jesús es mi pastor"** (`titleLarge`). Texto fijo por ahora; cuando el backend lo provea, leerlo de los datos.
 5. **Tarjeta del título del devocional** (equivale a "Continue Learning"). Fila de encabezado de sección con "Devocional de hoy" (`titleLarge`) y, a la derecha, "Ver todo" (`labelLarge`, `primary`) solo si hay más devocionales. Debajo, `Card` blanca con sombra: miniatura cuadrada de 88 dp (radio 20), título (`headlineMedium` reducido a 20 si no cabe, máx. 2 líneas, ellipsis), subtítulo y, al final, botón circular `primary` con `Icons.play_arrow_rounded`. El título viene de `ApiClient.fetchTopic()`; no hardcodear.
