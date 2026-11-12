@@ -1,0 +1,6 @@
+# Ejecutables compilados (se regeneran con `go build`)
+/backend
+/backendDeu64
+/main
+
+.DS_Store
