@@ -92,6 +92,7 @@ class _HomeTabState extends State<_HomeTab> {
 
   // Mensaje de hoy en audio.
   AudioMessageResponse? _audio;
+  Future<void>? _audioFetch; // petición en curso de los datos del audio
   AudioPlayer? _player; // se crea la primera vez que se pulsa play
   bool _audioReady = false;
   bool _audioLoading = false;
@@ -118,7 +119,7 @@ class _HomeTabState extends State<_HomeTab> {
           if (mounted) setState(() => _verse = v);
         })
         .catchError((_) {});
-    _api
+    _audioFetch = _api
         .fetchAudioMessage()
         .then((a) {
           if (mounted) setState(() => _audio = a);
@@ -136,12 +137,21 @@ class _HomeTabState extends State<_HomeTab> {
   }
 
   Future<void> _togglePlay() async {
+    if (_audioLoading) return; // ya hay una carga en curso
+    // Si el usuario pulsa play antes de que lleguen los datos del audio (sin
+    // red tardan hasta que vence el timeout y se usa la copia guardada), se
+    // espera a esa petición en vez de decir que no está disponible.
+    if (_audio == null && _audioFetch != null) {
+      setState(() => _audioLoading = true);
+      await _audioFetch;
+      if (!mounted) return;
+      setState(() => _audioLoading = false);
+    }
     final audio = _audio;
     if (audio == null || audio.audioUrl.isEmpty) {
       _showSnack('El mensaje de hoy aún no está disponible.');
       return;
     }
-    if (_audioLoading) return;
 
     try {
       var player = _player;
