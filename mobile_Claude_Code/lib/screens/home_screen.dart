@@ -1,10 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
+import '../api.dart';
+import '../audio_cache_manager.dart';
 import '../image_cache_manager.dart';
 import '../models.dart';
 import '../theme/app_theme.dart';
 import '../widgets/menu_illustrations.dart';
+import 'challenge_screen.dart';
+import 'prayer_screen.dart';
 import 'quiz_carousel_screen.dart';
 import 'scenes_carousel_screen.dart';
 
@@ -80,9 +85,113 @@ class _HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<_HomeTab> {
-  // TODO: conectar con un reproductor real (p. ej. just_audio) cuando exista
-  // la fuente del mensaje de voz.
+  final _api = ApiClient();
+
+  // Versículo del día (backend). Null mientras carga o si falla sin caché.
+  VerseResponse? _verse;
+
+  // Mensaje de hoy en audio.
+  AudioMessageResponse? _audio;
+  AudioPlayer? _player; // se crea la primera vez que se pulsa play
+  bool _audioReady = false;
+  bool _audioLoading = false;
   bool _playing = false;
+  Duration _position = Duration.zero;
+  Duration _duration = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDailyContent();
+  }
+
+  @override
+  void dispose() {
+    _player?.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadDailyContent() async {
+    _api
+        .fetchVerse()
+        .then((v) {
+          if (mounted) setState(() => _verse = v);
+        })
+        .catchError((_) {});
+    _api
+        .fetchAudioMessage()
+        .then((a) {
+          if (mounted) setState(() => _audio = a);
+          // Descarga el audio en segundo plano para que ya esté guardado
+          // (y suene sin esperar ni sin red) cuando el usuario pulse play.
+          if (a.audioUrl.isNotEmpty) getAudioFile(a.audioUrl).ignore();
+        })
+        .catchError((_) {});
+  }
+
+  void _showSnack(String msg) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(msg)));
+  }
+
+  Future<void> _togglePlay() async {
+    final audio = _audio;
+    if (audio == null || audio.audioUrl.isEmpty) {
+      _showSnack('El mensaje de hoy aún no está disponible.');
+      return;
+    }
+    if (_audioLoading) return;
+
+    try {
+      var player = _player;
+      if (player == null) {
+        player = AudioPlayer();
+        _player = player;
+        player.playerStateStream.listen((st) {
+          if (st.processingState == ProcessingState.completed) {
+            player!.pause();
+            player.seek(Duration.zero);
+          }
+          if (mounted) {
+            setState(() {
+              _playing =
+                  st.playing && st.processingState != ProcessingState.completed;
+            });
+          }
+        });
+        player.positionStream.listen((p) {
+          if (mounted) setState(() => _position = p);
+        });
+        player.durationStream.listen((d) {
+          if (mounted) setState(() => _duration = d ?? Duration.zero);
+        });
+      }
+
+      if (!_audioReady) {
+        setState(() => _audioLoading = true);
+        // Se reproduce desde el archivo guardado; si no hay copia local ni se
+        // pudo descargar, se transmite directamente desde el backend.
+        final file = await getAudioFile(audio.audioUrl);
+        if (file != null) {
+          await player.setFilePath(file.path);
+        } else {
+          await player.setUrl(audio.audioUrl);
+        }
+        _audioReady = true;
+        if (mounted) setState(() => _audioLoading = false);
+      }
+
+      if (player.playing) {
+        await player.pause();
+      } else {
+        await player.play();
+      }
+    } catch (_) {
+      if (mounted) setState(() => _audioLoading = false);
+      _showSnack('No se pudo reproducir el mensaje. Revisa tu conexión.');
+    }
+  }
 
   // Devocional: solo la historia (escenas). Se abre con push para poder
   // volver al Home con la flecha atrás.
@@ -101,6 +210,18 @@ class _HomeTabState extends State<_HomeTab> {
         builder: (_) => QuizCarouselScreen(topicId: widget.topic.topicId),
       ),
     );
+  }
+
+  void _openOracion() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const PrayerScreen()));
+  }
+
+  void _openReto() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const ChallengeScreen()));
   }
 
   void _openComingSoon(String title) {
@@ -303,12 +424,19 @@ class _HomeTabState extends State<_HomeTab> {
                   const SizedBox(height: 16),
                   _VoiceCard(
                     playing: _playing,
-                    onToggle: () => setState(() => _playing = !_playing),
+                    loading: _audioLoading,
+                    title: _audio?.title,
+                    progress: _duration.inMilliseconds > 0
+                        ? (_position.inMilliseconds / _duration.inMilliseconds)
+                              .clamp(0.0, 1.0)
+                        : 0,
+                    onToggle: _togglePlay,
                   ),
                   const SizedBox(height: 16),
-                  const _VerseCard(
+                  _VerseCard(
                     label: 'Versículo del día:',
-                    verse: 'Jesús es mi pastor',
+                    verse: _verse?.verse ?? '...',
+                    description: _verse?.description,
                   ),
                   const SizedBox(height: 24),
                   Text(
@@ -338,9 +466,7 @@ class _HomeTabState extends State<_HomeTab> {
                   const SizedBox(height: 12),
                   _TopicCard(
                     topic: widget.topic,
-                    // TODO: reemplazar por la pantalla real de la oración
-                    // cuando exista su contenido.
-                    onTap: () => _openComingSoon('Oración modelo'),
+                    onTap: _openOracion,
                     subtitle: 'Ora junto con el pastor',
                     tooltip: 'Abrir oración modelo',
                     icon: Icons.volunteer_activism_rounded,
@@ -354,9 +480,7 @@ class _HomeTabState extends State<_HomeTab> {
                   const SizedBox(height: 12),
                   _TopicCard(
                     topic: widget.topic,
-                    // TODO: reemplazar por la pantalla real del reto cuando
-                    // exista su contenido.
-                    onTap: () => _openComingSoon('Reto del día'),
+                    onTap: _openReto,
                     subtitle: 'Un pequeño desafío para hoy',
                     tooltip: 'Abrir reto del día',
                     icon: Icons.flag_rounded,
@@ -444,9 +568,18 @@ class _MenuItem extends StatelessWidget {
 
 class _VoiceCard extends StatelessWidget {
   final bool playing;
+  final bool loading;
+  final String? title;
+  final double progress;
   final VoidCallback onToggle;
 
-  const _VoiceCard({required this.playing, required this.onToggle});
+  const _VoiceCard({
+    required this.playing,
+    required this.loading,
+    required this.title,
+    required this.progress,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -470,10 +603,16 @@ class _VoiceCard extends StatelessWidget {
               foregroundColor: primary,
               fixedSize: const Size(56, 56),
             ),
-            icon: Icon(
-              playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-              size: 32,
-            ),
+            icon: loading
+                ? const SizedBox(
+                    width: 26,
+                    height: 26,
+                    child: CircularProgressIndicator(strokeWidth: 3),
+                  )
+                : Icon(
+                    playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                    size: 32,
+                  ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -486,17 +625,17 @@ class _VoiceCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Toca para escuchar',
+                  title ?? 'Toca para escuchar',
                   style: text.bodyMedium?.copyWith(color: Colors.white70),
                 ),
                 const SizedBox(height: 10),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: const LinearProgressIndicator(
-                    value: 0,
+                  child: LinearProgressIndicator(
+                    value: progress,
                     minHeight: 6,
                     color: Colors.white,
-                    backgroundColor: Color(0x55FFFFFF),
+                    backgroundColor: const Color(0x55FFFFFF),
                   ),
                 ),
               ],
@@ -511,8 +650,13 @@ class _VoiceCard extends StatelessWidget {
 class _VerseCard extends StatelessWidget {
   final String label;
   final String verse;
+  final String? description;
 
-  const _VerseCard({required this.label, required this.verse});
+  const _VerseCard({
+    required this.label,
+    required this.verse,
+    this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -545,6 +689,15 @@ class _VerseCard extends StatelessWidget {
                 Text(label, style: text.labelLarge?.copyWith(color: primary)),
                 const SizedBox(height: 2),
                 Text(verse, style: text.titleLarge),
+                if (description != null && description!.isNotEmpty) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    description!,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: text.bodyMedium?.copyWith(color: kOnSurfaceVariant),
+                  ),
+                ],
               ],
             ),
           ),

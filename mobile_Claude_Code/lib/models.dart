@@ -82,3 +82,116 @@ class Option {
     );
   }
 }
+
+
+/// Versículo del día (`/api/v1/versiculo_del_dia`).
+class VerseResponse {
+  final String topicId;
+  final String title;
+  final String description;
+  final String verse;
+
+  VerseResponse({
+    required this.topicId,
+    required this.title,
+    required this.description,
+    required this.verse,
+  });
+
+  factory VerseResponse.fromJson(Map<String, dynamic> json) {
+    return VerseResponse(
+      topicId: json['topicId'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      verse: json['verse'] as String? ?? '',
+    );
+  }
+}
+
+/// Oración modelo (`/api/v1/oracion_modelo`).
+class PrayerResponse {
+  final String topicId;
+  final String title;
+  final String prayer;
+  final List<String> verses;
+
+  PrayerResponse({
+    required this.topicId,
+    required this.title,
+    required this.prayer,
+    required this.verses,
+  });
+
+  factory PrayerResponse.fromJson(Map<String, dynamic> json) {
+    return PrayerResponse(
+      topicId: json['topicId'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      prayer: json['prayer'] as String? ?? '',
+      verses: ((json['verses'] as List?) ?? const [])
+          .map((e) => (e as Map<String, dynamic>)['verse'] as String? ?? '')
+          .where((v) => v.isNotEmpty)
+          .toList(),
+    );
+  }
+}
+
+/// Reto del día (`/api/v1/reto_del_dia`).
+class ChallengeResponse {
+  final String topicId;
+  final String title;
+  final String description;
+  final List<ChallengeItem> challenges;
+
+  ChallengeResponse({
+    required this.topicId,
+    required this.title,
+    required this.description,
+    required this.challenges,
+  });
+
+  factory ChallengeResponse.fromJson(Map<String, dynamic> json) {
+    return ChallengeResponse(
+      topicId: json['topicId'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      challenges: ((json['listChallenge'] as List?) ?? const [])
+          .map((e) => ChallengeItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
+class ChallengeItem {
+  final String challenge;
+  final String tips;
+
+  ChallengeItem({required this.challenge, required this.tips});
+
+  factory ChallengeItem.fromJson(Map<String, dynamic> json) {
+    return ChallengeItem(
+      challenge: json['challenge'] as String? ?? '',
+      tips: json['tips'] as String? ?? '',
+    );
+  }
+}
+
+/// Mensaje de hoy en audio (`/api/v1/Mensaje_audible`).
+class AudioMessageResponse {
+  final String topicId;
+  final String title;
+  final String audioUrl;
+
+  AudioMessageResponse({
+    required this.topicId,
+    required this.title,
+    required this.audioUrl,
+  });
+
+  factory AudioMessageResponse.fromJson(Map<String, dynamic> json) {
+    return AudioMessageResponse(
+      topicId: json['topicId'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      audioUrl: json['audio_url'] as String? ?? '',
+    );
+  }
+}

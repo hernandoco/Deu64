@@ -43,6 +43,7 @@ dependencies:
  # ----------------
   flutter_appauth: ^12.1.0
   flutter_secure_storage: ^11.2.0
+  just_audio: ^0.10.6
 
   
 

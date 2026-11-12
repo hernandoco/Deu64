@@ -114,4 +114,57 @@ print('=== FLAG: fetchTopic 4 ===');
       rethrow;
     }
   }
+
+  // ---- Contenido diario (versículo, oración, reto, audio) ----------------
+  // Misma estrategia que el tema: se guarda la última respuesta buena en
+  // SharedPreferences y, si la red falla, se usa esa copia.
+
+  Future<T> _getCached<T>(
+    String path,
+    String cacheKey,
+    T Function(Map<String, dynamic>) parse,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final cached = prefs.getString(cacheKey);
+    try {
+      final res = await http
+          .get(Uri.parse('${AppConfig.baseUrl}$path'))
+          .timeout(_timeout);
+      if (res.statusCode != 200) {
+        throw Exception('Error $path: ${res.statusCode} ${res.body}');
+      }
+      final parsed = parse(jsonDecode(utf8.decode(res.bodyBytes)));
+      await prefs.setString(cacheKey, utf8.decode(res.bodyBytes));
+      return parsed;
+    } catch (e) {
+      if (cached != null && cached.isNotEmpty) {
+        return parse(jsonDecode(cached));
+      }
+      rethrow;
+    }
+  }
+
+  Future<VerseResponse> fetchVerse() => _getCached(
+    '/api/v1/versiculo_del_dia',
+    'cache_verse_v1',
+    VerseResponse.fromJson,
+  );
+
+  Future<PrayerResponse> fetchPrayer() => _getCached(
+    '/api/v1/oracion_modelo',
+    'cache_prayer_v1',
+    PrayerResponse.fromJson,
+  );
+
+  Future<ChallengeResponse> fetchChallenge() => _getCached(
+    '/api/v1/reto_del_dia',
+    'cache_challenge_v1',
+    ChallengeResponse.fromJson,
+  );
+
+  Future<AudioMessageResponse> fetchAudioMessage() => _getCached(
+    '/api/v1/Mensaje_audible',
+    'cache_audio_v1',
+    AudioMessageResponse.fromJson,
+  );
 }
