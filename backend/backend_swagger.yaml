@@ -1,0 +1,578 @@
+openapi: 3.1.0
+info:
+  title: Backend API - Devocional Quiz
+  version: "1.0.0"
+  description: |
+    API que entrega el tema (escenas), las preguntas, el versículo del día, la
+    oración modelo, el reto del día y el mensaje de voz desde archivos locales
+    (carpeta `./data`). También sirve archivos estáticos (imágenes) desde `./static`.
+
+servers:
+  - url: http://localhost:8080
+    description: Local
+  - url: http://{host}:8080
+    description: LAN / Host configurable
+    variables:
+      host:
+        #default: 200.119.114.203
+        default: 192.168.2.6
+
+tags:
+  - name: Topic
+    description: Endpoints para cargar el tema (escenas)
+  - name: Questions
+    description: Endpoints para cargar preguntas del tema
+  - name: Verse
+    description: Versículo del día
+  - name: Prayer
+    description: Oración modelo
+  - name: Challenge
+    description: Reto del día
+  - name: Audio
+    description: Mensaje de voz de hoy
+  - name: Static
+    description: Archivos estáticos (imágenes)
+
+paths:
+  /api/v1/leer_tema:
+    get:
+      tags: [Topic]
+      summary: Leer tema (escenas)
+      description: Devuelve el tema con su lista de escenas desde `data/tema.json`.
+      operationId: getTopic
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TopicResponse"
+              examples:
+                example:
+                  value:
+                    topicId: "Devocional-diario-001"
+                    title: "Detras del corazón de Dios"
+                    scenes:
+                      - index: 1
+                        title: "Devocional"
+                        description: "..."
+                        imageUrl: "http://192.168.2.6:8080/static/images/1.jpg"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+        "500":
+          description: Error leyendo el tema desde archivo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                failedToReadTopic:
+                  value:
+                    error: failed_to_read_topic
+                    details: "open data/tema.json: no such file or directory"
+
+  /api/v1/preguntas_tema:
+    get:
+      tags: [Questions]
+      summary: Leer preguntas del tema
+      description: Devuelve las preguntas desde `data/preguntas.json`.
+      operationId: getQuestions
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuestionsResponse"
+              examples:
+                example:
+                  value:
+                    topicId: "Devocional-diario-001"
+                    questions:
+                      - index: 1
+                        question: "¿Que es un hombre conforme al corazón de Dios?"
+                        recommendation: "1 Samuel 13:14..."
+                        options:
+                          - text: "David siempre buscaba agradar a Dios sinceramente"
+                            isCorrect: false
+                          - text: "Hechos 13:22..."
+                            isCorrect: true
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+        "500":
+          description: Error leyendo las preguntas desde archivo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                failedToReadQuestions:
+                  value:
+                    error: failed_to_read_questions
+                    details: "open data/preguntas.json: no such file or directory"
+
+
+  /api/v1/versiculo_del_dia:
+    get:
+      tags: [Verse]
+      summary: Versículo del día
+      description: Devuelve el versículo del día desde `data/versiculo.json`.
+      operationId: getVerse
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerseResponse"
+              examples:
+                example:
+                  value:
+                    topicId: "Versiculo del día"
+                    title: "Un Corazón Perfecto"
+                    description: "Quitado este, les levantó por rey a David..."
+                    verse: "Hechos 13:22"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+        "500":
+          description: Error leyendo el versículo desde archivo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                failed:
+                  value:
+                    error: failed_to_read_verse_daily
+                    details: "open data/versiculo.json: no such file or directory"
+
+  /api/v1/oracion_modelo:
+    get:
+      tags: [Prayer]
+      summary: Oración modelo
+      description: Devuelve el texto de la oración modelo y sus versículos de apoyo desde `data/oracion.json`.
+      operationId: getPrayer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrayerResponse"
+              examples:
+                example:
+                  value:
+                    topicId: "Oración Modelo"
+                    title: "Mi propia Oración"
+                    prayer: "Padre Santo, que estas en el cielo..."
+                    verses:
+                      - verse: "Hechos 13:22"
+                      - verse: "Salmo 40:8"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+        "500":
+          description: Error leyendo la oración desde archivo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                failed:
+                  value:
+                    error: failed_to_read_prayer_model
+                    details: "open data/oracion.json: no such file or directory"
+
+  /api/v1/reto_del_dia:
+    get:
+      tags: [Challenge]
+      summary: Reto del día
+      description: Devuelve el desafío que puede realizar el lector tras el devocional, desde `data/reto.json`.
+      operationId: getChallenge
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChallengeResponse"
+              examples:
+                example:
+                  value:
+                    topicId: "Reto del Día"
+                    title: "Actividad a realizar"
+                    description: "Para tener un corazón perfecto..."
+                    listChallenge:
+                      - challenge: "Memorizar versiculo"
+                        tips: "He encontrado en David, hijo de Isaí... Hechos 13:22"
+                      - challenge: "Doblar nuestro tiempo de oración"
+                        tips: "Separa un momento a solas con Dios."
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+        "500":
+          description: Error leyendo el reto desde archivo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                failed:
+                  value:
+                    error: failed_to_read_challenge_daily
+                    details: "open data/reto.json: no such file or directory"
+
+  /api/v1/Mensaje_audible:
+    get:
+      tags: [Audio]
+      summary: Datos del mensaje de voz de hoy
+      description: |
+        Devuelve el título y la URL del mensaje de voz desde `data/audio.json`.
+        El archivo de sonido se descarga desde `audio_url`
+        (`/api/v1/Mensaje_audible/archivo`).
+      operationId: getAudioMessage
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageAuditionResponse"
+              examples:
+                example:
+                  value:
+                    topicId: "Mensaje de Hoy"
+                    title: "Para reflexionar"
+                    audio_url: "http://192.168.2.6:8080/api/v1/Mensaje_audible/archivo"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+        "500":
+          description: Error leyendo los datos del audio desde archivo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                failed:
+                  value:
+                    error: failed_to_read_audtion
+                    details: "open data/audio.json: no such file or directory"
+
+  /api/v1/Mensaje_audible/archivo:
+    get:
+      tags: [Audio]
+      summary: Archivo de audio del mensaje de hoy
+      description: |
+        Entrega el archivo `data/audio.m4a` (`audio/mp4`). Soporta peticiones por
+        rangos (`Range: bytes=0-99` responde 206), por lo que el reproductor puede
+        empezar a sonar y saltar a otro punto sin bajar todo el archivo.
+      operationId: getAudioFile
+      parameters:
+        - name: Range
+          in: header
+          required: false
+          description: Rango de bytes solicitado (por ejemplo `bytes=0-99`).
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Archivo de audio completo
+          content:
+            audio/mp4:
+              schema:
+                type: string
+                format: binary
+        "206":
+          description: Contenido parcial (respuesta a un `Range`)
+          content:
+            audio/mp4:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: No existe `data/audio.m4a`
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                methodNotAllowed:
+                  value:
+                    error: method_not_allowed
+
+  /static/{path}:
+    get:
+      tags: [Static]
+      summary: Servir archivos estáticos
+      description: |
+        Sirve archivos estáticos desde `./static` (por ejemplo imágenes en `/static/images/1.jpg`).
+        En tu implementación se usa:
+        `http.StripPrefix("/static/", http.FileServer(http.Dir("static")))`
+      operationId: getStaticFile
+      parameters:
+        - name: path
+          in: path
+          required: true
+          description: Ruta del archivo dentro de `./static`
+          schema:
+            type: string
+            examples:
+              - images/1.jpg
+              - images/placeholder.jpg
+      responses:
+        "200":
+          description: Archivo estático
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: No encontrado
+
+
+components:
+  schemas:
+    TopicResponse:
+      type: object
+      required: [topicId, title, scenes]
+      properties:
+        topicId:
+          type: string
+          description: Identificador del tema.
+          example: astronomia-001
+        title:
+          type: string
+          description: Título del tema.
+          example: Detras del corazón de Dios
+        scenes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Scene"
+
+    Scene:
+      type: object
+      required: [index, title, description, imageUrl]
+      properties:
+        index:
+          type: integer
+          minimum: 1
+          example: 1
+        title:
+          type: string
+          example: Devocional
+        description:
+          type: string
+          example: El Rey David fue considerado...
+        imageUrl:
+          type: string
+          format: uri
+          example: http://192.168.2.6:8080/static/images/1.jpg
+
+    QuestionsResponse:
+      type: object
+      required: [topicId, questions]
+      properties:
+        topicId:
+          type: string
+          example: Devocional-diario
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Question"
+
+    Question:
+      type: object
+      required: [index, question, recommendation, options]
+      properties:
+        index:
+          type: integer
+          minimum: 1
+          example: 1
+        question:
+          type: string
+          example: "¿Que es un hombre conforme al corazón de Dios?"
+        recommendation:
+          type: string
+          description: Recomendación o referencia (versículo, explicación, etc).
+          example: "1 Samuel 13:14..."
+        options:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/Option"
+
+    Option:
+      type: object
+      required: [text, isCorrect]
+      properties:
+        text:
+          type: string
+          example: "Hechos 13:22..."
+        isCorrect:
+          type: boolean
+          example: true
+
+    VerseResponse:
+      type: object
+      required: [topicId, title, description, verse]
+      properties:
+        topicId:
+          type: string
+          example: Versiculo del día
+        title:
+          type: string
+          example: Un Corazón Perfecto
+        description:
+          type: string
+          description: Texto del versículo.
+        verse:
+          type: string
+          description: Referencia bíblica.
+          example: Hechos 13:22
+
+    PrayerResponse:
+      type: object
+      required: [topicId, title, prayer, verses]
+      properties:
+        topicId:
+          type: string
+          example: Oración Modelo
+        title:
+          type: string
+          example: Mi propia Oración
+        prayer:
+          type: string
+          description: Texto de la oración.
+        verses:
+          type: array
+          description: Versículos de apoyo (clave `verses` en la respuesta, `list` en el archivo).
+          items:
+            $ref: "#/components/schemas/ListVerses"
+
+    ListVerses:
+      type: object
+      required: [verse]
+      properties:
+        verse:
+          type: string
+          example: Hechos 13:22
+
+    ChallengeResponse:
+      type: object
+      required: [topicId, title, description, listChallenge]
+      properties:
+        topicId:
+          type: string
+          example: Reto del Día
+        title:
+          type: string
+          example: Actividad a realizar
+        description:
+          type: string
+        listChallenge:
+          type: array
+          items:
+            $ref: "#/components/schemas/ListChallenge"
+
+    ListChallenge:
+      type: object
+      required: [challenge, tips]
+      properties:
+        challenge:
+          type: string
+          example: Memorizar versiculo
+        tips:
+          type: string
+          example: Separa un momento a solas con Dios.
+
+    MessageAuditionResponse:
+      type: object
+      required: [topicId, title, audio_url]
+      properties:
+        topicId:
+          type: string
+          example: Mensaje de Hoy
+        title:
+          type: string
+          example: Para reflexionar
+        audio_url:
+          type: string
+          format: uri
+          description: URL del archivo de audio (`/api/v1/Mensaje_audible/archivo`).
+          example: http://192.168.2.6:8080/api/v1/Mensaje_audible/archivo
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          description: Código de error.
+          examples:
+            - method_not_allowed
+            - failed_to_read_topic
+            - failed_to_read_questions
+            - failed_to_read_verse_daily
+            - failed_to_read_prayer_model
+            - failed_to_read_challenge_daily
+            - failed_to_read_audtion
+        details:
+          type: string
+          description: Detalle opcional (por ejemplo, error del sistema de archivos).
