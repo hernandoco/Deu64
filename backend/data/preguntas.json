@@ -3,92 +3,93 @@
   "questions": [
     {
       "index": 1,
-      "question": "¿Cuál es la estrella del Sistema Solar?",
-      "recommendation": "Piensa en el objeto que produce la luz y el calor que recibimos diariamente.",
+      "question": "¿Que es un hombre conforme al corazón de Dios?",
+      "recommendation": "1 Samuel 13:14 Jehová se ha buscado un varón conforme a su corazón, ",
       "options": [
-        { "text": "El Sol", "isCorrect": true },
-        { "text": "La Luna", "isCorrect": false }
+        { "text": "David siempre buscaba agradar a Dios sinceramente", "isCorrect": false },
+        { "text": "Hechos 13:22 He hallado a David hijo de Isaí, varon conforme a mi corazón, quién hara todo lo que yo quiero", "isCorrect": true }
+        
       ]
     },
     {
       "index": 2,
-      "question": "¿Cuál de estos es un planeta rocoso?",
-      "recommendation": "Los planetas rocosos están más cerca del Sol y tienen superficie sólida.",
+      "question": "¿Desde cuando el Espiriu de Dios acompaño a David?",
+      "recommendation": "El profeta Samuel fue enviado por Dios para ungir a David como Rey.",
       "options": [
-        { "text": "Marte", "isCorrect": true },
-        { "text": "Saturno", "isCorrect": false }
+        { "text": "1 Samuel 16:13 Y Samuel tomó el cuerno de aceite, y lo ungió en medio de sus hermanos; y desde aquel día en adelante el Espíritu de Jehová vino sobre David.", "isCorrect": true },
+        { "text": "Cuando fue tomado como Rey de Israel", "isCorrect": false }
       ]
     },
     {
       "index": 3,
-      "question": "¿Cuál es un gigante gaseoso?",
-      "recommendation": "Los gigantes gaseosos son muy grandes y están compuestos principalmente por gases.",
+      "question": "¿Cómo se manifesto el Espiritu de Dios cuando era pastor?",
+      "recommendation": "El Espiritu de Dios obra de manera especial en el hombre para un proposito.",
       "options": [
-        { "text": "Júpiter", "isCorrect": true },
-        { "text": "Mercurio", "isCorrect": false }
+        { "text": "Fui ungido con aceite como Rey por el profeta Samuel", "isCorrect": false },
+        { "text": "1 Samuel 17:32 David le respondió: «Sí, yo soy el pastor de las ovejas de mi padre, pero cuando un león o un oso viene a llevarse algún cordero del rebaño, yo salgo tras el león o el oso, y lo hiero y lo libro de sus fauces. Si el animal me ataca, con mis manos lo agarro por las quijadas, y lo hiero hasta matarlo. No importa si es un león o un oso, tu siervo los mata.", "isCorrect": true }
       ]
     },
     {
       "index": 4,
-      "question": "¿Cuál es un gigante helado?",
-      "recommendation": "Urano y Neptuno se clasifican como gigantes helados por su composición.",
+      "question": "¿Cómo se enfreto a Goliat?, No con que!",
+      "recommendation": "A grande problemas, grandes soluciones. No debemos enfrentarnos solos.",
       "options": [
-        { "text": "Neptuno", "isCorrect": true },
-        { "text": "Venus", "isCorrect": false }
+        { "text": "1 Samuel 17:45 Tú vienes a mí con espada y lanza... mas yo vengo a ti en el nombre de Jehová de los ejércitos!", "isCorrect": true },
+        { "text": "Con una onda y una piedra el cual lo mato", "isCorrect": false }
       ]
     },
     {
       "index": 5,
-      "question": "¿Cómo son generalmente las órbitas de los planetas?",
-      "recommendation": "No son círculos perfectos; suelen tener forma alargada.",
+      "question": "Vencido Goliat, ¿se le acabaron los problemas?",
+      "recommendation": "El Exito y la fama le trajo la envia del Rey",
       "options": [
-        { "text": "Elípticas", "isCorrect": true },
-        { "text": "Triangulares", "isCorrect": false }
+        { "text": "El pueblo cantaba Saul mato a miles y David a diez miles!", "isCorrect": false },
+        { "text": "Saúl lo quiso matar por envia", "isCorrect": true }
       ]
     },
     {
       "index": 6,
-      "question": "¿Dónde se encuentra el cinturón de asteroides principal?",
-      "recommendation": "Ubícalo entre dos planetas rocosos y un gigante gaseoso.",
+      "question": "¿Por que David se indigno al escuchar los insultos de Golliat?",
+      "recommendation": "El Espiritu de Dios estaba con David!",
       "options": [
-        { "text": "Entre Marte y Júpiter", "isCorrect": true },
-        { "text": "Entre la Tierra y Venus", "isCorrect": false }
+        { "text": "Por que David amaba a Dios y no pudo resistirse en defenderlo siendo tan solo un muchacho.!", "isCorrect": true },
+        { "text": "Porque sus hermanos eran soldados y el también queria ser soldado", "isCorrect": false }
       ]
     },
     {
       "index": 7,
-      "question": "¿Qué ocurre con un cometa al acercarse al Sol?",
-      "recommendation": "El calor del Sol afecta el hielo y libera gases y polvo.",
+      "question": "Si nuestro corazón debe cambiarse. Debemos pedirlo?",
+      "recommendation": "Tenemos una naturaleza pecaminosa y estamos en un mundo en pecado.",
       "options": [
-        { "text": "Forma una cola", "isCorrect": true },
-        { "text": "Se convierte en planeta", "isCorrect": false }
+        { "text": "Salmo 51:10 Crea en mi, oh Dios, un corazón limpio. y renueva un espiritu recto dentro de mi", "isCorrect": true },
+        { "text": "Separarnos del mundo", "isCorrect": false }
       ]
     },
     {
       "index": 8,
-      "question": "¿Qué mantiene a los planetas orbitando al Sol?",
-      "recommendation": "Piensa en la fuerza que atrae masas y gobierna el movimiento orbital.",
+      "question": "¿Qué mantiene al hombre unido a Dios?",
+      "recommendation": "Juan 15:5 Separados de mi nada podeis hacer.",
       "options": [
-        { "text": "La gravedad", "isCorrect": true },
-        { "text": "El magnetismo", "isCorrect": false }
+        { "text": "Juan 14:23 El que me ama, mi palabra guardará; y mi Padre le amará y vendremos a él, y haremos morada con él", "isCorrect": true },
+        { "text": "Pertecener a la iglesia, participar de las actividades y buscar de Dios", "isCorrect": false }
       ]
     },
     {
       "index": 9,
-      "question": "¿Cuál afirmación sobre las lunas es correcta?",
-      "recommendation": "No todos los planetas tienen la misma cantidad de lunas.",
+      "question": "Del corazón mana la vida. Como debemos cuidarlo?",
+      "recommendation": "Engañoso es el corazón más que todas las coas y perverso Quién lo conocera? Jeremias 17:9.",
       "options": [
-        { "text": "Júpiter tiene muchas lunas", "isCorrect": true },
-        { "text": "Todos los planetas tienen exactamente una luna", "isCorrect": false }
+        { "text": "De la abundancia del corazón habla la boca. Lucas 6:45", "isCorrect": false },
+        { "text": "Salmo 119:9 Con que limpiara el joven su camino? Con guardar su palabra.", "isCorrect": true }
       ]
     },
     {
       "index": 10,
-      "question": "¿Cuál planeta es más cercano al Sol?",
-      "recommendation": "Recuerda el orden desde el Sol hacia afuera: Mercurio, Venus, Tierra, Marte...",
+      "question": "¿Qué enseñanzas puedes extraer?",
+      "recommendation": "Se puede entraer muchas enseñanzas, pero agradar a Dios y que te reconozca como conforme a mi corazon.\n*No entristecer el Espiritu de Dios sino por el contrario dejar que obre. \n*Lograr hacer pacto con Dios con dinastía eterna: Dios le aseguró a David que su casa (su linaje real) y su trono serían establecidos de forma permanente! \n*Adoración como estilo de vida A David se le conoce como el dulce cantor de Israel.",
       "options": [
-        { "text": "Mercurio", "isCorrect": true },
-        { "text": "Neptuno", "isCorrect": false }
+        { "text": "Asistir a la iglesia los domingos", "isCorrect": false },
+        { "text": "Tener un corazón puro, obedecer a Dios en todo", "isCorrect": true }
       ]
     }
   ]

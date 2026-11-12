@@ -1,66 +1,75 @@
 {
   "topicId": "astronomia-001",
-  "title": "Sistema Solar",
+  "title": "Detras del corazón de Dios",
   "scenes": [
     {
       "index": 1,
-      "title": "Introducción",
-      "description": "El Sistema Solar está formado por el Sol y todos los cuerpos que orbitan a su alrededor: planetas, lunas, asteroides y cometas.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene01.jpg"
+      "title": "Devocional",
+      "description": "El Rey David fue considerado el hombre tras el corazón de Dios, porque le obedecio y amo tanto a Dios que anelaba agradarlo.",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/1.jpg"
     },
     {
       "index": 2,
-      "title": "El Sol",
-      "description": "El Sol es una estrella que contiene la mayor parte de la masa del Sistema Solar y es la fuente principal de energía para la Tierra.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene02.jpg"
+      "title": "De joven",
+      "description": "Ayudaba a su padre en el cuidado de las ovejas, trabajando diligentemente",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/2.jpg"
     },
     {
       "index": 3,
-      "title": "Planetas rocosos",
-      "description": "Mercurio, Venus, Tierra y Marte son planetas rocosos: tienen superficies sólidas y están más cerca del Sol.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene03.jpg"
+      "title": "Dios lo escogio",
+      "description": "Fue ungido por el profeta Samuel como Rey y siempre fue humilde ante Saul",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/3.jpg"
     },
     {
       "index": 4,
-      "title": "Gigantes gaseosos",
-      "description": "Júpiter y Saturno son gigantes gaseosos: muy grandes, con atmósferas densas y sin una superficie sólida definida.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene04.jpg"
+      "title": "En pruebas de muerte",
+      "description": "Saul lo queria matar, y estuvo escondido en cuevas, con hambre y necesidades pero siempre fiel a Dios",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/4.jpg"
     },
     {
       "index": 5,
-      "title": "Gigantes helados",
-      "description": "Urano y Neptuno son gigantes helados: contienen más sustancias volátiles como agua, amoníaco y metano.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene05.jpg"
+      "title": "Diez años duro la persecución",
+      "description": "Cuando muere Saúl se entristecio, por alguíen que lo queria matar, pero tenia amor verdadero",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/5.jpg"
     },
     {
       "index": 6,
-      "title": "Órbitas",
-      "description": "Los planetas se mueven alrededor del Sol en órbitas elípticas. La gravedad mantiene este movimiento.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene06.jpg"
+      "title": "David Rey",
+      "description": "Consolido el reino y Dios centralidad a Dios en el reino. Organiza la adoración y el culto, y expresa su relación con Dios através de los salmos",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/6.jpg"
     },
     {
       "index": 7,
-      "title": "Lunas",
-      "description": "Muchos planetas tienen lunas. La Tierra tiene una, pero Júpiter y Saturno tienen decenas.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene07.jpg"
+      "title": "David danza para Dios",
+      "description": "La piedad se demuestra con el gozo que tuvo danzo delante de arca cuando la transladaban a Jerusalén, aunque para otros era humillante",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/7.jpg"
     },
     {
       "index": 8,
-      "title": "Asteroides",
-      "description": "Los asteroides son rocas espaciales, abundantes en el cinturón de asteroides entre Marte y Júpiter.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene08.jpg"
+      "title": "David anhela casa para Dios",
+      "description": "El profeta Natán le dijo que no seria él, sino su hijo quien lo haría y recolecto todos los materiales para su hijo",
+      
+      "imageUrl": "http://192.168.2.6:8080/static/images/8.jpg"
     },
     {
       "index": 9,
-      "title": "Cometas",
-      "description": "Los cometas son cuerpos helados que al acercarse al Sol desarrollan una coma y una cola por sublimación.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene09.jpg"
+      "title": "Promesa Pacto Davídico",
+      "description": "Dios promete que su decendencia tendria un reino duradero, por el cual llegaria el Cristo, el hijo de Dios!",
+      
+       "imageUrl": "http://192.168.2.6:8080/static/images/9.jpg"
     },
     {
       "index": 10,
-      "title": "Resumen",
-      "description": "El Sistema Solar es un entorno dinámico: estrellas, planetas, lunas y cuerpos menores interactúan bajo la gravedad.",
-      "imageUrl": "https://example-bucket.s3.amazonaws.com/scenes/scene10.jpg"
+      "title": "David es perdonado",
+      "description": "Aunque peco se arrepintióß profundamente el cual se refleja en el salmo 51 Crea en mi, oh Dios un CORAZÓN LIMPIO",
+      "imageUrl": "http://192.168.2.6:8080/static/images/10.jpg"
     }
   ]
 }
