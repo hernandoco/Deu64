@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../api.dart';
@@ -17,7 +18,11 @@ import 'scenes_carousel_screen.dart';
 class HomeScreen extends StatefulWidget {
   final TopicResponse topic;
 
-  const HomeScreen({super.key, required this.topic});
+  /// Caché de las imágenes de escenas. Si es null se usa
+  /// [sceneImagesCacheManager] (la de la app); los tests pasan una propia.
+  final BaseCacheManager? imageCacheManager;
+
+  const HomeScreen({super.key, required this.topic, this.imageCacheManager});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,7 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: _tab,
         children: [
-          _HomeTab(topic: widget.topic),
+          _HomeTab(
+            topic: widget.topic,
+            imageCacheManager: widget.imageCacheManager,
+          ),
           const _ComingSoon(title: 'Enseñanzas'),
           const _ComingSoon(title: 'Perfil'),
         ],
@@ -77,8 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class _HomeTab extends StatefulWidget {
   final TopicResponse topic;
+  final BaseCacheManager? imageCacheManager;
 
-  const _HomeTab({required this.topic});
+  const _HomeTab({required this.topic, this.imageCacheManager});
 
   @override
   State<_HomeTab> createState() => _HomeTabState();
@@ -208,7 +217,10 @@ class _HomeTabState extends State<_HomeTab> {
   void _openDevocional() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => ScenesCarouselScreen(topic: widget.topic),
+        builder: (_) => ScenesCarouselScreen(
+          topic: widget.topic,
+          cacheManager: widget.imageCacheManager,
+        ),
       ),
     );
   }
@@ -454,7 +466,11 @@ class _HomeTabState extends State<_HomeTab> {
                     style: sectionTitleStyle(kTitleDevocional),
                   ),
                   const SizedBox(height: 12),
-                  _TopicCard(topic: widget.topic, onTap: _openDevocional),
+                  _TopicCard(
+                    topic: widget.topic,
+                    onTap: _openDevocional,
+                    imageCacheManager: widget.imageCacheManager,
+                  ),
                   const SizedBox(height: 24),
                   Text(
                     'Preguntas del devocional',
@@ -483,10 +499,7 @@ class _HomeTabState extends State<_HomeTab> {
                     iconColors: const [Color(0xFFF48FB1), Color(0xFFD6336C)],
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    'Reto del día',
-                    style: sectionTitleStyle(kTitleReto),
-                  ),
+                  Text('Reto del día', style: sectionTitleStyle(kTitleReto)),
                   const SizedBox(height: 12),
                   _TopicCard(
                     topic: widget.topic,
@@ -721,6 +734,7 @@ class _TopicCard extends StatelessWidget {
   final TopicResponse topic;
   final VoidCallback onTap;
   final String? subtitle;
+  final BaseCacheManager? imageCacheManager;
   final String tooltip;
 
   /// Si se indica, reemplaza la miniatura por un icono sobre fondo de color.
@@ -733,6 +747,7 @@ class _TopicCard extends StatelessWidget {
     required this.topic,
     required this.onTap,
     this.subtitle,
+    this.imageCacheManager,
     this.tooltip = 'Abrir devocional',
     this.icon,
     this.iconColors = const [Color(0xFFFFB74D), Color(0xFFF57C00)],
@@ -781,7 +796,8 @@ class _TopicCard extends StatelessWidget {
                       ? placeholder
                       : CachedNetworkImage(
                           imageUrl: thumb,
-                          cacheManager: sceneImagesCacheManager,
+                          cacheManager:
+                              imageCacheManager ?? sceneImagesCacheManager,
                           fit: BoxFit.cover,
                           placeholder: (_, _) => placeholder,
                           errorWidget: (_, _, _) => placeholder,
@@ -799,9 +815,9 @@ class _TopicCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       // Misma fuente manuscrita de los títulos, en morado
                       // oscuro (onSurface del tema)
-                      style: sectionTitleStyle(const Color(0xFF2B2350)).copyWith(
-                        fontSize: 22,
-                      ),
+                      style: sectionTitleStyle(
+                        const Color(0xFF2B2350),
+                      ).copyWith(fontSize: 22),
                     ),
                     const SizedBox(height: 4),
                     Text(

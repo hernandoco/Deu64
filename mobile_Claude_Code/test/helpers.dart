@@ -5,9 +5,11 @@
 // eso: guardan datos de prueba en esa caché y las pantallas los cargan como
 // si vinieran del backend.
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,4 +78,33 @@ Future<void> waitForLoad(WidgetTester tester) async {
     }
   }
   fail('La pantalla siguió cargando');
+}
+
+/// Caché falsa: la caché real necesita carpetas del teléfono (path_provider)
+/// que no existen en los tests.
+class FakeCacheManager extends Fake implements BaseCacheManager {
+  /// true: la descarga falla. false: se queda cargando para siempre.
+  final bool fails;
+  final _pending = <StreamController<FileResponse>>[];
+
+  FakeCacheManager({required this.fails});
+
+  @override
+  Stream<FileResponse> getFileStream(
+    String url, {
+    String? key,
+    Map<String, String>? headers,
+    bool withProgress = false,
+  }) {
+    if (fails) return Stream.error(Exception('Sin red: $url'));
+    final c = StreamController<FileResponse>();
+    _pending.add(c);
+    return c.stream;
+  }
+
+  void closePending() {
+    for (final c in _pending) {
+      c.close();
+    }
+  }
 }

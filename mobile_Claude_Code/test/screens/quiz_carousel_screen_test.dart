@@ -14,8 +14,8 @@ Future<void> openQuiz(WidgetTester tester) async {
 int? selectedOption(WidgetTester tester) =>
     tester.widget<RadioGroup<int>>(find.byType(RadioGroup<int>)).groupValue;
 
-ElevatedButton button(WidgetTester tester, String label) => tester
-    .widget<ElevatedButton>(find.widgetWithText(ElevatedButton, label));
+ElevatedButton button(WidgetTester tester, String label) =>
+    tester.widget<ElevatedButton>(find.widgetWithText(ElevatedButton, label));
 
 void main() {
   testWidgets('muestra la primera pregunta con sus opciones', (tester) async {
@@ -114,12 +114,9 @@ void main() {
 
     seedCache(
       questionsCache([
-        question(
-          1,
-          'Esta es una pregunta muy larga ' * 8,
-          [for (var i = 1; i <= 6; i++) ('Opción número $i', i == 1)],
-          recommendation: 'Una recomendación también larga ' * 4,
-        ),
+        question(1, 'Esta es una pregunta muy larga ' * 8, [
+          for (var i = 1; i <= 6; i++) ('Opción número $i', i == 1),
+        ], recommendation: 'Una recomendación también larga ' * 4),
       ]),
     );
     await openQuiz(tester);

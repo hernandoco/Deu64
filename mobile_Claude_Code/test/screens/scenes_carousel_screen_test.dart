@@ -1,42 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile/models.dart';
 import 'package:mobile/screens/scenes_carousel_screen.dart';
 
 import '../helpers.dart';
-
-/// Caché falsa: la caché real necesita carpetas del teléfono (path_provider)
-/// que no existen en los tests.
-class FakeCacheManager extends Fake implements BaseCacheManager {
-  /// true: la descarga falla. false: se queda cargando para siempre.
-  final bool fails;
-  final _pending = <StreamController<FileResponse>>[];
-
-  FakeCacheManager({required this.fails});
-
-  @override
-  Stream<FileResponse> getFileStream(
-    String url, {
-    String? key,
-    Map<String, String>? headers,
-    bool withProgress = false,
-  }) {
-    if (fails) return Stream.error(Exception('Sin red: $url'));
-    final c = StreamController<FileResponse>();
-    _pending.add(c);
-    return c.stream;
-  }
-
-  void closePending() {
-    for (final c in _pending) {
-      c.close();
-    }
-  }
-}
 
 TopicResponse topicWithScenes(int count) => TopicResponse.fromJson({
   'topicId': kTestTopicId,
@@ -86,9 +54,7 @@ void main() {
     imageCache.clearLiveImages();
   });
 
-  testWidgets('muestra el título del tema y la primera escena', (
-    tester,
-  ) async {
+  testWidgets('muestra el título del tema y la primera escena', (tester) async {
     await openScenes(tester);
 
     expect(find.text('Detrás del corazón de Dios'), findsOneWidget);

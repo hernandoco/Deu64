@@ -50,9 +50,7 @@ void main() {
       ],
     });
 
-    testWidgets('muestra la oración y los versículos de apoyo', (
-      tester,
-    ) async {
+    testWidgets('muestra la oración y los versículos de apoyo', (tester) async {
       seedCache({kPrayerCacheKey: prayerJson});
       await pumpScreen(tester, const PrayerScreen());
       await waitForLoad(tester);
