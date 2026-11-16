@@ -15,7 +15,10 @@ class ChallengeScreen extends StatefulWidget {
 class _ChallengeScreenState extends State<ChallengeScreen> {
   late Future<ChallengeResponse> _future = ApiClient().fetchChallenge();
 
-  void _retry() => setState(() => _future = ApiClient().fetchChallenge());
+  // Llaves en el callback: setState no puede devolver el Future.
+  void _retry() => setState(() {
+    _future = ApiClient().fetchChallenge();
+  });
 
   @override
   Widget build(BuildContext context) {

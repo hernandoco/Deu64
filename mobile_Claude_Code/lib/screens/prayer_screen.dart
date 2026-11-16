@@ -15,7 +15,10 @@ class PrayerScreen extends StatefulWidget {
 class _PrayerScreenState extends State<PrayerScreen> {
   late Future<PrayerResponse> _future = ApiClient().fetchPrayer();
 
-  void _retry() => setState(() => _future = ApiClient().fetchPrayer());
+  // Llaves en el callback: setState no puede devolver el Future.
+  void _retry() => setState(() {
+    _future = ApiClient().fetchPrayer();
+  });
 
   @override
   Widget build(BuildContext context) {
