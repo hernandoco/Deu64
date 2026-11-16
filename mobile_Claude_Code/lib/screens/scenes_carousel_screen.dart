@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../models.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../image_cache_manager.dart';
 
 class ScenesCarouselScreen extends StatefulWidget {
   final TopicResponse topic;
 
-  const ScenesCarouselScreen({super.key, required this.topic});
+  /// Caché de las imágenes. Si es null se usa [sceneImagesCacheManager]
+  /// (la de la app); los tests pasan una propia.
+  final BaseCacheManager? cacheManager;
+
+  const ScenesCarouselScreen({
+    super.key,
+    required this.topic,
+    this.cacheManager,
+  });
 
   @override
   State<ScenesCarouselScreen> createState() => _ScenesCarouselScreenState();
@@ -147,7 +156,8 @@ class _ScenesCarouselScreenState extends State<ScenesCarouselScreen> {
                       Expanded(
                         child: Center(
                           child: CachedNetworkImage(
-                            cacheManager: sceneImagesCacheManager,
+                            cacheManager:
+                                widget.cacheManager ?? sceneImagesCacheManager,
                             imageUrl: s.imageUrl,
                             fit: BoxFit.contain,
                             progressIndicatorBuilder: (_, _, _) =>
