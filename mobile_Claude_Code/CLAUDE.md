@@ -14,15 +14,14 @@ This directory (`mobile_Claude_Code`) is the canonical copy of the app: make cha
 flutter clean && flutter pub get
 flutter run -d <device-id>        # README uses a physical Android device: flutter run -d TITANNEA00013091
 flutter analyze                   # lints: package:flutter_lints/flutter.yaml
-flutter test                      # all tests
-flutter test test/widget_test.dart --plain-name "<test name>"   # single test
+flutter test                      # all tests (there is no test/ folder yet)
 ```
 
 Backend (run it before the app, from `../backend`): `go build` then `go run main.go`. It serves `/api/v1/leer_tema`, `/api/v1/preguntas_tema?topicId=…` and `/static/` (scene images), with data in `backend/data/tema.json` and `preguntas.json`.
 
 Only Android is actively used and tested (physical device). The `ios/`, `linux/`, `macos/`, `windows/` and `web/` folders are default Flutter scaffolding; don't spend effort on them unless asked.
 
-`test/widget_test.dart` is still the default counter template. It references `MyApp`, which doesn't exist (the app widget is `Deu64App`), so it fails until someone rewrites it.
+There are no tests yet: the default counter template test was removed.
 
 ## Architecture
 
@@ -44,10 +43,5 @@ Only Android is actively used and tested (physical device). The `ios/`, `linux/`
 
   Check which one you mean before changing auth behavior.
 - Background notes on the Cognito setup: `Development Coginito Flutter.md` and `Proceso_Cognito/`.
-
-**Dead/legacy files.** These aren't wired into the app:
-- `lib/screens/Spbra_login_screen.dart`: imports a `home_screen.dart` that doesn't exist, so it won't compile if anything imports it.
-- `lib/screens/Copia de old_quiz_carousel_screen.dart`
-- `lib/main_dart.tmp`
 
 Many files also keep older versions of functions commented out above the active one, with dated notes from the author. Leave those notes alone unless asked to clean them up.
