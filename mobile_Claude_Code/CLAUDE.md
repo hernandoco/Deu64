@@ -14,14 +14,15 @@ This directory (`mobile_Claude_Code`) is the canonical copy of the app: make cha
 flutter clean && flutter pub get
 flutter run -d <device-id>        # README uses a physical Android device: flutter run -d TITANNEA00013091
 flutter analyze                   # lints: package:flutter_lints/flutter.yaml
-flutter test                      # all tests (there is no test/ folder yet)
+flutter test                      # all tests
+flutter test test/screens/quiz_carousel_screen_test.dart --plain-name "<test name>"   # single test
 ```
 
 Backend (run it before the app, from `../backend`): `go build` then `go run main.go`. It serves `/api/v1/leer_tema`, `/api/v1/preguntas_tema?topicId=…` and `/static/` (scene images), with data in `backend/data/tema.json` and `preguntas.json`.
 
 Only Android is actively used and tested (physical device). The `ios/`, `linux/`, `macos/`, `windows/` and `web/` folders are default Flutter scaffolding; don't spend effort on them unless asked.
 
-There are no tests yet: the default counter template test was removed.
+**Tests** (`test/`). In Flutter tests every HTTP request returns 400, so `ApiClient` always falls back to its `SharedPreferences` cache. Screen tests use this to inject data: `test/helpers.dart` has `seedCache(...)` plus the cache keys, `pumpScreen` (wraps the screen with `buildKidsTheme()`), and `waitForLoad` (use it instead of `pumpAndSettle` while a `CircularProgressIndicator` is spinning). `LoadingScreen`, `LoginPage` and `HomeScreen` have no tests: they depend on Cognito, `just_audio` and the image/audio cache managers (path_provider/sqflite), which don't run in widget tests without refactoring.
 
 ## Architecture
 
