@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 
 import '../config/auth_config.dart';
@@ -48,7 +49,7 @@ class AuthService {
   Future<AuthorizationTokenResponse?> login() async {
     try {
 
-  print('=== ANTES DE APPAUTH ===');
+  debugPrint('=== ANTES DE APPAUTH ===');
 
       final AuthorizationTokenResponse result =
           await _appAuth.authorizeAndExchangeCode(
@@ -60,7 +61,7 @@ class AuthService {
         ),
       );
 
-  print('=== APPAUTH TERMINÓ ===');
+  debugPrint('=== APPAUTH TERMINÓ ===');
   //print('accessToken: ${result.accessToken}');
   //print('idToken: ${result.idToken}');
   //print('refreshToken: ${result.refreshToken}');
@@ -71,10 +72,10 @@ class AuthService {
       return null;
     } on FlutterAppAuthPlatformException catch (e, stack) {
 
-        print('=== ERROR APPAUTH ===');
-        print(e);
-        print(stack);
-        print('=== ERROR APPAUTH ===');
+        debugPrint('=== ERROR APPAUTH ===');
+        debugPrint('$e');
+        debugPrint('$stack');
+        debugPrint('=== ERROR APPAUTH ===');
 
 
       throw Exception(
@@ -82,8 +83,8 @@ class AuthService {
       );
     } catch (e, stack) {
 
-      print(e);
-      print(stack);
+      debugPrint('$e');
+      debugPrint('$stack');
 
 
       throw Exception(

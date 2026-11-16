@@ -8,8 +8,6 @@ import 'home_screen.dart';
 import '../pages/login_page.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 
-import 'package:http/http.dart' as http;
-
 String _status = 'Iniciando...';
 
 class LoadingScreen extends StatefulWidget {
@@ -29,9 +27,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
     
       final url = scene.imageUrl;
       try {
-        //final cached = await sceneImagesCacheManager.getFileFromCache(url);
-  
-        final cached = await sceneImagesCacheManager.downloadFile(url);
+        // Si ya está en caché no se vuelve a descargar
+        final cached = await sceneImagesCacheManager.getFileFromCache(url);
   
  
 

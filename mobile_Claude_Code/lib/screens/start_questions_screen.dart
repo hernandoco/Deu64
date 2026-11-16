@@ -101,14 +101,14 @@ class _ThreeDButtonState extends State<_ThreeDButton> {
                 boxShadow: [
                   // Sombra fuerte (abajo/derecha)
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.35),
+                    color: Colors.black.withValues(alpha: 0.35),
                     blurRadius: 16,
                     offset: const Offset(0, 10),
                   ),
                 ],
                 border: Border.all(
                   // Borde sutil para “cortar” el botón
-                  color: Colors.white.withOpacity(0.18),
+                  color: Colors.white.withValues(alpha: 0.18),
                   width: 1.2,
                 ),
               ),
@@ -124,7 +124,7 @@ class _ThreeDButtonState extends State<_ThreeDButton> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Colors.white.withOpacity(0.35),
+                              Colors.white.withValues(alpha: 0.35),
                               Colors.transparent,
                               Colors.transparent,
                             ],

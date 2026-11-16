@@ -150,11 +150,11 @@ class _ScenesCarouselScreenState extends State<ScenesCarouselScreen> {
                             cacheManager: sceneImagesCacheManager,
                             imageUrl: s.imageUrl,
                             fit: BoxFit.contain,
-                            progressIndicatorBuilder: (_, __, ___) =>
+                            progressIndicatorBuilder: (_, _, _) =>
                                 const Center(
                                   child: CircularProgressIndicator(),
                                 ),
-                            errorWidget: (_, __, ___) => Image.asset(
+                            errorWidget: (_, _, _) => Image.asset(
                               'assets/images/placeholder.jpg',
                               fit: BoxFit.contain,
                             ),
