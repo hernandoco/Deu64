@@ -195,3 +195,48 @@ class AudioMessageResponse {
     );
   }
 }
+
+/// Contenido de las opciones informativas: Ayuda, Premios, Donaciones,
+/// Enseñanzas y Ministerio. Cada endpoint usa sus propias claves, así que
+/// [InfoContent.fromJson] recibe cuáles leer.
+class InfoContent {
+  final String title;
+
+  /// Línea corta bajo el título ("Lista de premios", "Deutoronomio 6"...).
+  final String subtitle;
+
+  /// Texto largo (solo Ayuda lo trae).
+  final String body;
+
+  /// Lista de puntos (premios, enseñanzas, versículos...).
+  final List<String> items;
+
+  InfoContent({
+    required this.title,
+    this.subtitle = '',
+    this.body = '',
+    this.items = const [],
+  });
+
+  factory InfoContent.fromJson(
+    Map<String, dynamic> json, {
+    String subtitleKey = '',
+    String bodyKey = '',
+    String listKey = '',
+    String itemKey = '',
+  }) {
+    String str(String key) =>
+        key.isEmpty ? '' : (json[key] as String? ?? '').trim();
+    final list = listKey.isEmpty ? null : json[listKey] as List?;
+    return InfoContent(
+      title: str('title'),
+      subtitle: str(subtitleKey),
+      body: str(bodyKey),
+      items: (list ?? const [])
+          .map((e) => ((e as Map<String, dynamic>)[itemKey] as String? ?? '')
+              .trim())
+          .where((v) => v.isNotEmpty)
+          .toList(),
+    );
+  }
+}

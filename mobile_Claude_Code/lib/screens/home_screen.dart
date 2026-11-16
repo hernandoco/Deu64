@@ -10,6 +10,7 @@ import '../models.dart';
 import '../theme/app_theme.dart';
 import '../widgets/menu_illustrations.dart';
 import 'challenge_screen.dart';
+import 'info_screen.dart';
 import 'prayer_screen.dart';
 import 'quiz_carousel_screen.dart';
 import 'scenes_carousel_screen.dart';
@@ -31,50 +32,72 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _tab = 0;
 
+  void _goHome() => setState(() => _tab = 0);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _tab,
-        children: [
-          _HomeTab(
-            topic: widget.topic,
-            imageCacheManager: widget.imageCacheManager,
-          ),
-          const _ComingSoon(title: 'Enseñanzas'),
-          const _ComingSoon(title: 'Perfil'),
-        ],
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(32),
-            boxShadow: kCardShadow,
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(32),
-            child: NavigationBar(
-              selectedIndex: _tab,
-              onDestinationSelected: (i) => setState(() => _tab = i),
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.home_rounded, color: kOnSurfaceVariant),
-                  selectedIcon: Icon(Icons.home_rounded),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.school_rounded, color: kOnSurfaceVariant),
-                  selectedIcon: Icon(Icons.school_rounded),
-                  label: 'Enseñanzas',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.face_rounded, color: kOnSurfaceVariant),
-                  selectedIcon: Icon(Icons.face_rounded),
-                  label: 'Perfil',
-                ),
-              ],
+    // En Enseñanzas o Ministerio, "atrás" vuelve al Home en vez de cerrar
+    // la app. En el Home sí la cierra.
+    return PopScope(
+      canPop: _tab == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _goHome();
+      },
+      child: Scaffold(
+        body: IndexedStack(
+          index: _tab,
+          children: [
+            _HomeTab(
+              topic: widget.topic,
+              imageCacheManager: widget.imageCacheManager,
+            ),
+            InfoScreen(
+              title: 'Enseñanzas',
+              load: ApiClient().fetchTeachings,
+              icon: Icons.school_rounded,
+              color: kTitleDevocional,
+              onBack: _goHome,
+            ),
+            InfoScreen(
+              title: 'Ministerio',
+              load: ApiClient().fetchMinistry,
+              icon: Icons.church_rounded,
+              color: kTitleDevocional,
+              onBack: _goHome,
+            ),
+          ],
+        ),
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(32),
+              boxShadow: kCardShadow,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(32),
+              child: NavigationBar(
+                selectedIndex: _tab,
+                onDestinationSelected: (i) => setState(() => _tab = i),
+                destinations: const [
+                  NavigationDestination(
+                    icon: Icon(Icons.home_rounded, color: kOnSurfaceVariant),
+                    selectedIcon: Icon(Icons.home_rounded),
+                    label: 'Home',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.school_rounded, color: kOnSurfaceVariant),
+                    selectedIcon: Icon(Icons.school_rounded),
+                    label: 'Enseñanzas',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.church_rounded, color: kOnSurfaceVariant),
+                    selectedIcon: Icon(Icons.church_rounded),
+                    label: 'Ministerio',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -246,10 +269,17 @@ class _HomeTabState extends State<_HomeTab> {
     ).push(MaterialPageRoute(builder: (_) => const ChallengeScreen()));
   }
 
-  void _openComingSoon(String title) {
+  // Ayuda, Premios y Donación: contenido del backend.
+  void _openInfo(
+    String title,
+    Future<InfoContent> Function() load,
+    IconData icon,
+    Color color,
+  ) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => _ComingSoon(title: title, showBack: true),
+        builder: (_) =>
+            InfoScreen(title: title, load: load, icon: icon, color: color),
       ),
     );
   }
@@ -416,19 +446,34 @@ class _HomeTabState extends State<_HomeTab> {
                       illustration: const HelpIllustration(),
                       label: 'Ayuda',
                       background: kMenuAyuda,
-                      onTap: () => _openComingSoon('Ayuda'),
+                      onTap: () => _openInfo(
+                        'Ayuda',
+                        _api.fetchHelp,
+                        Icons.help_rounded,
+                        kTitleReto,
+                      ),
                     ),
                     _MenuItem(
                       illustration: const TrophyIllustration(),
                       label: 'Premios',
                       background: kMenuPremios,
-                      onTap: () => _openComingSoon('Premios'),
+                      onTap: () => _openInfo(
+                        'Premios',
+                        _api.fetchAwards,
+                        Icons.emoji_events_rounded,
+                        kTitlePreguntas,
+                      ),
                     ),
                     _MenuItem(
                       illustration: const PiggyIllustration(),
                       label: 'Donación',
                       background: kMenuDonacion,
-                      onTap: () => _openComingSoon('Donación'),
+                      onTap: () => _openInfo(
+                        'Donación',
+                        _api.fetchDonations,
+                        Icons.favorite_rounded,
+                        kTitleOracion,
+                      ),
                     ),
                   ],
                 ),
@@ -733,6 +778,7 @@ class _VerseCard extends StatelessWidget {
 class _TopicCard extends StatelessWidget {
   final TopicResponse topic;
   final VoidCallback onTap;
+
   final String? subtitle;
   final BaseCacheManager? imageCacheManager;
   final String tooltip;
@@ -838,39 +884,6 @@ class _TopicCard extends StatelessWidget {
                   fixedSize: const Size(56, 56),
                 ),
                 icon: const Icon(Icons.play_arrow_rounded, size: 32),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ComingSoon extends StatelessWidget {
-  final String title;
-  final bool showBack;
-
-  const _ComingSoon({required this.title, this.showBack = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: showBack
-          ? AppBar(title: Text(title), backgroundColor: Colors.transparent)
-          : null,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(title, style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: 8),
-              Text(
-                'Próximamente',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: kOnSurfaceVariant),
               ),
             ],
           ),

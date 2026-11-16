@@ -166,4 +166,57 @@ print('=== FLAG: fetchTopic 4 ===');
     'cache_audio_v1',
     AudioMessageResponse.fromJson,
   );
+
+  // ---- Opciones del menú (Ayuda, Premios, Donaciones, Enseñanzas,
+  // Ministerio) --------------------------------------------------------
+
+  Future<InfoContent> fetchHelp() => _getCached(
+    '/api/v1/ayuda',
+    'cache_help_v1',
+    (j) => InfoContent.fromJson(j, bodyKey: 'help'),
+  );
+
+  Future<InfoContent> fetchAwards() => _getCached(
+    '/api/v1/premios',
+    'cache_awards_v1',
+    (j) => InfoContent.fromJson(
+      j,
+      subtitleKey: 'prayer',
+      listKey: 'awards',
+      itemKey: 'award',
+    ),
+  );
+
+  Future<InfoContent> fetchDonations() => _getCached(
+    '/api/v1/donations',
+    'cache_donations_v1',
+    (j) => InfoContent.fromJson(
+      j,
+      subtitleKey: 'prayer',
+      listKey: 'teaching',
+      itemKey: 'teach',
+    ),
+  );
+
+  Future<InfoContent> fetchTeachings() => _getCached(
+    '/api/v1/ensenanzas',
+    'cache_teachings_v1',
+    (j) => InfoContent.fromJson(
+      j,
+      subtitleKey: 'prayer',
+      listKey: 'teaching',
+      itemKey: 'teach',
+    ),
+  );
+
+  Future<InfoContent> fetchMinistry() => _getCached(
+    '/api/v1/ministerio',
+    'cache_ministry_v1',
+    (j) => InfoContent.fromJson(
+      j,
+      subtitleKey: 'base',
+      listKey: 'verses',
+      itemKey: 'verseMinistery',
+    ),
+  );
 }

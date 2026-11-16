@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/models.dart';
 import 'package:mobile/screens/challenge_screen.dart';
 import 'package:mobile/screens/home_screen.dart';
+import 'package:mobile/screens/info_screen.dart';
 import 'package:mobile/screens/prayer_screen.dart';
 import 'package:mobile/screens/quiz_carousel_screen.dart';
 import 'package:mobile/screens/scenes_carousel_screen.dart';
@@ -42,6 +43,42 @@ final kAudioJson = jsonEncode({
   'title': 'Dios cuida de ti',
   'audio_url': '',
 });
+
+/// Contenido de las opciones del menú, con las claves que manda el backend.
+final kInfoCache = <String, Object>{
+  'cache_help_v1': jsonEncode({
+    'title': 'Guía de la App',
+    'help': 'Aquí aprendes a usar la app',
+  }),
+  'cache_awards_v1': jsonEncode({
+    'title': 'Sorpresas',
+    'prayer': 'Lista de premios',
+    'awards': [
+      {'award': 'Libro Animado'},
+    ],
+  }),
+  'cache_donations_v1': jsonEncode({
+    'title': 'El obrero es digno',
+    'prayer': 'Apóyanos',
+    'teaching': [
+      {'teach': 'Comparte la app'},
+    ],
+  }),
+  'cache_teachings_v1': jsonEncode({
+    'title': 'Lo que aprendimos',
+    'prayer': 'Lista de Enseñanzas',
+    'teaching': [
+      {'teach': 'La oración es la regla de oro'},
+    ],
+  }),
+  'cache_ministry_v1': jsonEncode({
+    'title': 'Para papás con niños',
+    'base': 'Deuteronomio 6',
+    'verses': [
+      {'verseMinistery': '7. y las repetirás a tus hijos'},
+    ],
+  }),
+};
 
 /// Abre el Home en una pantalla de teléfono, con la caché dada.
 Future<void> openHome(WidgetTester tester, Map<String, Object> cache) async {
@@ -96,7 +133,7 @@ void main() {
       }
       expect(find.byType(NavigationBar), findsOneWidget);
       expect(find.text('Enseñanzas'), findsOneWidget);
-      expect(find.text('Perfil'), findsOneWidget);
+      expect(find.text('Ministerio'), findsOneWidget);
     });
 
     testWidgets('muestra las 4 secciones con el tema del día', (tester) async {
@@ -231,38 +268,102 @@ void main() {
       expect(find.byType(ChallengeScreen), findsOneWidget);
     });
 
-    for (final item in ['Ayuda', 'Premios', 'Donación']) {
-      testWidgets('el menú $item abre "Próximamente" y se puede volver', (
+    for (final (item, title, line) in [
+      ('Ayuda', 'Guía de la App', 'Aquí aprendes a usar la app'),
+      ('Premios', 'Sorpresas', 'Libro Animado'),
+      ('Donación', 'El obrero es digno', 'Comparte la app'),
+    ]) {
+      testWidgets('el menú $item abre su contenido y se puede volver', (
         tester,
       ) async {
-        await openHome(tester, {});
+        await openHome(tester, kInfoCache);
 
         await scrollAndTap(tester, find.text(item));
 
+        expect(find.byType(InfoScreen), findsOneWidget);
         expect(find.widgetWithText(AppBar, item), findsOneWidget);
-        expect(find.text('Próximamente'), findsOneWidget);
+        expect(find.text(title), findsOneWidget);
+        expect(find.text(line), findsOneWidget);
 
         await goBack(tester);
-        expect(find.text('Próximamente'), findsNothing);
+        expect(find.byType(InfoScreen), findsNothing);
       });
     }
 
-    for (final tab in ['Enseñanzas', 'Perfil']) {
-      testWidgets('la pestaña $tab muestra "Próximamente"', (tester) async {
-        await openHome(tester, {});
+    testWidgets('la pestaña Enseñanzas muestra las enseñanzas', (
+      tester,
+    ) async {
+      await openHome(tester, kInfoCache);
 
+      await tester.tap(find.text('Enseñanzas'));
+      await waitForLoad(tester);
+
+      expect(
+        find.text('La oración es la regla de oro').hitTestable(),
+        findsOneWidget,
+      );
+      expect(find.text('Devocional de hoy').hitTestable(), findsNothing);
+
+      await tester.tap(find.text('Home'));
+      await tester.pumpAndSettle();
+      expect(find.text('Devocional de hoy'), findsOneWidget);
+    });
+
+    for (final tab in ['Enseñanzas', 'Ministerio']) {
+      testWidgets('en $tab, la flecha de volver lleva al Home', (
+        tester,
+      ) async {
+        await openHome(tester, kInfoCache);
         await tester.tap(find.text(tab));
+        await waitForLoad(tester);
+
+        await tester.tap(find.byType(BackButton).hitTestable());
         await tester.pumpAndSettle();
 
-        // El título de la pestaña más su etiqueta en la barra inferior.
-        expect(find.text(tab), findsNWidgets(2));
-        expect(find.text('Próximamente').hitTestable(), findsOneWidget);
-        expect(find.text('Devocional de hoy').hitTestable(), findsNothing);
+        // De nuevo en el Home: se ve el menú y ya no hay flecha.
+        expect(find.text('Devocional').hitTestable(), findsOneWidget);
+        expect(find.byType(BackButton).hitTestable(), findsNothing);
+      });
 
-        await tester.tap(find.text('Home'));
+      testWidgets('en $tab, "atrás" del teléfono lleva al Home', (
+        tester,
+      ) async {
+        await openHome(tester, kInfoCache);
+        await tester.tap(find.text(tab));
+        await waitForLoad(tester);
+
+        final handled = await tester.binding.handlePopRoute();
         await tester.pumpAndSettle();
-        expect(find.text('Devocional de hoy'), findsOneWidget);
+
+        expect(handled, isTrue); // no cierra la app
+        expect(find.byType(HomeScreen), findsOneWidget);
+        expect(find.text('Devocional').hitTestable(), findsOneWidget);
+        expect(find.byType(BackButton).hitTestable(), findsNothing);
       });
     }
+
+    testWidgets('en el Home, "atrás" del teléfono cierra la app', (
+      tester,
+    ) async {
+      await openHome(tester, {});
+
+      // false: nadie lo atiende y Android cierra la app.
+      expect(await tester.binding.handlePopRoute(), isFalse);
+    });
+
+    testWidgets('la pestaña Ministerio muestra el ministerio', (tester) async {
+      await openHome(tester, kInfoCache);
+
+      await tester.tap(find.text('Ministerio'));
+      await waitForLoad(tester);
+
+      expect(find.text('Para papás con niños').hitTestable(), findsOneWidget);
+      expect(find.text('Deuteronomio 6').hitTestable(), findsOneWidget);
+      expect(
+        find.text('7. y las repetirás a tus hijos').hitTestable(),
+        findsOneWidget,
+      );
+      expect(find.text('Devocional de hoy').hitTestable(), findsNothing);
+    });
   });
 }
