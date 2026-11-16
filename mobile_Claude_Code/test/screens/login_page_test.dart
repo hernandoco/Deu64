@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,36 +8,8 @@ import 'package:mobile/services/auth_service.dart';
 
 import '../helpers.dart';
 
-AuthorizationTokenResponse tokens() => AuthorizationTokenResponse(
-  'access-token',
-  'refresh-token',
-  null,
-  'id-token',
-  'Bearer',
-  const ['openid'],
-  null,
-  null,
-);
-
 FlutterAppAuthPlatformErrorDetails errorDetails() =>
     FlutterAppAuthPlatformErrorDetails(error: 'invalid_client');
-
-/// AuthService falso: cada login espera a que el test lo complete.
-class FakeAuthService extends AuthService {
-  int calls = 0;
-  Completer<AuthorizationTokenResponse?> _pending = Completer();
-
-  @override
-  Future<AuthorizationTokenResponse?> login() {
-    calls++;
-    _pending = Completer();
-    return _pending.future;
-  }
-
-  void succeed(AuthorizationTokenResponse r) => _pending.complete(r);
-  void cancel() => _pending.complete(null);
-  void fail(Object error) => _pending.completeError(error);
-}
 
 /// Cliente de AppAuth falso para probar AuthService sin Cognito.
 class FakeAppAuth extends Fake implements FlutterAppAuth {

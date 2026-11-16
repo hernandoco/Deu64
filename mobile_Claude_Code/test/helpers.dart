@@ -9,10 +9,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/theme/app_theme.dart';
 
 const kTestTopicId = 'tema-prueba';
@@ -87,6 +89,9 @@ class FakeCacheManager extends Fake implements BaseCacheManager {
   final bool fails;
   final _pending = <StreamController<FileResponse>>[];
 
+  /// URLs que se pidieron precargar (getFileFromCache/downloadFile).
+  final precached = <String>[];
+
   FakeCacheManager({required this.fails});
 
   @override
@@ -102,9 +107,54 @@ class FakeCacheManager extends Fake implements BaseCacheManager {
     return c.stream;
   }
 
+  @override
+  Future<FileInfo?> getFileFromCache(
+    String key, {
+    bool ignoreMemCache = false,
+  }) async {
+    precached.add(key);
+    return null; // nada guardado todavía
+  }
+
+  @override
+  Future<FileInfo> downloadFile(
+    String url, {
+    String? key,
+    Map<String, String>? authHeaders,
+    bool force = false,
+  }) => Future.error(Exception('Sin red: $url'));
+
   void closePending() {
     for (final c in _pending) {
       c.close();
     }
   }
+}
+
+AuthorizationTokenResponse tokens() => AuthorizationTokenResponse(
+  'access-token',
+  'refresh-token',
+  null,
+  'id-token',
+  'Bearer',
+  const ['openid'],
+  null,
+  null,
+);
+
+/// AuthService falso: cada login espera a que el test lo complete.
+class FakeAuthService extends AuthService {
+  int calls = 0;
+  Completer<AuthorizationTokenResponse?> _pending = Completer();
+
+  @override
+  Future<AuthorizationTokenResponse?> login() {
+    calls++;
+    _pending = Completer();
+    return _pending.future;
+  }
+
+  void succeed(AuthorizationTokenResponse r) => _pending.complete(r);
+  void cancel() => _pending.complete(null);
+  void fail(Object error) => _pending.completeError(error);
 }

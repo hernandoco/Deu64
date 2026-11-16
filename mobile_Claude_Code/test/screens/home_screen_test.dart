@@ -52,10 +52,7 @@ Future<void> openHome(WidgetTester tester, Map<String, Object> cache) async {
   seedCache(cache);
   await pumpScreen(
     tester,
-    HomeScreen(
-      topic: kTopic,
-      imageCacheManager: FakeCacheManager(fails: true),
-    ),
+    HomeScreen(topic: kTopic, imageCacheManager: FakeCacheManager(fails: true)),
   );
   await waitForLoad(tester);
 }
@@ -218,9 +215,7 @@ void main() {
       expect(find.text('Pregunta 1/2'), findsOneWidget);
     });
 
-    testWidgets('la tarjeta de oración abre la oración modelo', (
-      tester,
-    ) async {
+    testWidgets('la tarjeta de oración abre la oración modelo', (tester) async {
       await openHome(tester, {});
 
       await scrollAndTap(tester, find.byTooltip('Abrir oración modelo'));
