@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../api.dart';
 import '../image_cache_manager.dart';
@@ -6,12 +7,19 @@ import '../models.dart';
 import 'home_screen.dart';
 
 import '../pages/login_page.dart';
+import '../services/auth_service.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 
-String _status = 'Iniciando...';
-
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({super.key});
+  /// Servicio de login que se le pasa a [LoginPage]. Si es null se usa el
+  /// real (Cognito); los tests pasan uno propio.
+  final AuthService? authService;
+
+  /// Caché de las imágenes de escenas (precarga y Home). Si es null se usa
+  /// [sceneImagesCacheManager]; los tests pasan una propia.
+  final BaseCacheManager? imageCacheManager;
+
+  const LoadingScreen({super.key, this.authService, this.imageCacheManager});
 
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
@@ -20,6 +28,14 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {  
   final _api = ApiClient();
   String? _error;
+  // Antes era una variable global y quedaba con el texto de la carga anterior.
+  String _status = 'Iniciando...';
+  // true si el usuario salió del login con "atrás": se muestra un botón para
+  // volver a abrirlo (antes quedaba girando sin salida).
+  bool _cancelled = false;
+
+  BaseCacheManager get _imageCache =>
+      widget.imageCacheManager ?? sceneImagesCacheManager;
 
   Future<void> _precacheTopicImages(TopicResponse topic) async {
     
@@ -28,14 +44,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
       final url = scene.imageUrl;
       try {
         // Si ya está en caché no se vuelve a descargar
-        final cached = await sceneImagesCacheManager.getFileFromCache(url);
+        final cached = await _imageCache.getFileFromCache(url);
   
  
 
         if (cached != null && await cached.file.exists()) continue;
 
 
-        await sceneImagesCacheManager
+        await _imageCache
             .downloadFile(url)
             .timeout(const Duration(seconds: 2));
       } catch ( e ) {
@@ -124,19 +140,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
     
     setState(() {
       _error = null;
+      _cancelled = false;
       _status = 'Iniciando sesión...';
     });
 
   try {
     // 0) Login primero
     final auth = await Navigator.of(context).push<AuthorizationTokenResponse>(
-      MaterialPageRoute(builder: (_) => const LoginPage()),
+      MaterialPageRoute(
+        builder: (_) => LoginPage(authService: widget.authService),
+      ),
     );
 
     if (!mounted) return;
 
     if (auth == null) {
-      setState(() => _status = 'Inicio de sesión cancelado');
+      setState(() {
+        _status = 'Inicio de sesión cancelado';
+        _cancelled = true;
+      });
       return;
     }
 
@@ -148,9 +170,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
       _status = 'Descargando recursos...';
     });
 
-    // 2) preguntas en background (recomendado)
-    // ignore: unawaited_futures
-    _api.fetchQuestions(topic.topicId);
+    // 2) preguntas en background (recomendado). Si fallan no importa: el
+    // quiz las vuelve a pedir al abrirse. Sin .ignore() el fallo quedaba
+    // como error sin manejar.
+    _api.fetchQuestions(topic.topicId).ignore();
 
     // imágenes en background
     // ignore: unawaited_futures
@@ -166,7 +189,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (!mounted) return;
     // Después del login entra la pantalla principal (HomeScreen).
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => HomeScreen(topic: topic)),
+      MaterialPageRoute(
+        builder: (_) => HomeScreen(
+          topic: topic,
+          imageCacheManager: widget.imageCacheManager,
+        ),
+      ),
     );
 
   } catch (e) {
@@ -194,7 +222,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const CircularProgressIndicator(),
+                  // Cancelado: botón para volver al login. Con "atrás" aquí
+                  // Android cierra la app, así que nunca queda atascada.
+                  if (_cancelled)
+                    ElevatedButton(
+                      onPressed: _load,
+                      child: const Text('Iniciar sesión'),
+                    )
+                  else
+                    const CircularProgressIndicator(),
                   const SizedBox(height: 12),
                   Text(
                     _status,
