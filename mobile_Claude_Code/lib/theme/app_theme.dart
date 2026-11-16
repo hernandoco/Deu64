@@ -18,6 +18,23 @@ const kMenuAyuda = Color(0xFFD9F6F0); // menta
 const kMenuPremios = Color(0xFFFFF1CC); // crema
 const kMenuDonacion = Color(0xFFFFE2EC); // rosa claro
 
+// Colores de los títulos de sección del Home: uno por sección, tomado de la
+// tarjeta que la acompaña y de la paleta del título principal.
+const kTitleDevocional = Color(0xFF4A2C8F); // morado
+const kTitlePreguntas = Color(0xFFF57C00); // naranja
+const kTitleOracion = Color(0xFFD6336C); // rosa
+const kTitleReto = Color(0xFF00897B); // verde azulado
+
+/// Títulos de sección con la fuente manuscrita del título principal
+/// (GochiHand), en un solo color por título.
+TextStyle sectionTitleStyle(Color color) => TextStyle(
+  fontFamily: 'GochiHand',
+  fontSize: 24,
+  height: 1.2,
+  fontWeight: FontWeight.w800,
+  color: color,
+);
+
 const kCardShadow = [
   BoxShadow(
     color: Color(0x1A7957F3),

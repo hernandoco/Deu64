@@ -451,14 +451,14 @@ class _HomeTabState extends State<_HomeTab> {
                   const SizedBox(height: 24),
                   Text(
                     'Devocional de hoy',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: sectionTitleStyle(kTitleDevocional),
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(topic: widget.topic, onTap: _openDevocional),
                   const SizedBox(height: 24),
                   Text(
                     'Preguntas del devocional',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: sectionTitleStyle(kTitlePreguntas),
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(
@@ -471,7 +471,7 @@ class _HomeTabState extends State<_HomeTab> {
                   const SizedBox(height: 24),
                   Text(
                     'Oración modelo',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: sectionTitleStyle(kTitleOracion),
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(
@@ -485,7 +485,7 @@ class _HomeTabState extends State<_HomeTab> {
                   const SizedBox(height: 24),
                   Text(
                     'Reto del día',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: sectionTitleStyle(kTitleReto),
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(
@@ -797,7 +797,11 @@ class _TopicCard extends StatelessWidget {
                       topic.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: text.titleLarge,
+                      // Misma fuente manuscrita de los títulos, en morado
+                      // oscuro (onSurface del tema)
+                      style: sectionTitleStyle(const Color(0xFF2B2350)).copyWith(
+                        fontSize: 22,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
