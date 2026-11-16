@@ -140,19 +140,26 @@ class _QuizCarouselScreenState extends State<QuizCarouselScreen> {
                           style: const TextStyle(color: Colors.black54),
                         ),
                       const SizedBox(height: 16),
-                      ...List.generate(q.options.length, (optIndex) {
-                        final opt = q.options[optIndex];
-                        return Card(
-                          child: RadioListTile<int>(
-                            value: optIndex,
-                            groupValue: sel,
-                            onChanged: (v) {
-                              setState(() => _selected[i] = v);
-                            },
-                            title: Text(opt.text),
-                          ),
-                        );
-                      }),
+                      // RadioGroup maneja la opción seleccionada (reemplaza
+                      // groupValue/onChanged en cada RadioListTile, obsoletos)
+                      RadioGroup<int>(
+                        groupValue: sel,
+                        onChanged: (v) {
+                          setState(() => _selected[i] = v);
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: List.generate(q.options.length, (optIndex) {
+                            final opt = q.options[optIndex];
+                            return Card(
+                              child: RadioListTile<int>(
+                                value: optIndex,
+                                title: Text(opt.text),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
                     ],
                   ),
                 ),
