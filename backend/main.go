@@ -87,6 +87,57 @@ type MessageAuditionResponse struct {
 
 /*
 	 ----------------------------------------------------------------------
+			Tercer Bloque de Campos complementarios a los  temas para la App
+	   ----------------------------------------------------------------------
+*/
+type HelpResponse struct {
+	TopicId string `json:"topicId"`
+	Title   string `json:"title"`
+	Help    string `json:"help"`
+}
+
+type AwardsResponse struct {
+	TopicId string  `json:"topicId"`
+	Title   string  `json:"title"`
+	Prayer  string  `json:"prayer"`
+	Awards  []Award `json:"awards"`
+}
+
+type Award struct {
+	Award string `json:"award"`
+}
+
+type DonationsResponse struct {
+	TopicId  string  `json:"topicId"`
+	Title    string  `json:"title"`
+	Prayer   string  `json:"prayer"`
+	Teaching []Teach `json:"teaching"`
+}
+
+type TeachingsResponse struct {
+	TopicId  string  `json:"topicId"`
+	Title    string  `json:"title"`
+	Prayer   string  `json:"prayer"`
+	Teaching []Teach `json:"teaching"`
+}
+
+type Teach struct {
+	Teach string `json:"teach"`
+}
+
+type MinisteryResponse struct {
+	TopicId string           `json:"topicId"`
+	Title   string           `json:"title"`
+	Base    string           `json:"base"`
+	Verses  []VerseMinistery `json:"verses"`
+}
+
+type VerseMinistery struct {
+	Verse string `json:"verseMinistery"`
+}
+
+/*
+	 ----------------------------------------------------------------------
 			Funciones de Gestión de archivos JSON
 	   ----------------------------------------------------------------------
 */
@@ -139,6 +190,11 @@ func main() {
 		ChallengePath = "data/reto.json"
 		audioJSONPath = "data/audio.json"
 		audioFilePath = "data/audio.m4a"
+		helpPath      = "data/ayuda.json"
+		awardsPath    = "data/premios.json"
+		donationPath  = "data/donaciones.json"
+		teachPath     = "data/ensenanzas.json"
+		ministryPath  = "data/ministerio.json"
 	)
 
 	mux := http.NewServeMux()
@@ -233,6 +289,96 @@ func main() {
 		writeJSON(w, http.StatusOK, qs)
 	})
 
+	mux.HandleFunc("/api/v1/ayuda", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
+			return
+		}
+
+		qs, err := readJSONFile[HelpResponse](helpPath)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
+				Error:   "failed_to_read_help_daily",
+				Details: err.Error(),
+			})
+			return
+		}
+
+		writeJSON(w, http.StatusOK, qs)
+	})
+
+	mux.HandleFunc("/api/v1/premios", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
+			return
+		}
+
+		qs, err := readJSONFile[AwardsResponse](awardsPath)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
+				Error:   "failed_to_read_award_daily",
+				Details: err.Error(),
+			})
+			return
+		}
+
+		writeJSON(w, http.StatusOK, qs)
+	})
+
+	mux.HandleFunc("/api/v1/donations", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
+			return
+		}
+
+		qs, err := readJSONFile[DonationsResponse](donationPath)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
+				Error:   "failed_to_read_donations_daily",
+				Details: err.Error(),
+			})
+			return
+		}
+
+		writeJSON(w, http.StatusOK, qs)
+	})
+
+	mux.HandleFunc("/api/v1/ensenanzas", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
+			return
+		}
+
+		qs, err := readJSONFile[TeachingsResponse](teachPath)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
+				Error:   "failed_to_read_teachings_daily",
+				Details: err.Error(),
+			})
+			return
+		}
+
+		writeJSON(w, http.StatusOK, qs)
+	})
+
+	mux.HandleFunc("/api/v1/ministerio", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
+			return
+		}
+
+		qs, err := readJSONFile[MinisteryResponse](ministryPath)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
+				Error:   "failed_to_read_ministery_daily",
+				Details: err.Error(),
+			})
+			return
+		}
+
+		writeJSON(w, http.StatusOK, qs)
+	})
+
 	mux.HandleFunc("/api/v1/Mensaje_audible", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
@@ -251,6 +397,9 @@ func main() {
 		writeJSON(w, http.StatusOK, qs)
 	})
 
+	/* ------------------------------------------------------------------------------------------
+
+	---------------------------------------------------------------------------------------------------- */
 	mux.HandleFunc("/api/v1/Mensaje_audible/archivo", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})

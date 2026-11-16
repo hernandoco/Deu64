@@ -1,0 +1,19 @@
+{
+    "topicId": "Premios",
+    "title": "Sorpresas para los de corazón ferviente",
+    "prayer": "Lista de premios",
+    "awards": [
+        {
+          "award": "Boleta para Maloka"
+        },
+        {
+          "award": "Libro Animado"
+        },
+        {
+          "award": "Caja de Chocolatina"
+        },
+        {
+          "award": "Boleta para museo Planetarios"
+        }
+      ]    
+}
