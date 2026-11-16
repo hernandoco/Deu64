@@ -122,34 +122,41 @@ class _QuizCarouselScreenState extends State<QuizCarouselScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  q.question,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                // Pregunta y opciones con scroll: su largo depende de preguntas.json
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Text(
+                        q.question,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      if (q.recommendation.isNotEmpty)
+                        Text(
+                          q.recommendation,
+                          style: const TextStyle(color: Colors.black54),
+                        ),
+                      const SizedBox(height: 16),
+                      ...List.generate(q.options.length, (optIndex) {
+                        final opt = q.options[optIndex];
+                        return Card(
+                          child: RadioListTile<int>(
+                            value: optIndex,
+                            groupValue: sel,
+                            onChanged: (v) {
+                              setState(() => _selected[i] = v);
+                            },
+                            title: Text(opt.text),
+                          ),
+                        );
+                      }),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 12),
-                if (q.recommendation.isNotEmpty)
-                  Text(
-                    q.recommendation,
-                    style: const TextStyle(color: Colors.black54),
-                  ),
-                const SizedBox(height: 16),
-                ...List.generate(q.options.length, (optIndex) {
-                  final opt = q.options[optIndex];
-                  return Card(
-                    child: RadioListTile<int>(
-                      value: optIndex,
-                      groupValue: sel,
-                      onChanged: (v) {
-                        setState(() => _selected[i] = v);
-                      },
-                      title: Text(opt.text),
-                    ),
-                  );
-                }),
-                const Spacer(),
 
                 // Botones Anterior / Siguiente
                 Row(
