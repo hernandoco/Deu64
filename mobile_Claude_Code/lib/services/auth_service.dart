@@ -44,7 +44,12 @@ origina 7 oct 2026 */
 
 
 class AuthService {
-  final FlutterAppAuth _appAuth = const FlutterAppAuth();
+  /// Cliente de AppAuth. Si es null se usa el real; los tests pasan uno
+  /// propio para no abrir el login de Cognito.
+  AuthService({FlutterAppAuth? appAuth})
+    : _appAuth = appAuth ?? const FlutterAppAuth();
+
+  final FlutterAppAuth _appAuth;
 
   Future<AuthorizationTokenResponse?> login() async {
     try {

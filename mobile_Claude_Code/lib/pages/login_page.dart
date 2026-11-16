@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  /// Servicio de login. Si es null se usa el real (Cognito); los tests pasan
+  /// uno propio.
+  final AuthService? authService;
+
+  const LoginPage({super.key, this.authService});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final AuthService _authService = AuthService();
+  late final AuthService _authService = widget.authService ?? AuthService();
 
   bool _loading = false;
   String? _errorMessage;
