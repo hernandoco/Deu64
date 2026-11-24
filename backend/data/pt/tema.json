@@ -1,0 +1,66 @@
+{
+  "topicId": "astronomia-001",
+  "title": "Segundo o coração de Deus",
+  "scenes": [
+    {
+      "index": 1,
+      "title": "Devocional",
+      "description": "O rei Davi foi considerado um homem segundo o coração de Deus, porque lhe obedeceu e amou tanto a Deus que desejava agradá-lo.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/1.jpg"
+    },
+    {
+      "index": 2,
+      "title": "Na juventude",
+      "description": "Ajudava seu pai a cuidar das ovelhas, trabalhando com diligência.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/2.jpg"
+    },
+    {
+      "index": 3,
+      "title": "Deus o escolheu",
+      "description": "Foi ungido rei pelo profeta Samuel e sempre foi humilde diante de Saul.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/3.jpg"
+    },
+    {
+      "index": 4,
+      "title": "Diante da morte",
+      "description": "Saul queria matá-lo, e ele ficou escondido em cavernas, com fome e necessidade, mas sempre fiel a Deus.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/4.jpg"
+    },
+    {
+      "index": 5,
+      "title": "A perseguição durou dez anos",
+      "description": "Quando Saul morreu, ele se entristeceu por alguém que queria matá-lo, pois tinha amor verdadeiro.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/5.jpg"
+    },
+    {
+      "index": 6,
+      "title": "Davi, o Rei",
+      "description": "Consolidou o reino e colocou Deus no centro dele. Organizou a adoração e o culto, e expressou seu relacionamento com Deus por meio dos salmos.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/6.jpg"
+    },
+    {
+      "index": 7,
+      "title": "Davi dança para Deus",
+      "description": "Sua piedade se mostrou na alegria com que dançou diante da arca quando era levada para Jerusalém, ainda que para outros fosse humilhante.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/7.jpg"
+    },
+    {
+      "index": 8,
+      "title": "Davi deseja uma casa para Deus",
+      "description": "O profeta Natã disse-lhe que não seria ele, mas seu filho quem a construiria, e ele reuniu todos os materiais para o filho.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/8.jpg"
+    },
+    {
+      "index": 9,
+      "title": "A promessa da Aliança Davídica",
+      "description": "Deus promete que sua descendência teria um reino duradouro, pelo qual viria o Cristo, o Filho de Deus!",
+      "imageUrl": "http://192.168.2.6:8080/static/images/9.jpg"
+    },
+    {
+      "index": 10,
+      "title": "Davi é perdoado",
+      "description": "Embora tenha pecado, arrependeu-se profundamente, o que se reflete no Salmo 51: Cria em mim, ó Deus, um CORAÇÃO PURO.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/10.jpg"
+    }
+  ]
+}

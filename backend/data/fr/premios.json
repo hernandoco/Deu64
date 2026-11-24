@@ -1,0 +1,19 @@
+{
+  "topicId": "Premios",
+  "title": "Des surprises pour ceux qui ont un cœur ardent",
+  "prayer": "Liste des récompenses",
+  "awards": [
+    {
+      "award": "Billet pour Maloka"
+    },
+    {
+      "award": "Livre animé"
+    },
+    {
+      "award": "Boîte de barres chocolatées"
+    },
+    {
+      "award": "Billet pour le musée Planétarium"
+    }
+  ]
+}

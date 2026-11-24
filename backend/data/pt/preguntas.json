@@ -1,0 +1,155 @@
+{
+  "topicId": "astronomia-001",
+  "questions": [
+    {
+      "index": 1,
+      "question": "O que é um homem segundo o coração de Deus?",
+      "recommendation": "1 Samuel 13:14 O Senhor buscou para si um homem segundo o seu coração.",
+      "options": [
+        {
+          "text": "Davi sempre buscava agradar a Deus sinceramente",
+          "isCorrect": false
+        },
+        {
+          "text": "Atos 13:22 Achei Davi, filho de Jessé, homem segundo o meu coração, que fará toda a minha vontade",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "question": "Desde quando o Espírito de Deus acompanhou Davi?",
+      "recommendation": "O profeta Samuel foi enviado por Deus para ungir Davi como rei.",
+      "options": [
+        {
+          "text": "1 Samuel 16:13 Então Samuel tomou o chifre de azeite e o ungiu no meio de seus irmãos; e daquele dia em diante o Espírito do Senhor se apoderou de Davi.",
+          "isCorrect": true
+        },
+        {
+          "text": "Quando foi feito Rei de Israel",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "question": "Como o Espírito de Deus se manifestou quando Davi era pastor?",
+      "recommendation": "O Espírito de Deus age de maneira especial no homem para um propósito.",
+      "options": [
+        {
+          "text": "Fui ungido com óleo como rei pelo profeta Samuel",
+          "isCorrect": false
+        },
+        {
+          "text": "1 Samuel 17:34-36 Teu servo apascentava o rebanho de seu pai, e quando vinha um leão ou um urso e levava um cordeiro do rebanho, eu saía atrás dele, o feria e livrava o cordeiro da sua boca; e se se levantava contra mim, eu o agarrava pela barba, o feria e o matava. Teu servo matou tanto o leão como o urso.",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "question": "Como ele enfrentou Golias? Não com quê!",
+      "recommendation": "Grandes problemas, grandes soluções. Não devemos enfrentá-los sozinhos.",
+      "options": [
+        {
+          "text": "1 Samuel 17:45 Tu vens a mim com espada, com lança... mas eu vou a ti em nome do Senhor dos Exércitos!",
+          "isCorrect": true
+        },
+        {
+          "text": "Com uma funda e uma pedra, que o matou",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "question": "Vencido Golias, os problemas acabaram?",
+      "recommendation": "O sucesso e a fama lhe trouxeram a inveja do rei.",
+      "options": [
+        {
+          "text": "O povo cantava: Saul feriu os seus milhares, e Davi os seus dez milhares!",
+          "isCorrect": false
+        },
+        {
+          "text": "Saul quis matá-lo por inveja",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "question": "Por que Davi se indignou ao ouvir os insultos de Golias?",
+      "recommendation": "O Espírito de Deus estava com Davi!",
+      "options": [
+        {
+          "text": "Porque Davi amava a Deus e não pôde deixar de defendê-lo, sendo apenas um rapaz!",
+          "isCorrect": true
+        },
+        {
+          "text": "Porque seus irmãos eram soldados e ele também queria ser soldado",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "question": "Se o nosso coração precisa mudar, devemos pedir isso?",
+      "recommendation": "Temos uma natureza pecaminosa e vivemos em um mundo em pecado.",
+      "options": [
+        {
+          "text": "Salmo 51:10 Cria em mim, ó Deus, um coração puro, e renova em mim um espírito reto",
+          "isCorrect": true
+        },
+        {
+          "text": "Separar-nos do mundo",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "question": "O que mantém o homem unido a Deus?",
+      "recommendation": "João 15:5 Sem mim nada podeis fazer.",
+      "options": [
+        {
+          "text": "João 14:23 Se alguém me ama, guardará a minha palavra; e meu Pai o amará, e viremos a ele e faremos nele morada",
+          "isCorrect": true
+        },
+        {
+          "text": "Pertencer à igreja, participar das atividades e buscar a Deus",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "question": "Do coração procedem as fontes da vida. Como devemos guardá-lo?",
+      "recommendation": "Enganoso é o coração, mais do que todas as coisas, e desesperadamente corrupto; quem o conhecerá? Jeremias 17:9.",
+      "options": [
+        {
+          "text": "Do que há em abundância no coração fala a boca. Lucas 6:45",
+          "isCorrect": false
+        },
+        {
+          "text": "Salmo 119:9 Como purificará o jovem o seu caminho? Observando a tua palavra.",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "question": "Que ensinamentos você pode extrair?",
+      "recommendation": "Muitos ensinamentos podem ser extraídos, mas acima de tudo: agradar a Deus e ser reconhecido por Ele como um homem segundo o seu coração.\n*Não entristecer o Espírito de Deus, mas deixá-lo agir. \n*Fazer aliança com Deus com uma dinastia eterna: Deus garantiu a Davi que sua casa (sua linhagem real) e seu trono seriam estabelecidos para sempre! \n*Adoração como estilo de vida. Davi é conhecido como o suave cantor de Israel.",
+      "options": [
+        {
+          "text": "Ir à igreja aos domingos",
+          "isCorrect": false
+        },
+        {
+          "text": "Ter um coração puro e obedecer a Deus em tudo",
+          "isCorrect": true
+        }
+      ]
+    }
+  ]
+}

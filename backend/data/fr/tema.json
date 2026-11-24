@@ -1,0 +1,66 @@
+{
+  "topicId": "astronomia-001",
+  "title": "Selon le cœur de Dieu",
+  "scenes": [
+    {
+      "index": 1,
+      "title": "Dévotion",
+      "description": "Le roi David fut considéré comme un homme selon le cœur de Dieu, parce qu'il lui obéit et l'aima tant qu'il désirait lui plaire.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/1.jpg"
+    },
+    {
+      "index": 2,
+      "title": "Dans sa jeunesse",
+      "description": "Il aidait son père à garder les brebis, en travaillant avec diligence.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/2.jpg"
+    },
+    {
+      "index": 3,
+      "title": "Dieu l'a choisi",
+      "description": "Il fut oint roi par le prophète Samuel et resta toujours humble devant Saül.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/3.jpg"
+    },
+    {
+      "index": 4,
+      "title": "Face à la mort",
+      "description": "Saül voulait le tuer, et il resta caché dans des grottes, affamé et dans le besoin, mais toujours fidèle à Dieu.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/4.jpg"
+    },
+    {
+      "index": 5,
+      "title": "La persécution a duré dix ans",
+      "description": "À la mort de Saül, il fut attristé pour quelqu'un qui avait voulu le tuer, car son amour était vrai.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/5.jpg"
+    },
+    {
+      "index": 6,
+      "title": "David, le roi",
+      "description": "Il consolida le royaume et plaça Dieu au centre. Il organisa l'adoration et le culte, et exprima sa relation avec Dieu à travers les psaumes.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/6.jpg"
+    },
+    {
+      "index": 7,
+      "title": "David danse pour Dieu",
+      "description": "Sa piété se montra par la joie avec laquelle il dansa devant l'arche lorsqu'on la transportait à Jérusalem, même si pour d'autres c'était humiliant.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/7.jpg"
+    },
+    {
+      "index": 8,
+      "title": "David désire une maison pour Dieu",
+      "description": "Le prophète Nathan lui dit que ce ne serait pas lui, mais son fils qui la construirait, et il rassembla tous les matériaux pour son fils.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/8.jpg"
+    },
+    {
+      "index": 9,
+      "title": "La promesse de l'alliance davidique",
+      "description": "Dieu promet que sa descendance aurait un royaume durable, par lequel viendrait le Christ, le Fils de Dieu !",
+      "imageUrl": "http://192.168.2.6:8080/static/images/9.jpg"
+    },
+    {
+      "index": 10,
+      "title": "David est pardonné",
+      "description": "Bien qu'il ait péché, il se repentit profondément, comme le reflète le psaume 51 : Crée en moi, ô Dieu, un CŒUR PUR.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/10.jpg"
+    }
+  ]
+}
