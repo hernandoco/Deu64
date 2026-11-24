@@ -6,7 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile/l10n/l10n.dart';
 
 void main() {
-  // En los tests toda petición HTTP devuelve 400: ApiClient usa la caché.
+  // Con el binding de test toda petición HTTP devuelve 400 (aunque haya un
+  // backend real corriendo): ApiClient usa la caché.
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     L10n.reset();

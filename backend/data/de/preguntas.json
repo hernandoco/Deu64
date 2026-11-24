@@ -1,0 +1,155 @@
+{
+  "topicId": "astronomia-001",
+  "questions": [
+    {
+      "index": 1,
+      "question": "Was ist ein Mann nach dem Herzen Gottes?",
+      "recommendation": "1. Samuel 13,14 Der Herr hat sich einen Mann gesucht, der nach seinem Herzen ist.",
+      "options": [
+        {
+          "text": "David suchte immer aufrichtig, Gott zu gefallen",
+          "isCorrect": false
+        },
+        {
+          "text": "Apostelgeschichte 13,22 Ich habe David gefunden, den Sohn Isais, einen Mann nach meinem Herzen, der meinen ganzen Willen tun wird",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "question": "Seit wann begleitete der Geist Gottes David?",
+      "recommendation": "Der Prophet Samuel wurde von Gott gesandt, um David zum König zu salben.",
+      "options": [
+        {
+          "text": "1. Samuel 16,13 Da nahm Samuel das Ölhorn und salbte ihn mitten unter seinen Brüdern; und der Geist des Herrn geriet über David von diesem Tag an.",
+          "isCorrect": true
+        },
+        {
+          "text": "Als er zum König von Israel gemacht wurde",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "question": "Wie zeigte sich der Geist Gottes, als David Hirte war?",
+      "recommendation": "Der Geist Gottes wirkt auf besondere Weise im Menschen zu einem bestimmten Zweck.",
+      "options": [
+        {
+          "text": "Ich wurde vom Propheten Samuel mit Öl zum König gesalbt",
+          "isCorrect": false
+        },
+        {
+          "text": "1. Samuel 17,34-36 Dein Knecht hütete die Schafe seines Vaters, und wenn ein Löwe oder ein Bär kam und ein Schaf von der Herde forttrug, so lief ich ihm nach, schlug ihn und riss es aus seinem Rachen; und wenn er sich gegen mich erhob, ergriff ich ihn bei seinem Bart und schlug ihn und tötete ihn. So hat dein Knecht sowohl den Löwen als auch den Bären erschlagen.",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "question": "Wie trat er Goliat entgegen? Nicht womit!",
+      "recommendation": "Große Probleme, große Lösungen. Wir dürfen ihnen nicht allein begegnen.",
+      "options": [
+        {
+          "text": "1. Samuel 17,45 Du kommst zu mir mit Schwert, Speer und Spieß... ich aber komme zu dir im Namen des Herrn der Heerscharen!",
+          "isCorrect": true
+        },
+        {
+          "text": "Mit einer Schleuder und einem Stein, der ihn tötete",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "question": "Als Goliat besiegt war, waren Davids Probleme vorbei?",
+      "recommendation": "Erfolg und Ruhm brachten ihm den Neid des Königs ein.",
+      "options": [
+        {
+          "text": "Das Volk sang: Saul hat tausend erschlagen, aber David zehntausend!",
+          "isCorrect": false
+        },
+        {
+          "text": "Saul wollte ihn aus Neid töten",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "question": "Warum empörte sich David über Goliats Beschimpfungen?",
+      "recommendation": "Der Geist Gottes war mit David!",
+      "options": [
+        {
+          "text": "Weil David Gott liebte und nicht anders konnte, als ihn zu verteidigen, obwohl er nur ein Junge war!",
+          "isCorrect": true
+        },
+        {
+          "text": "Weil seine Brüder Soldaten waren und er auch Soldat sein wollte",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "question": "Wenn unser Herz verändert werden muss, sollen wir darum bitten?",
+      "recommendation": "Wir haben eine sündige Natur und leben in einer sündigen Welt.",
+      "options": [
+        {
+          "text": "Psalm 51,12 Schaffe in mir, Gott, ein reines Herz und gib mir einen neuen, beständigen Geist",
+          "isCorrect": true
+        },
+        {
+          "text": "Uns von der Welt absondern",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "question": "Was hält den Menschen mit Gott verbunden?",
+      "recommendation": "Johannes 15,5 Ohne mich könnt ihr nichts tun.",
+      "options": [
+        {
+          "text": "Johannes 14,23 Wer mich liebt, der wird mein Wort halten; und mein Vater wird ihn lieben, und wir werden zu ihm kommen und Wohnung bei ihm nehmen",
+          "isCorrect": true
+        },
+        {
+          "text": "Zur Kirche gehören, an den Aktivitäten teilnehmen und Gott suchen",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "question": "Aus dem Herzen strömt das Leben. Wie sollen wir es bewahren?",
+      "recommendation": "Trügerisch ist das Herz mehr als alles andere und unheilbar verdorben; wer kann es ergründen? Jeremia 17,9.",
+      "options": [
+        {
+          "text": "Wes das Herz voll ist, des geht der Mund über. Lukas 6,45",
+          "isCorrect": false
+        },
+        {
+          "text": "Psalm 119,9 Wie wird ein junger Mann seinen Weg unsträflich gehen? Wenn er sich hält an dein Wort.",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "question": "Welche Lehren kannst du daraus ziehen?",
+      "recommendation": "Man kann viele Lehren daraus ziehen, vor allem aber: Gott zu gefallen und von ihm als Mann nach seinem Herzen anerkannt zu werden.\n*Den Geist Gottes nicht betrüben, sondern ihn wirken lassen. \n*Einen Bund mit Gott schließen mit einer ewigen Dynastie: Gott sicherte David zu, dass sein Haus (sein königliches Geschlecht) und sein Thron für immer Bestand haben würden! \n*Anbetung als Lebensstil. David ist als der liebliche Sänger Israels bekannt.",
+      "options": [
+        {
+          "text": "Sonntags in die Kirche gehen",
+          "isCorrect": false
+        },
+        {
+          "text": "Ein reines Herz haben und Gott in allem gehorchen",
+          "isCorrect": true
+        }
+      ]
+    }
+  ]
+}

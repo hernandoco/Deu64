@@ -181,7 +181,7 @@ func logRequests(next http.Handler) http.Handler {
 }
 
 // Idiomas soportados. "es" es el idioma por defecto y el de respaldo.
-var supportedLangs = map[string]bool{"es": true, "en": true, "pt": true, "fr": true}
+var supportedLangs = map[string]bool{"es": true, "en": true, "pt": true, "fr": true, "de": true}
 
 // dataFile devuelve data/<lang>/<name>, con lang tomado de ?lang=.
 // Si el idioma no es válido o el archivo no existe en ese idioma, usa data/es/<name>.

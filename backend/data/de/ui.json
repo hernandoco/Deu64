@@ -1,0 +1,102 @@
+{
+  "login.title": "DEU64",
+  "login.welcome": "Willkommen",
+  "login.button": "Anmelden",
+  "common.retry": "Erneut versuchen",
+  "loading.starting": "Wird gestartet...",
+  "loading.login": "Anmeldung läuft...",
+  "loading.cancelled": "Anmeldung abgebrochen",
+  "loading.connecting": "Verbindung zum Server...",
+  "loading.downloading": "Ressourcen werden geladen...",
+  "loading.opening": "Inhalt wird geöffnet...",
+  "loading.error": "Fehler beim Laden der Daten:\n{error}",
+  "nav.home": "Start",
+  "nav.teachings": "Lehren",
+  "nav.ministry": "Dienst",
+  "menu.devotional": "Andacht",
+  "menu.help": "Hilfe",
+  "menu.awards": "Preise",
+  "menu.donation": "Spende",
+  "home.language": "Sprache",
+  "home.voice_title": "Botschaft von heute",
+  "home.tap_to_listen": "Zum Anhören tippen",
+  "home.verse_label": "Vers des Tages:",
+  "home.devotional_today": "Andacht von heute",
+  "home.questions_title": "Fragen zur Andacht",
+  "home.questions_subtitle": "Antworte und sammle Punkte",
+  "home.prayer_title": "Mustergebet",
+  "home.prayer_subtitle": "Bete gemeinsam mit dem Pastor",
+  "home.challenge_title": "Herausforderung des Tages",
+  "home.challenge_subtitle": "Eine kleine Herausforderung für heute",
+  "home.scenes_count": "{n} Szenen",
+  "home.pastor_alt": "Animierter Hirte mit seinem Lämmchen",
+  "home.verse_ref": "5. Mose 6,4",
+  "tooltip.open_devotional": "Andacht öffnen",
+  "tooltip.open_questions": "Fragen öffnen",
+  "tooltip.open_prayer": "Mustergebet öffnen",
+  "tooltip.open_challenge": "Herausforderung des Tages öffnen",
+  "tooltip.pause": "Nachricht pausieren",
+  "tooltip.listen": "Nachricht anhören",
+  "snack.audio_unavailable": "Die Botschaft von heute ist noch nicht verfügbar.",
+  "snack.audio_failed": "Die Nachricht konnte nicht abgespielt werden. Prüfe deine Verbindung.",
+  "scenes.start_questions": "Fragen beginnen",
+  "questions.banner": "FRAGEN",
+  "quiz.title": "Quiz",
+  "quiz.empty": "Zu diesem Thema gibt es keine Fragen.",
+  "quiz.progress": "Frage {i}/{total}",
+  "quiz.prev": "Zurück",
+  "quiz.next": "Weiter",
+  "quiz.finish": "Beenden",
+  "result.title": "Ergebnis",
+  "result.score": "Punkte: {score}/{total}",
+  "prayer.title": "Mustergebet",
+  "prayer.support_verses": "Unterstützende Verse",
+  "prayer.error": "Das Gebet konnte nicht geladen werden.",
+  "challenge.title": "Herausforderung des Tages",
+  "challenge.error": "Die Herausforderung konnte nicht geladen werden.",
+  "info.error": "Der Inhalt konnte nicht geladen werden.",
+  "auth.appauth_error": "AppAuth-Fehler: {details}",
+  "auth.generic_error": "Fehler bei der Authentifizierung: {error}",
+  "home.verse_segments": [
+    {
+      "t": "Und diese ",
+      "c": ""
+    },
+    {
+      "t": "Worte, ",
+      "c": "orange"
+    },
+    {
+      "t": "die ich dir heute gebiete, ",
+      "c": ""
+    },
+    {
+      "t": "sollst du ",
+      "c": "teal"
+    },
+    {
+      "t": "zu ",
+      "c": ""
+    },
+    {
+      "t": "Herzen ",
+      "c": "pink"
+    },
+    {
+      "t": "nehmen; und du sollst sie ",
+      "c": ""
+    },
+    {
+      "t": "einschärfen ",
+      "c": "orange"
+    },
+    {
+      "t": "deinen ",
+      "c": ""
+    },
+    {
+      "t": "Kindern",
+      "c": "teal"
+    }
+  ]
+}

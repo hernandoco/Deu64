@@ -1,0 +1,66 @@
+{
+  "topicId": "astronomia-001",
+  "title": "Nach dem Herzen Gottes",
+  "scenes": [
+    {
+      "index": 1,
+      "title": "Andacht",
+      "description": "König David galt als ein Mann nach dem Herzen Gottes, weil er Gott gehorchte und ihn so sehr liebte, dass er sich danach sehnte, ihm zu gefallen.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/1.jpg"
+    },
+    {
+      "index": 2,
+      "title": "In seiner Jugend",
+      "description": "Er half seinem Vater, die Schafe zu hüten, und arbeitete dabei gewissenhaft.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/2.jpg"
+    },
+    {
+      "index": 3,
+      "title": "Gott erwählte ihn",
+      "description": "Er wurde vom Propheten Samuel zum König gesalbt und blieb vor Saul immer demütig.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/3.jpg"
+    },
+    {
+      "index": 4,
+      "title": "Angesichts des Todes",
+      "description": "Saul wollte ihn töten, und er versteckte sich in Höhlen, hungrig und in Not, aber stets Gott treu.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/4.jpg"
+    },
+    {
+      "index": 5,
+      "title": "Die Verfolgung dauerte zehn Jahre",
+      "description": "Als Saul starb, trauerte er um jemanden, der ihn hatte töten wollen, denn seine Liebe war echt.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/5.jpg"
+    },
+    {
+      "index": 6,
+      "title": "König David",
+      "description": "Er festigte das Reich und stellte Gott in dessen Mitte. Er ordnete die Anbetung und den Gottesdienst und drückte seine Beziehung zu Gott in den Psalmen aus.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/6.jpg"
+    },
+    {
+      "index": 7,
+      "title": "David tanzt für Gott",
+      "description": "Seine Frömmigkeit zeigte sich in der Freude, mit der er vor der Lade tanzte, als sie nach Jerusalem gebracht wurde, auch wenn es anderen als demütigend erschien.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/7.jpg"
+    },
+    {
+      "index": 8,
+      "title": "David sehnt sich nach einem Haus für Gott",
+      "description": "Der Prophet Nathan sagte ihm, dass nicht er, sondern sein Sohn es bauen würde, und er sammelte alle Materialien für seinen Sohn.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/8.jpg"
+    },
+    {
+      "index": 9,
+      "title": "Die Verheißung des davidischen Bundes",
+      "description": "Gott verheißt, dass seine Nachkommen ein beständiges Reich haben würden, durch das Christus, der Sohn Gottes, kommen würde!",
+      "imageUrl": "http://192.168.2.6:8080/static/images/9.jpg"
+    },
+    {
+      "index": 10,
+      "title": "David wird vergeben",
+      "description": "Obwohl er gesündigt hatte, bereute er zutiefst, wie Psalm 51 zeigt: Schaffe in mir, Gott, ein REINES HERZ.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/10.jpg"
+    }
+  ]
+}

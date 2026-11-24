@@ -22,6 +22,7 @@ class L10n {
     'en': 'English',
     'pt': 'Português',
     'fr': 'Français',
+    'de': 'Deutsch',
   };
 
   static const defaultLang = 'es';
