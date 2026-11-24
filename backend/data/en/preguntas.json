@@ -1,0 +1,95 @@
+{
+  "topicId": "astronomia-001",
+  "questions": [
+    {
+      "index": 1,
+      "question": "What is a man after God's own heart?",
+      "recommendation": "1 Samuel 13:14 The Lord has sought for Himself a man after His own heart.",
+      "options": [
+        { "text": "David always sought to sincerely please God", "isCorrect": false },
+        { "text": "Acts 13:22 I have found David the son of Jesse, a man after My own heart, who will do all My will", "isCorrect": true }
+      ]
+    },
+    {
+      "index": 2,
+      "question": "Since when did the Spirit of God accompany David?",
+      "recommendation": "The prophet Samuel was sent by God to anoint David as king.",
+      "options": [
+        { "text": "1 Samuel 16:13 Then Samuel took the horn of oil and anointed him in the midst of his brothers; and the Spirit of the Lord came upon David from that day forward.", "isCorrect": true },
+        { "text": "When he was made King of Israel", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 3,
+      "question": "How did the Spirit of God show Himself when David was a shepherd?",
+      "recommendation": "The Spirit of God works in a special way in a man for a purpose.",
+      "options": [
+        { "text": "I was anointed with oil as king by the prophet Samuel", "isCorrect": false },
+        { "text": "1 Samuel 17:34-36 Your servant used to keep his father's sheep, and when a lion or a bear came and took a lamb out of the flock, I went out after it and struck it, and delivered the lamb from its mouth; and when it arose against me, I caught it by its beard, and struck and killed it. Your servant has killed both lion and bear.", "isCorrect": true }
+      ]
+    },
+    {
+      "index": 4,
+      "question": "How did he face Goliath? Not with what!",
+      "recommendation": "Great problems, great solutions. We must not face them alone.",
+      "options": [
+        { "text": "1 Samuel 17:45 You come to me with a sword, with a spear... but I come to you in the name of the Lord of hosts!", "isCorrect": true },
+        { "text": "With a sling and a stone, which killed him", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 5,
+      "question": "Once Goliath was defeated, were his troubles over?",
+      "recommendation": "Success and fame brought him the king's envy.",
+      "options": [
+        { "text": "The people sang: Saul has slain his thousands, and David his ten thousands!", "isCorrect": false },
+        { "text": "Saul wanted to kill him out of envy", "isCorrect": true }
+      ]
+    },
+    {
+      "index": 6,
+      "question": "Why was David angered when he heard Goliath's insults?",
+      "recommendation": "The Spirit of God was with David!",
+      "options": [
+        { "text": "Because David loved God and could not help defending Him, even though he was only a boy!", "isCorrect": true },
+        { "text": "Because his brothers were soldiers and he also wanted to be a soldier", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 7,
+      "question": "If our heart needs to be changed, should we ask for it?",
+      "recommendation": "We have a sinful nature and we live in a sinful world.",
+      "options": [
+        { "text": "Psalm 51:10 Create in me a clean heart, O God, and renew a steadfast spirit within me", "isCorrect": true },
+        { "text": "Separate ourselves from the world", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 8,
+      "question": "What keeps a man united to God?",
+      "recommendation": "John 15:5 Without Me you can do nothing.",
+      "options": [
+        { "text": "John 14:23 If anyone loves Me, he will keep My word; and My Father will love him, and We will come to him and make Our home with him", "isCorrect": true },
+        { "text": "Belonging to the church, taking part in its activities and seeking God", "isCorrect": false }
+      ]
+    },
+    {
+      "index": 9,
+      "question": "Out of the heart flows life. How should we guard it?",
+      "recommendation": "The heart is deceitful above all things, and desperately wicked; who can know it? Jeremiah 17:9.",
+      "options": [
+        { "text": "Out of the abundance of the heart the mouth speaks. Luke 6:45", "isCorrect": false },
+        { "text": "Psalm 119:9 How can a young man cleanse his way? By taking heed according to Your word.", "isCorrect": true }
+      ]
+    },
+    {
+      "index": 10,
+      "question": "What lessons can you draw?",
+      "recommendation": "Many lessons can be drawn, but above all: please God and be recognized by Him as a man after His heart.\n*Do not grieve the Spirit of God; instead, let Him work. \n*Enter into a covenant with God with an eternal dynasty: God assured David that his house (his royal line) and his throne would be established forever! \n*Worship as a way of life. David is known as the sweet psalmist of Israel.",
+      "options": [
+        { "text": "Going to church on Sundays", "isCorrect": false },
+        { "text": "Having a pure heart and obeying God in everything", "isCorrect": true }
+      ]
+    }
+  ]
+}

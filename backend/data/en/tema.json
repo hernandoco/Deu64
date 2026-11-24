@@ -1,0 +1,66 @@
+{
+  "topicId": "astronomia-001",
+  "title": "After God's Own Heart",
+  "scenes": [
+    {
+      "index": 1,
+      "title": "Devotional",
+      "description": "King David was considered a man after God's own heart, because he obeyed Him and loved God so much that he longed to please Him.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/1.jpg"
+    },
+    {
+      "index": 2,
+      "title": "As a young man",
+      "description": "He helped his father take care of the sheep, working diligently.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/2.jpg"
+    },
+    {
+      "index": 3,
+      "title": "God chose him",
+      "description": "He was anointed king by the prophet Samuel and always remained humble before Saul.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/3.jpg"
+    },
+    {
+      "index": 4,
+      "title": "Facing death",
+      "description": "Saul wanted to kill him, and he hid in caves, hungry and in need, but always faithful to God.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/4.jpg"
+    },
+    {
+      "index": 5,
+      "title": "The persecution lasted ten years",
+      "description": "When Saul died, David grieved for someone who had wanted to kill him, because his love was true.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/5.jpg"
+    },
+    {
+      "index": 6,
+      "title": "King David",
+      "description": "He strengthened the kingdom and put God at its center. He organized worship and expressed his relationship with God through the Psalms.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/6.jpg"
+    },
+    {
+      "index": 7,
+      "title": "David dances for God",
+      "description": "His devotion showed in his joy: he danced before the ark when it was carried to Jerusalem, even though others thought it was humiliating.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/7.jpg"
+    },
+    {
+      "index": 8,
+      "title": "David longs to build a house for God",
+      "description": "The prophet Nathan told him that it would not be he, but his son, who would build it, and David gathered all the materials for his son.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/8.jpg"
+    },
+    {
+      "index": 9,
+      "title": "The Davidic Covenant promise",
+      "description": "God promises that his descendants would have an everlasting kingdom, through which Christ, the Son of God, would come!",
+      "imageUrl": "http://192.168.2.6:8080/static/images/9.jpg"
+    },
+    {
+      "index": 10,
+      "title": "David is forgiven",
+      "description": "Although he sinned, he repented deeply, as Psalm 51 reflects: Create in me, O God, a CLEAN HEART.",
+      "imageUrl": "http://192.168.2.6:8080/static/images/10.jpg"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+    "topicId": "Premios",
+    "title": "Surprises for those with a fervent heart",
+    "prayer": "List of awards",
+    "awards": [
+        {
+          "award": "Ticket to Maloka"
+        },
+        {
+          "award": "Animated Book"
+        },
+        {
+          "award": "Box of Chocolate Bars"
+        },
+        {
+          "award": "Ticket to the Planetarium museum"
+        }
+      ]
+}

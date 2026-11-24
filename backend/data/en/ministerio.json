@@ -1,0 +1,25 @@
+{
+    "topicId": "Ministerio",
+    "title": "Aimed at parents with children ages 3 and up",
+    "Base": "Deuteronomy 6",
+    "Verses": [
+        {
+          "VerseMinistery": "4. Hear, O Israel: The Lord our God, the Lord is one!"
+        },
+        {
+          "VerseMinistery": "5. You shall love the Lord your God with all your heart, with all your soul, and with all your strength."
+        },
+        {
+          "VerseMinistery": "6. And these words which I command you today shall be in your heart;"
+        },
+        {
+          "VerseMinistery": "7. you shall teach them diligently to your children, and shall talk of them when you sit in your house, when you walk by the way, when you lie down, and when you rise up."
+        },
+        {
+            "VerseMinistery": "8. You shall bind them as a sign on your hand, and they shall be as frontlets between your eyes."
+        },
+        {
+            "VerseMinistery": "9. You shall write them on the doorposts of your house and on your gates."
+        }
+      ]
+}
