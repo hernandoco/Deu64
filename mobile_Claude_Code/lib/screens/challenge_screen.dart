@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 import '../api.dart';
 import '../models.dart';
@@ -26,7 +27,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reto del día'),
+        title: Text(L10n.t('challenge.title')),
         backgroundColor: Colors.transparent,
       ),
       body: FutureBuilder<ChallengeResponse>(
@@ -42,14 +43,14 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      'No se pudo cargar el reto.',
+                    Text(
+                      L10n.t('challenge.error'),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
                     FilledButton(
                       onPressed: _retry,
-                      child: const Text('Reintentar'),
+                      child: Text(L10n.t('common.retry')),
                     ),
                   ],
                 ),

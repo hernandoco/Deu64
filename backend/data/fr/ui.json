@@ -1,0 +1,102 @@
+{
+  "login.title": "DEU64",
+  "login.welcome": "Bienvenue",
+  "login.button": "Se connecter",
+  "common.retry": "Réessayer",
+  "loading.starting": "Démarrage...",
+  "loading.login": "Connexion...",
+  "loading.cancelled": "Connexion annulée",
+  "loading.connecting": "Connexion au serveur...",
+  "loading.downloading": "Téléchargement des ressources...",
+  "loading.opening": "Ouverture du contenu...",
+  "loading.error": "Erreur de chargement des données :\n{error}",
+  "nav.home": "Accueil",
+  "nav.teachings": "Enseignements",
+  "nav.ministry": "Ministère",
+  "menu.devotional": "Dévotion",
+  "menu.help": "Aide",
+  "menu.awards": "Récompenses",
+  "menu.donation": "Don",
+  "home.language": "Langue",
+  "home.voice_title": "Message du jour",
+  "home.tap_to_listen": "Touchez pour écouter",
+  "home.verse_label": "Verset du jour :",
+  "home.devotional_today": "Dévotion du jour",
+  "home.questions_title": "Questions de la dévotion",
+  "home.questions_subtitle": "Réponds et gagne des points",
+  "home.prayer_title": "Prière modèle",
+  "home.prayer_subtitle": "Prie avec le pasteur",
+  "home.challenge_title": "Défi du jour",
+  "home.challenge_subtitle": "Un petit défi pour aujourd'hui",
+  "home.scenes_count": "{n} scènes",
+  "home.pastor_alt": "Pasteur animé avec son petit agneau",
+  "home.verse_ref": "Deut 6:4",
+  "tooltip.open_devotional": "Ouvrir la dévotion",
+  "tooltip.open_questions": "Ouvrir les questions",
+  "tooltip.open_prayer": "Ouvrir la prière modèle",
+  "tooltip.open_challenge": "Ouvrir le défi du jour",
+  "tooltip.pause": "Mettre le message en pause",
+  "tooltip.listen": "Écouter le message",
+  "snack.audio_unavailable": "Le message du jour n'est pas encore disponible.",
+  "snack.audio_failed": "Impossible de lire le message. Vérifiez votre connexion.",
+  "scenes.start_questions": "Commencer les questions",
+  "questions.banner": "QUESTIONS",
+  "quiz.title": "Quiz",
+  "quiz.empty": "Il n'y a pas de questions pour ce thème.",
+  "quiz.progress": "Question {i}/{total}",
+  "quiz.prev": "Précédent",
+  "quiz.next": "Suivant",
+  "quiz.finish": "Terminer",
+  "result.title": "Résultat",
+  "result.score": "Points : {score}/{total}",
+  "prayer.title": "Prière modèle",
+  "prayer.support_verses": "Versets de soutien",
+  "prayer.error": "Impossible de charger la prière.",
+  "challenge.title": "Défi du jour",
+  "challenge.error": "Impossible de charger le défi.",
+  "info.error": "Impossible de charger le contenu.",
+  "auth.appauth_error": "Erreur AppAuth : {details}",
+  "auth.generic_error": "Erreur pendant l'authentification : {error}",
+  "home.verse_segments": [
+    {
+      "t": "Ces ",
+      "c": ""
+    },
+    {
+      "t": "paroles ",
+      "c": "orange"
+    },
+    {
+      "t": "que je te donne aujourd'hui ",
+      "c": ""
+    },
+    {
+      "t": "seront ",
+      "c": "teal"
+    },
+    {
+      "t": "dans ton ",
+      "c": ""
+    },
+    {
+      "t": "cœur",
+      "c": "pink"
+    },
+    {
+      "t": " ; tu les ",
+      "c": ""
+    },
+    {
+      "t": "répéteras ",
+      "c": "orange"
+    },
+    {
+      "t": "à tes ",
+      "c": ""
+    },
+    {
+      "t": "enfants",
+      "c": "teal"
+    }
+  ]
+}

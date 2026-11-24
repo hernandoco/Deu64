@@ -1,0 +1,102 @@
+{
+  "login.title": "DEU64",
+  "login.welcome": "Bem-vindo",
+  "login.button": "Entrar",
+  "common.retry": "Tentar novamente",
+  "loading.starting": "Iniciando...",
+  "loading.login": "Entrando...",
+  "loading.cancelled": "Login cancelado",
+  "loading.connecting": "Conectando ao servidor...",
+  "loading.downloading": "Baixando recursos...",
+  "loading.opening": "Abrindo conteúdo...",
+  "loading.error": "Erro ao carregar os dados:\n{error}",
+  "nav.home": "Início",
+  "nav.teachings": "Ensinamentos",
+  "nav.ministry": "Ministério",
+  "menu.devotional": "Devocional",
+  "menu.help": "Ajuda",
+  "menu.awards": "Prêmios",
+  "menu.donation": "Doação",
+  "home.language": "Idioma",
+  "home.voice_title": "Mensagem de hoje",
+  "home.tap_to_listen": "Toque para ouvir",
+  "home.verse_label": "Versículo do dia:",
+  "home.devotional_today": "Devocional de hoje",
+  "home.questions_title": "Perguntas do devocional",
+  "home.questions_subtitle": "Responda e ganhe pontos",
+  "home.prayer_title": "Oração modelo",
+  "home.prayer_subtitle": "Ore junto com o pastor",
+  "home.challenge_title": "Desafio do dia",
+  "home.challenge_subtitle": "Um pequeno desafio para hoje",
+  "home.scenes_count": "{n} cenas",
+  "home.pastor_alt": "Pastor animado com sua ovelhinha",
+  "home.verse_ref": "Dt 6:4",
+  "tooltip.open_devotional": "Abrir devocional",
+  "tooltip.open_questions": "Abrir perguntas",
+  "tooltip.open_prayer": "Abrir oração modelo",
+  "tooltip.open_challenge": "Abrir desafio do dia",
+  "tooltip.pause": "Pausar mensagem",
+  "tooltip.listen": "Ouvir mensagem",
+  "snack.audio_unavailable": "A mensagem de hoje ainda não está disponível.",
+  "snack.audio_failed": "Não foi possível reproduzir a mensagem. Verifique sua conexão.",
+  "scenes.start_questions": "Começar perguntas",
+  "questions.banner": "PERGUNTAS",
+  "quiz.title": "Quiz",
+  "quiz.empty": "Não há perguntas para este tema.",
+  "quiz.progress": "Pergunta {i}/{total}",
+  "quiz.prev": "Anterior",
+  "quiz.next": "Próxima",
+  "quiz.finish": "Finalizar",
+  "result.title": "Resultado",
+  "result.score": "Pontos: {score}/{total}",
+  "prayer.title": "Oração modelo",
+  "prayer.support_verses": "Versículos de apoio",
+  "prayer.error": "Não foi possível carregar a oração.",
+  "challenge.title": "Desafio do dia",
+  "challenge.error": "Não foi possível carregar o desafio.",
+  "info.error": "Não foi possível carregar o conteúdo.",
+  "auth.appauth_error": "Erro do AppAuth: {details}",
+  "auth.generic_error": "Erro durante a autenticação: {error}",
+  "home.verse_segments": [
+    {
+      "t": "E estas ",
+      "c": ""
+    },
+    {
+      "t": "palavras ",
+      "c": "orange"
+    },
+    {
+      "t": "que hoje te ordeno, ",
+      "c": ""
+    },
+    {
+      "t": "estarão ",
+      "c": "teal"
+    },
+    {
+      "t": "no teu ",
+      "c": ""
+    },
+    {
+      "t": "coração",
+      "c": "pink"
+    },
+    {
+      "t": "; e as ",
+      "c": ""
+    },
+    {
+      "t": "repetirás ",
+      "c": "orange"
+    },
+    {
+      "t": "a teus ",
+      "c": ""
+    },
+    {
+      "t": "filhos",
+      "c": "teal"
+    }
+  ]
+}

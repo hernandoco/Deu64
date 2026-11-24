@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'config.dart';
+import 'l10n/l10n.dart';
 import 'models.dart';
 
 
@@ -63,10 +64,26 @@ print('=== FLAG: fetchTopic 4 ===');
   }
   original*/
 
+  /// URL del backend con el idioma activo (?lang=xx).
+  Uri _uri(String path, [Map<String, String> query = const {}]) =>
+      Uri.parse('${AppConfig.baseUrl}$path')
+          .replace(queryParameters: {...query, 'lang': L10n.lang});
+
+  /// El caché de español conserva su clave original; los demás idiomas
+  /// llevan el código para no mezclar contenidos.
+  String _key(String base) =>
+      L10n.lang == L10n.defaultLang ? base : '${base}_${L10n.lang}';
+
+  Future<Map<String, dynamic>> fetchUi() => _getCached(
+    '/api/v1/ui',
+    'cache_ui_v1',
+    (j) => j,
+  );
+
   Future<TopicResponse> fetchTopic() async {
   final prefs = await SharedPreferences.getInstance();
-  final cachedTopicStr = prefs.getString(_cacheTopicKey);
-  final uri = Uri.parse('${AppConfig.baseUrl}/api/v1/leer_tema');
+  final cachedTopicStr = prefs.getString(_key(_cacheTopicKey));
+  final uri = _uri('/api/v1/leer_tema');
 
 
   try {
@@ -76,8 +93,9 @@ print('=== FLAG: fetchTopic 4 ===');
       throw Exception('Error leer_tema: ${res.statusCode} ${res.body}');
     }
 
-    await prefs.setString(_cacheTopicKey, res.body);
-    final topic = TopicResponse.fromJson(jsonDecode(res.body));
+    final body = utf8.decode(res.bodyBytes);
+    await prefs.setString(_key(_cacheTopicKey), body);
+    final topic = TopicResponse.fromJson(jsonDecode(body));
     await prefs.setString(_cacheLastTopicIdKey, topic.topicId);
     return topic;
   } catch (e) {
@@ -92,11 +110,10 @@ print('=== FLAG: fetchTopic 4 ===');
 
   Future<QuestionsResponse> fetchQuestions(String topicId) async {
     final prefs = await SharedPreferences.getInstance();
-    final cacheKey = '$_cacheQuestionsPrefix$topicId';
+    final cacheKey = _key('$_cacheQuestionsPrefix$topicId');
     final cachedQuestionsStr = prefs.getString(cacheKey);
     try {
-      final uri = Uri.parse('${AppConfig.baseUrl}/api/v1/preguntas_tema')
-          .replace(queryParameters: {'topicId': topicId});
+      final uri = _uri('/api/v1/preguntas_tema', {'topicId': topicId});
 
       final res = await http.get(uri).timeout(_timeout);
 
@@ -104,8 +121,9 @@ print('=== FLAG: fetchTopic 4 ===');
         throw Exception('Error preguntas_tema: ${res.statusCode} ${res.body}');
       }
 
-      await prefs.setString(cacheKey, res.body);
-      return QuestionsResponse.fromJson(jsonDecode(res.body));
+      final body = utf8.decode(res.bodyBytes);
+      await prefs.setString(cacheKey, body);
+      return QuestionsResponse.fromJson(jsonDecode(body));
     } catch (e) {
       if (cachedQuestionsStr != null && cachedQuestionsStr.isNotEmpty) {
         return QuestionsResponse.fromJson(jsonDecode(cachedQuestionsStr));
@@ -124,11 +142,10 @@ print('=== FLAG: fetchTopic 4 ===');
     T Function(Map<String, dynamic>) parse,
   ) async {
     final prefs = await SharedPreferences.getInstance();
+    cacheKey = _key(cacheKey);
     final cached = prefs.getString(cacheKey);
     try {
-      final res = await http
-          .get(Uri.parse('${AppConfig.baseUrl}$path'))
-          .timeout(_timeout);
+      final res = await http.get(_uri(path)).timeout(_timeout);
       if (res.statusCode != 200) {
         throw Exception('Error $path: ${res.statusCode} ${res.body}');
       }

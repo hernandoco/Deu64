@@ -6,6 +6,7 @@ import 'package:just_audio/just_audio.dart';
 import '../api.dart';
 import '../audio_cache_manager.dart';
 import '../image_cache_manager.dart';
+import '../l10n/l10n.dart';
 import '../models.dart';
 import '../theme/app_theme.dart';
 import '../widgets/menu_illustrations.dart';
@@ -14,6 +15,14 @@ import 'info_screen.dart';
 import 'prayer_screen.dart';
 import 'quiz_carousel_screen.dart';
 import 'scenes_carousel_screen.dart';
+
+/// Color de un segmento de la frase del Home (campo `c` de `ui.json`).
+TextStyle? _verseColor(String? name) => switch (name) {
+  'orange' => const TextStyle(color: Color(0xFFE8590C)),
+  'teal' => const TextStyle(color: Color(0xFF0B8A7A)),
+  'pink' => const TextStyle(color: Color(0xFFD6336C)),
+  _ => null,
+};
 
 /// Pantalla principal: se muestra después del login y de cargar el tema.
 class HomeScreen extends StatefulWidget {
@@ -52,14 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
               imageCacheManager: widget.imageCacheManager,
             ),
             InfoScreen(
-              title: 'Enseñanzas',
+              title: L10n.t('nav.teachings'),
               load: ApiClient().fetchTeachings,
               icon: Icons.school_rounded,
               color: kTitleDevocional,
               onBack: _goHome,
             ),
             InfoScreen(
-              title: 'Ministerio',
+              title: L10n.t('nav.ministry'),
               load: ApiClient().fetchMinistry,
               icon: Icons.church_rounded,
               color: kTitleDevocional,
@@ -80,21 +89,21 @@ class _HomeScreenState extends State<HomeScreen> {
               child: NavigationBar(
                 selectedIndex: _tab,
                 onDestinationSelected: (i) => setState(() => _tab = i),
-                destinations: const [
+                destinations: [
                   NavigationDestination(
                     icon: Icon(Icons.home_rounded, color: kOnSurfaceVariant),
                     selectedIcon: Icon(Icons.home_rounded),
-                    label: 'Home',
+                    label: L10n.t('nav.home'),
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.school_rounded, color: kOnSurfaceVariant),
                     selectedIcon: Icon(Icons.school_rounded),
-                    label: 'Enseñanzas',
+                    label: L10n.t('nav.teachings'),
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.church_rounded, color: kOnSurfaceVariant),
                     selectedIcon: Icon(Icons.church_rounded),
-                    label: 'Ministerio',
+                    label: L10n.t('nav.ministry'),
                   ),
                 ],
               ),
@@ -157,9 +166,17 @@ class _HomeTabState extends State<_HomeTab> {
           if (mounted) setState(() => _audio = a);
           // Descarga el audio en segundo plano para que ya esté guardado
           // (y suene sin esperar ni sin red) cuando el usuario pulse play.
-          if (a.audioUrl.isNotEmpty) getAudioFile(a.audioUrl).ignore();
+          if (a.audioUrl.isNotEmpty) getAudioFile(_audioUrl(a)).ignore();
         })
         .catchError((_) {});
+  }
+
+  // El archivo de audio también depende del idioma.
+  String _audioUrl(AudioMessageResponse a) {
+    final uri = Uri.parse(a.audioUrl);
+    return uri
+        .replace(queryParameters: {...uri.queryParameters, 'lang': L10n.lang})
+        .toString();
   }
 
   void _showSnack(String msg) {
@@ -181,7 +198,7 @@ class _HomeTabState extends State<_HomeTab> {
     }
     final audio = _audio;
     if (audio == null || audio.audioUrl.isEmpty) {
-      _showSnack('El mensaje de hoy aún no está disponible.');
+      _showSnack(L10n.t('snack.audio_unavailable'));
       return;
     }
 
@@ -214,11 +231,11 @@ class _HomeTabState extends State<_HomeTab> {
         setState(() => _audioLoading = true);
         // Se reproduce desde el archivo guardado; si no hay copia local ni se
         // pudo descargar, se transmite directamente desde el backend.
-        final file = await getAudioFile(audio.audioUrl);
+        final file = await getAudioFile(_audioUrl(audio));
         if (file != null) {
           await player.setFilePath(file.path);
         } else {
-          await player.setUrl(audio.audioUrl);
+          await player.setUrl(_audioUrl(audio));
         }
         _audioReady = true;
         if (mounted) setState(() => _audioLoading = false);
@@ -231,7 +248,7 @@ class _HomeTabState extends State<_HomeTab> {
       }
     } catch (_) {
       if (mounted) setState(() => _audioLoading = false);
-      _showSnack('No se pudo reproducir el mensaje. Revisa tu conexión.');
+      _showSnack(L10n.t('snack.audio_failed'));
     }
   }
 
@@ -269,6 +286,26 @@ class _HomeTabState extends State<_HomeTab> {
     ).push(MaterialPageRoute(builder: (_) => const ChallengeScreen()));
   }
 
+  // Cambia el idioma: guarda la elección, recarga textos y tema, y reemplaza
+  // el Home (sin volver a pedir login). Verso, audio, oración, etc. se
+  // vuelven a pedir porque el nuevo Home los carga al iniciarse.
+  Future<void> _changeLanguage(String code) async {
+    if (code == L10n.lang) return;
+    final nav = Navigator.of(context);
+    final cache = widget.imageCacheManager;
+    await L10n.setLanguage(code);
+    try {
+      final topic = await _api.fetchTopic();
+      nav.pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => HomeScreen(topic: topic, imageCacheManager: cache),
+        ),
+      );
+    } catch (_) {
+      _showSnack(L10n.t('info.error'));
+    }
+  }
+
   // Ayuda, Premios y Donación: contenido del backend.
   void _openInfo(
     String title,
@@ -296,6 +333,8 @@ class _HomeTabState extends State<_HomeTab> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // 1) Marco del niño pastor con mensaje (fondo blanco)
+          Stack(
+            children: [
           Container(
             height: headerHeight,
             decoration: const BoxDecoration(
@@ -332,8 +371,8 @@ class _HomeTabState extends State<_HomeTab> {
                               children: [
                                 Flexible(
                                   child: Text.rich(
-                                    const TextSpan(
-                                      style: TextStyle(
+                                    TextSpan(
+                                      style: const TextStyle(
                                         fontFamily: 'GochiHand',
                                         fontSize: 22.5,
                                         height: 1.3,
@@ -341,41 +380,15 @@ class _HomeTabState extends State<_HomeTab> {
                                         color: Color(0xFF4A2C8F),
                                       ),
                                       children: [
-                                        TextSpan(text: 'Y estas '),
-                                        TextSpan(
-                                          text: 'palabras ',
-                                          style: TextStyle(
-                                            color: Color(0xFFE8590C),
+                                        for (final seg in L10n.segments(
+                                          'home.verse_segments',
+                                        ))
+                                          TextSpan(
+                                            text: seg['t'] as String? ?? '',
+                                            style: _verseColor(
+                                              seg['c'] as String?,
+                                            ),
                                           ),
-                                        ),
-                                        TextSpan(text: 'que te mando hoy, '),
-                                        TextSpan(
-                                          text: 'estarán ',
-                                          style: TextStyle(
-                                            color: Color(0xFF0B8A7A),
-                                          ),
-                                        ),
-                                        TextSpan(text: 'sobre tu '),
-                                        TextSpan(
-                                          text: 'corazón',
-                                          style: TextStyle(
-                                            color: Color(0xFFD6336C),
-                                          ),
-                                        ),
-                                        TextSpan(text: '; y las '),
-                                        TextSpan(
-                                          text: 'repetirás ',
-                                          style: TextStyle(
-                                            color: Color(0xFFE8590C),
-                                          ),
-                                        ),
-                                        TextSpan(text: 'a tus '),
-                                        TextSpan(
-                                          text: 'hijos',
-                                          style: TextStyle(
-                                            color: Color(0xFF0B8A7A),
-                                          ),
-                                        ),
                                       ],
                                     ),
                                     overflow: TextOverflow.fade,
@@ -386,7 +399,7 @@ class _HomeTabState extends State<_HomeTab> {
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    'Deu 6:4',
+                                    L10n.t('home.verse_ref'),
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge
@@ -411,7 +424,7 @@ class _HomeTabState extends State<_HomeTab> {
                               'assets/images/pastor_infantil.png',
                               fit: BoxFit.contain,
                               alignment: Alignment.center,
-                              semanticLabel: 'Pastor animado con su ovejita',
+                              semanticLabel: L10n.t('home.pastor_alt'),
                             ),
                           ),
                         ),
@@ -421,6 +434,16 @@ class _HomeTabState extends State<_HomeTab> {
                 ),
               ),
             ),
+          ),
+              Positioned(
+                top: 0,
+                right: 8,
+                child: SafeArea(
+                  bottom: false,
+                  child: _LanguageButton(onSelected: _changeLanguage),
+                ),
+              ),
+            ],
           ),
           // 2) Tarjeta de iconos, superpuesta a la imagen
           Transform.translate(
@@ -438,16 +461,16 @@ class _HomeTabState extends State<_HomeTab> {
                   children: [
                     _MenuItem(
                       illustration: const BookIllustration(),
-                      label: 'Devocional',
+                      label: L10n.t('menu.devotional'),
                       background: kMenuDevocional,
                       onTap: _openDevocional,
                     ),
                     _MenuItem(
                       illustration: const HelpIllustration(),
-                      label: 'Ayuda',
+                      label: L10n.t('menu.help'),
                       background: kMenuAyuda,
                       onTap: () => _openInfo(
-                        'Ayuda',
+                        L10n.t('menu.help'),
                         _api.fetchHelp,
                         Icons.help_rounded,
                         kTitleReto,
@@ -455,10 +478,10 @@ class _HomeTabState extends State<_HomeTab> {
                     ),
                     _MenuItem(
                       illustration: const TrophyIllustration(),
-                      label: 'Premios',
+                      label: L10n.t('menu.awards'),
                       background: kMenuPremios,
                       onTap: () => _openInfo(
-                        'Premios',
+                        L10n.t('menu.awards'),
                         _api.fetchAwards,
                         Icons.emoji_events_rounded,
                         kTitlePreguntas,
@@ -466,10 +489,10 @@ class _HomeTabState extends State<_HomeTab> {
                     ),
                     _MenuItem(
                       illustration: const PiggyIllustration(),
-                      label: 'Donación',
+                      label: L10n.t('menu.donation'),
                       background: kMenuDonacion,
                       onTap: () => _openInfo(
-                        'Donación',
+                        L10n.t('menu.donation'),
                         _api.fetchDonations,
                         Icons.favorite_rounded,
                         kTitleOracion,
@@ -501,13 +524,13 @@ class _HomeTabState extends State<_HomeTab> {
                   ),
                   const SizedBox(height: 16),
                   _VerseCard(
-                    label: 'Versículo del día:',
+                    label: L10n.t('home.verse_label'),
                     verse: _verse?.verse ?? '...',
                     description: _verse?.description,
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Devocional de hoy',
+                    L10n.t('home.devotional_today'),
                     style: sectionTitleStyle(kTitleDevocional),
                   ),
                   const SizedBox(height: 12),
@@ -518,39 +541,39 @@ class _HomeTabState extends State<_HomeTab> {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Preguntas del devocional',
+                    L10n.t('home.questions_title'),
                     style: sectionTitleStyle(kTitlePreguntas),
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(
                     topic: widget.topic,
                     onTap: _openPreguntas,
-                    subtitle: 'Responde y gana puntos',
-                    tooltip: 'Abrir preguntas',
+                    subtitle: L10n.t('home.questions_subtitle'),
+                    tooltip: L10n.t('tooltip.open_questions'),
                     icon: Icons.quiz_rounded,
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Oración modelo',
+                    L10n.t('home.prayer_title'),
                     style: sectionTitleStyle(kTitleOracion),
                   ),
                   const SizedBox(height: 12),
                   _TopicCard(
                     topic: widget.topic,
                     onTap: _openOracion,
-                    subtitle: 'Ora junto con el pastor',
-                    tooltip: 'Abrir oración modelo',
+                    subtitle: L10n.t('home.prayer_subtitle'),
+                    tooltip: L10n.t('tooltip.open_prayer'),
                     icon: Icons.volunteer_activism_rounded,
                     iconColors: const [Color(0xFFF48FB1), Color(0xFFD6336C)],
                   ),
                   const SizedBox(height: 24),
-                  Text('Reto del día', style: sectionTitleStyle(kTitleReto)),
+                  Text(L10n.t('home.challenge_title'), style: sectionTitleStyle(kTitleReto)),
                   const SizedBox(height: 12),
                   _TopicCard(
                     topic: widget.topic,
                     onTap: _openReto,
-                    subtitle: 'Un pequeño desafío para hoy',
-                    tooltip: 'Abrir reto del día',
+                    subtitle: L10n.t('home.challenge_subtitle'),
+                    tooltip: L10n.t('tooltip.open_challenge'),
                     icon: Icons.flag_rounded,
                     iconColors: const [Color(0xFF4DB6AC), Color(0xFF00897B)],
                   ),
@@ -665,7 +688,9 @@ class _VoiceCard extends StatelessWidget {
         children: [
           IconButton.filled(
             onPressed: onToggle,
-            tooltip: playing ? 'Pausar mensaje' : 'Escuchar mensaje',
+            tooltip: playing
+                ? L10n.t('tooltip.pause')
+                : L10n.t('tooltip.listen'),
             style: IconButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: primary,
@@ -688,12 +713,12 @@ class _VoiceCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Mensaje de hoy',
+                  L10n.t('home.voice_title'),
                   style: text.titleMedium?.copyWith(color: Colors.white),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  title ?? 'Toca para escuchar',
+                  title ?? L10n.t('home.tap_to_listen'),
                   style: text.bodyMedium?.copyWith(color: Colors.white70),
                 ),
                 const SizedBox(height: 10),
@@ -781,7 +806,7 @@ class _TopicCard extends StatelessWidget {
 
   final String? subtitle;
   final BaseCacheManager? imageCacheManager;
-  final String tooltip;
+  final String? tooltip;
 
   /// Si se indica, reemplaza la miniatura por un icono sobre fondo de color.
   final IconData? icon;
@@ -794,7 +819,7 @@ class _TopicCard extends StatelessWidget {
     required this.onTap,
     this.subtitle,
     this.imageCacheManager,
-    this.tooltip = 'Abrir devocional',
+    this.tooltip,
     this.icon,
     this.iconColors = const [Color(0xFFFFB74D), Color(0xFFF57C00)],
   });
@@ -867,7 +892,7 @@ class _TopicCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      subtitle ?? '${topic.scenes.length} escenas',
+                      subtitle ?? L10n.t('home.scenes_count', {'n': topic.scenes.length}),
                       style: text.bodyMedium?.copyWith(
                         color: kOnSurfaceVariant,
                       ),
@@ -878,7 +903,7 @@ class _TopicCard extends StatelessWidget {
               const SizedBox(width: 8),
               IconButton.filled(
                 onPressed: onTap,
-                tooltip: tooltip,
+                tooltip: tooltip ?? L10n.t('tooltip.open_devotional'),
                 style: IconButton.styleFrom(
                   backgroundColor: scheme.primary,
                   fixedSize: const Size(56, 56),
@@ -889,6 +914,31 @@ class _TopicCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+/// Botón de la cabecera del Home para elegir el idioma.
+class _LanguageButton extends StatelessWidget {
+  final ValueChanged<String> onSelected;
+
+  const _LanguageButton({required this.onSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<String>(
+      tooltip: L10n.t('home.language'),
+      icon: const Icon(Icons.language_rounded, color: Color(0xFF4A2C8F)),
+      onSelected: onSelected,
+      itemBuilder: (_) => [
+        for (final e in L10n.languages.entries)
+          CheckedPopupMenuItem<String>(
+            value: e.key,
+            checked: e.key == L10n.lang,
+            child: Text(e.value),
+          ),
+      ],
     );
   }
 }

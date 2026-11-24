@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 import '../models.dart';
 import '../theme/app_theme.dart';
@@ -68,14 +69,14 @@ class _InfoScreenState extends State<InfoScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      'No se pudo cargar el contenido.',
+                    Text(
+                      L10n.t('info.error'),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
                     FilledButton(
                       onPressed: _retry,
-                      child: const Text('Reintentar'),
+                      child: Text(L10n.t('common.retry')),
                     ),
                   ],
                 ),

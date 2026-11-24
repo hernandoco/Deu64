@@ -180,24 +180,54 @@ func logRequests(next http.Handler) http.Handler {
 	})
 }
 
+// Idiomas soportados. "es" es el idioma por defecto y el de respaldo.
+var supportedLangs = map[string]bool{"es": true, "en": true, "pt": true, "fr": true}
+
+// dataFile devuelve data/<lang>/<name>, con lang tomado de ?lang=.
+// Si el idioma no es válido o el archivo no existe en ese idioma, usa data/es/<name>.
+func dataFile(r *http.Request, name string) string {
+	lang := r.URL.Query().Get("lang")
+	if supportedLangs[lang] {
+		p := "data/" + lang + "/" + name
+		if _, err := os.Stat(p); err == nil {
+			return p
+		}
+	}
+	return "data/es/" + name
+}
+
 func main() {
 	const (
 		addr          = ":8080"
-		topicPath     = "data/tema.json"
-		questionsPath = "data/preguntas.json"
-		versePath     = "data/versiculo.json"
-		prayerPath    = "data/oracion.json"
-		ChallengePath = "data/reto.json"
-		audioJSONPath = "data/audio.json"
-		audioFilePath = "data/audio.m4a"
-		helpPath      = "data/ayuda.json"
-		awardsPath    = "data/premios.json"
-		donationPath  = "data/donaciones.json"
-		teachPath     = "data/ensenanzas.json"
-		ministryPath  = "data/ministerio.json"
+		topicPath     = "tema.json"
+		questionsPath = "preguntas.json"
+		versePath     = "versiculo.json"
+		prayerPath    = "oracion.json"
+		ChallengePath = "reto.json"
+		audioJSONPath = "audio.json"
+		audioFilePath = "audio.m4a"
+		helpPath      = "ayuda.json"
+		awardsPath    = "premios.json"
+		donationPath  = "donaciones.json"
+		teachPath     = "ensenanzas.json"
+		ministryPath  = "ministerio.json"
+		uiPath        = "ui.json"
 	)
 
 	mux := http.NewServeMux()
+
+	mux.HandleFunc("/api/v1/ui", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			writeJSON(w, http.StatusMethodNotAllowed, ErrorResponse{Error: "method_not_allowed"})
+			return
+		}
+		qs, err := readJSONFile[map[string]any](dataFile(r, uiPath))
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, ErrorResponse{Error: "failed_to_read_ui", Details: err.Error()})
+			return
+		}
+		writeJSON(w, http.StatusOK, qs)
+	})
 
 	mux.HandleFunc("/api/v1/leer_tema", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
@@ -205,7 +235,7 @@ func main() {
 			return
 		}
 
-		topic, err := readJSONFile[TopicResponse](topicPath)
+		topic, err := readJSONFile[TopicResponse](dataFile(r, topicPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_topic",
@@ -223,7 +253,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[QuestionsResponse](questionsPath)
+		qs, err := readJSONFile[QuestionsResponse](dataFile(r, questionsPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_questions",
@@ -241,7 +271,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[VerseResponse](versePath)
+		qs, err := readJSONFile[VerseResponse](dataFile(r, versePath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_verse_daily",
@@ -259,7 +289,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[PrayerResponse](prayerPath)
+		qs, err := readJSONFile[PrayerResponse](dataFile(r, prayerPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_prayer_model",
@@ -277,7 +307,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[ChallengeResponse](ChallengePath)
+		qs, err := readJSONFile[ChallengeResponse](dataFile(r, ChallengePath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_challenge_daily",
@@ -295,7 +325,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[HelpResponse](helpPath)
+		qs, err := readJSONFile[HelpResponse](dataFile(r, helpPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_help_daily",
@@ -313,7 +343,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[AwardsResponse](awardsPath)
+		qs, err := readJSONFile[AwardsResponse](dataFile(r, awardsPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_award_daily",
@@ -331,7 +361,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[DonationsResponse](donationPath)
+		qs, err := readJSONFile[DonationsResponse](dataFile(r, donationPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_donations_daily",
@@ -349,7 +379,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[TeachingsResponse](teachPath)
+		qs, err := readJSONFile[TeachingsResponse](dataFile(r, teachPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_teachings_daily",
@@ -367,7 +397,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[MinisteryResponse](ministryPath)
+		qs, err := readJSONFile[MinisteryResponse](dataFile(r, ministryPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_ministery_daily",
@@ -385,7 +415,7 @@ func main() {
 			return
 		}
 
-		qs, err := readJSONFile[MessageAuditionResponse](audioJSONPath)
+		qs, err := readJSONFile[MessageAuditionResponse](dataFile(r, audioJSONPath))
 		if err != nil {
 			writeJSON(w, http.StatusInternalServerError, ErrorResponse{
 				Error:   "failed_to_read_audtion",
@@ -406,7 +436,7 @@ func main() {
 			return
 		}
 		w.Header().Set("Content-Type", "audio/mp4")
-		http.ServeFile(w, r, audioFilePath)
+		http.ServeFile(w, r, dataFile(r, audioFilePath))
 	})
 
 	srv := &http.Server{

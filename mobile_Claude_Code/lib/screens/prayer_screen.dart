@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 import '../api.dart';
 import '../models.dart';
@@ -27,7 +28,7 @@ class _PrayerScreenState extends State<PrayerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Oración modelo'),
+        title: Text(L10n.t('prayer.title')),
         backgroundColor: Colors.transparent,
       ),
       body: FutureBuilder<PrayerResponse>(
@@ -38,7 +39,7 @@ class _PrayerScreenState extends State<PrayerScreen> {
           }
           if (snap.hasError || !snap.hasData) {
             return _LoadError(
-              message: 'No se pudo cargar la oración.',
+              message: L10n.t('prayer.error'),
               onRetry: _retry,
             );
           }
@@ -85,7 +86,7 @@ class _PrayerScreenState extends State<PrayerScreen> {
               ),
               if (prayer.verses.isNotEmpty) ...[
                 const SizedBox(height: 24),
-                Text('Versículos de apoyo', style: text.titleMedium),
+                Text(L10n.t('prayer.support_verses'), style: text.titleMedium),
                 const SizedBox(height: 12),
                 Wrap(
                   spacing: 8,
@@ -128,7 +129,7 @@ class _LoadError extends StatelessWidget {
           children: [
             Text(message, textAlign: TextAlign.center),
             const SizedBox(height: 12),
-            FilledButton(onPressed: onRetry, child: const Text('Reintentar')),
+            FilledButton(onPressed: onRetry, child: Text(L10n.t('common.retry'))),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 import '../api.dart';
 import '../models.dart';
@@ -89,14 +90,14 @@ class _QuizCarouselScreenState extends State<QuizCarouselScreen> {
     }
     if (_error != null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Quiz')),
+        appBar: AppBar(title: Text(L10n.t('quiz.title'))),
         body: Center(child: Text(_error!)),
       );
     }
     if (_questions.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Quiz')),
-        body: const Center(child: Text('No hay preguntas para este tema.')),
+        appBar: AppBar(title: Text(L10n.t('quiz.title'))),
+        body: Center(child: Text(L10n.t('quiz.empty'))),
       );
     }
 
@@ -106,7 +107,7 @@ class _QuizCarouselScreenState extends State<QuizCarouselScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pregunta ${_index + 1}/${_questions.length}'),
+        title: Text(L10n.t('quiz.progress', {'i': _index + 1, 'total': _questions.length})),
       ),
       body: PageView.builder(
         controller: _pageCtrl,
@@ -177,7 +178,7 @@ class _QuizCarouselScreenState extends State<QuizCarouselScreen> {
                           disabledBackgroundColor: Colors.red.shade200,
                           disabledForegroundColor: Colors.white70,
                         ),
-                        child: const Text('Anterior'),
+                        child: Text(L10n.t('quiz.prev')),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -192,7 +193,7 @@ class _QuizCarouselScreenState extends State<QuizCarouselScreen> {
                           disabledBackgroundColor: Colors.orange.shade200,
                           disabledForegroundColor: Colors.white70,
                         ),
-                        child: Text(isLast ? 'Finalizar' : 'Siguiente'),
+                        child: Text(isLast ? L10n.t('quiz.finish') : L10n.t('quiz.next')),
                       ),
                     ),
                   ],

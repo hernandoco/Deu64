@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 import 'quiz_carousel_screen.dart';
 
@@ -14,7 +15,7 @@ class StartQuestionsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: _ThreeDButton(
-            text: 'PREGUNTAS',
+            text: L10n.t('questions.banner'),
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../api.dart';
@@ -29,7 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   final _api = ApiClient();
   String? _error;
   // Antes era una variable global y quedaba con el texto de la carga anterior.
-  String _status = 'Iniciando...';
+  String _status = L10n.t('loading.starting');
   // true si el usuario salió del login con "atrás": se muestra un botón para
   // volver a abrirlo (antes quedaba girando sin salida).
   bool _cancelled = false;
@@ -69,7 +70,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future<void> _load() async {
     setState(() {
       _error = null;
-      _status = 'Conectando al servidor...';
+      _status = L10n.t('loading.connecting');
     });
 
     try {
@@ -77,7 +78,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       final topic = await _api.fetchTopic();
 
       setState(() {
-        _status = 'Descargando recursos...';
+        _status = L10n.t('loading.downloading');
       });
 
       // preguntas en background (recomendado)
@@ -91,7 +92,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       if (!mounted) return;
 
       setState(() {
-        _status = 'Abriendo contenido...';
+        _status = L10n.t('loading.opening');
       });
 
       Navigator.of(context).pushReplacement(
@@ -138,10 +139,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 */
     
+    // Idioma guardado y textos de la interfaz, antes de mostrar nada.
+    await L10n.init();
+    if (!mounted) return;
+
     setState(() {
       _error = null;
       _cancelled = false;
-      _status = 'Iniciando sesión...';
+      _status = L10n.t('loading.login');
     });
 
   try {
@@ -156,18 +161,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     if (auth == null) {
       setState(() {
-        _status = 'Inicio de sesión cancelado';
+        _status = L10n.t('loading.cancelled');
         _cancelled = true;
       });
       return;
     }
 
     // 1) cargar contenido Temas
-    setState(() => _status = 'Conectando al servidor...');
+    setState(() => _status = L10n.t('loading.connecting'));
     final topic = await _api.fetchTopic();
   
     setState(() {
-      _status = 'Descargando recursos...';
+      _status = L10n.t('loading.downloading');
     });
 
     // 2) preguntas en background (recomendado). Si fallan no importa: el
@@ -182,7 +187,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (!mounted) return;
 
     setState(() {
-      _status = 'Abriendo contenido...';
+      _status = L10n.t('loading.opening');
     });
 
 
@@ -227,7 +232,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   if (_cancelled)
                     ElevatedButton(
                       onPressed: _load,
-                      child: const Text('Iniciar sesión'),
+                      child: Text(L10n.t('login.button')),
                     )
                   else
                     const CircularProgressIndicator(),
@@ -244,13 +249,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Error cargando datos:\n$_error',
+                      L10n.t('loading.error', {'error': _error}),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton(
                       onPressed: _load,
-                      child: const Text('Reintentar'),
+                      child: Text(L10n.t('common.retry')),
                     ),
                   ],
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 class ResultScreen extends StatelessWidget {
   final int score;
@@ -9,9 +10,9 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Resultado'), centerTitle: true),
+      appBar: AppBar(title: Text(L10n.t('result.title')), centerTitle: true),
       body: Center(
-        child: Text('Puntos: $score/$total', style: Theme.of(context).textTheme.headlineMedium),
+        child: Text(L10n.t('result.score', {'score': score, 'total': total}), style: Theme.of(context).textTheme.headlineMedium),
       ),
     );
   }

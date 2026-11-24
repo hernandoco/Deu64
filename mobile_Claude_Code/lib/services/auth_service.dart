@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import '../l10n/l10n.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 
 import '../config/auth_config.dart';
@@ -29,11 +30,11 @@ class AuthService {
       return null;
     } on FlutterAppAuthPlatformException catch (e) {
       throw Exception(
-        'Error de AppAuth: ${e.platformErrorDetails}',
+        L10n.t('auth.appauth_error', {'details': e.platformErrorDetails}),
       );
     } catch (e) {
       throw Exception(
-        'Error durante autenticación: $e',
+        L10n.t('auth.generic_error', {'error': e}),
       );
     }
   }
@@ -84,7 +85,7 @@ class AuthService {
 
 
       throw Exception(
-        'Error de AppAuth: ${e.platformErrorDetails}',
+        L10n.t('auth.appauth_error', {'details': e.platformErrorDetails}),
       );
     } catch (e, stack) {
 
@@ -93,7 +94,7 @@ class AuthService {
 
 
       throw Exception(
-        'Error durante autenticación: $e',
+        L10n.t('auth.generic_error', {'error': e}),
       );
     }
   }

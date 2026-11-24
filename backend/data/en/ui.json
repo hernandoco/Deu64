@@ -1,0 +1,102 @@
+{
+  "login.title": "DEU64",
+  "login.welcome": "Welcome",
+  "login.button": "Log in",
+  "common.retry": "Retry",
+  "loading.starting": "Starting...",
+  "loading.login": "Logging in...",
+  "loading.cancelled": "Login cancelled",
+  "loading.connecting": "Connecting to the server...",
+  "loading.downloading": "Downloading resources...",
+  "loading.opening": "Opening content...",
+  "loading.error": "Error loading data:\n{error}",
+  "nav.home": "Home",
+  "nav.teachings": "Teachings",
+  "nav.ministry": "Ministry",
+  "menu.devotional": "Devotional",
+  "menu.help": "Help",
+  "menu.awards": "Awards",
+  "menu.donation": "Donate",
+  "home.language": "Language",
+  "home.voice_title": "Today's message",
+  "home.tap_to_listen": "Tap to listen",
+  "home.verse_label": "Verse of the day:",
+  "home.devotional_today": "Today's devotional",
+  "home.questions_title": "Devotional questions",
+  "home.questions_subtitle": "Answer and earn points",
+  "home.prayer_title": "Model prayer",
+  "home.prayer_subtitle": "Pray along with the pastor",
+  "home.challenge_title": "Challenge of the day",
+  "home.challenge_subtitle": "A small challenge for today",
+  "home.scenes_count": "{n} scenes",
+  "home.pastor_alt": "Animated shepherd with his little lamb",
+  "home.verse_ref": "Deut 6:4",
+  "tooltip.open_devotional": "Open devotional",
+  "tooltip.open_questions": "Open questions",
+  "tooltip.open_prayer": "Open model prayer",
+  "tooltip.open_challenge": "Open challenge of the day",
+  "tooltip.pause": "Pause message",
+  "tooltip.listen": "Listen to message",
+  "snack.audio_unavailable": "Today's message is not available yet.",
+  "snack.audio_failed": "Could not play the message. Check your connection.",
+  "scenes.start_questions": "Start questions",
+  "questions.banner": "QUESTIONS",
+  "quiz.title": "Quiz",
+  "quiz.empty": "There are no questions for this topic.",
+  "quiz.progress": "Question {i}/{total}",
+  "quiz.prev": "Previous",
+  "quiz.next": "Next",
+  "quiz.finish": "Finish",
+  "result.title": "Result",
+  "result.score": "Points: {score}/{total}",
+  "prayer.title": "Model prayer",
+  "prayer.support_verses": "Supporting verses",
+  "prayer.error": "Could not load the prayer.",
+  "challenge.title": "Challenge of the day",
+  "challenge.error": "Could not load the challenge.",
+  "info.error": "Could not load the content.",
+  "auth.appauth_error": "AppAuth error: {details}",
+  "auth.generic_error": "Error during authentication: {error}",
+  "home.verse_segments": [
+    {
+      "t": "And these ",
+      "c": ""
+    },
+    {
+      "t": "words ",
+      "c": "orange"
+    },
+    {
+      "t": "that I command you today ",
+      "c": ""
+    },
+    {
+      "t": "shall be ",
+      "c": "teal"
+    },
+    {
+      "t": "upon your ",
+      "c": ""
+    },
+    {
+      "t": "heart",
+      "c": "pink"
+    },
+    {
+      "t": "; and you shall ",
+      "c": ""
+    },
+    {
+      "t": "teach ",
+      "c": "orange"
+    },
+    {
+      "t": "them to your ",
+      "c": ""
+    },
+    {
+      "t": "children",
+      "c": "teal"
+    }
+  ]
+}

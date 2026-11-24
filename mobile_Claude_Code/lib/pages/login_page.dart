@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/l10n.dart';
 
 import '../services/auth_service.dart';
 
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DEU64'),
+        title: Text(L10n.t('login.title')),
       ),
       body: Center(
         child: Padding(
@@ -78,9 +79,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Bienvenido',
-                style: TextStyle(
+              Text(
+                L10n.t('login.welcome'),
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -105,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: _loading ? null : _login,
                   child: _loading
                       ? const CircularProgressIndicator()
-                      : const Text('Iniciar sesión'),
+                      : Text(L10n.t('login.button')),
                 ),
               ),
             ],
